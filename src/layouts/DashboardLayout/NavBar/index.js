@@ -47,6 +47,11 @@ const items = [
     title: 'Products'
   },
   {
+    href: '/app/productionReport',
+    icon: ShoppingBagIcon,
+    title: 'production report'
+  },
+  {
     href: '/app/account',
     icon: UserIcon,
     title: 'Account'
@@ -156,28 +161,9 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           gutterBottom
           variant="h4"
         >
-          Need more?123
+          ...
         </Typography>
-        <Typography
-          align="center"
-          variant="body2"
-        >
-          Upgrade to PRO version and access 20 more screens
-        </Typography>
-        <Box
-          display="flex"
-          justifyContent="center"
-          mt={2}
-        >
-          <Button
-            color="primary"
-            component="a"
-            href="https://react-material-kit.devias.io"
-            variant="contained"
-          >
-            See PRO version
-          </Button>
-        </Box>
+       
       </Box>
     </Box>
   );

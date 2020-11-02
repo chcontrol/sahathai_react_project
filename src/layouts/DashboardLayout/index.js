@@ -49,7 +49,7 @@ const DashboardLayout = () => {
       <div className={classes.wrapper}>
         <div className={classes.contentContainer}>
           <div className={classes.content}>
-          {JSON.stringify(isMobileNavOpen)}
+          {/* {JSON.stringify(isMobileNavOpen)} */}
             <Outlet />
           </div>
         </div>

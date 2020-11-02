@@ -9,15 +9,18 @@ import {
   Hidden,
   IconButton,
   Toolbar,
-  makeStyles
+  makeStyles,
+  Typography
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
-import Logo from 'src/components/Logo';
+// import Logo from 'src/components/Logo';
 
 const useStyles = makeStyles(() => ({
-  root: {},
+  root: {
+    height: 40
+  },
   avatar: {
     width: 60,
     height: 60
@@ -40,11 +43,15 @@ const TopBar = ({
     >
       <Toolbar>
         <RouterLink to="/">
-          <Logo />
+          {/* <Logo style={{marginBottom:25}} /> */}
+
+          <Typography variant="h3" component="h2" style={{ marginBottom: 25, color: '#FFFFFF' }}>
+            SAHATHAI
+          </Typography>
         </RouterLink>
         <Box flexGrow={1} />
         <Hidden mdDown>
-          <IconButton color="inherit">
+          <IconButton color="inherit" style={{ marginBottom: 25 }}>
             <Badge
               badgeContent={notifications.length}
               color="primary"
@@ -53,7 +60,7 @@ const TopBar = ({
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <IconButton color="inherit">
+          <IconButton color="inherit" style={{ marginBottom: 25 }}>
             <InputIcon />
           </IconButton>
         </Hidden>
@@ -61,6 +68,7 @@ const TopBar = ({
           <IconButton
             color="inherit"
             onClick={onMobileNavOpen}
+            style={{ marginBottom: 25 }}
           >
             <MenuIcon />
           </IconButton>
