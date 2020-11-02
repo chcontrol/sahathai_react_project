@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Avatar,
   Box,
-  Button,
+  // Button,
   Divider,
   Drawer,
   Hidden,
@@ -23,6 +23,7 @@ import {
   Users as UsersIcon
 } from 'react-feather';
 import NavItem from './NavItem';
+import MyContext from 'src/views/MyContext';
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
@@ -50,6 +51,11 @@ const items = [
     href: '/app/productionReport',
     icon: ShoppingBagIcon,
     title: 'production report'
+  },
+  {
+    href: '/app/moveItem',
+    icon: ShoppingBagIcon,
+    title: 'move Item'
   },
   {
     href: '/app/account',
@@ -136,6 +142,26 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         >
           {user.jobTitle}
         </Typography>
+
+        <MyContext.Consumer>
+        {context => (
+          <Fragment>
+            {/* <div>
+                API :{context.API}
+              </div> */}
+            {/* {Object.keys(context.cars).map(carID => (
+              
+              // <Car
+              //   key={carID}
+              //   name={context.cars[carID].name}
+              //   price={context.cars[carID].price}
+              //   incrementPrice={() => context.incrementPrice(carID)}
+              //   decrementPrice={() => context.decrementPrice(carID)}
+              // />
+            ))} */}
+          </Fragment>
+        )}
+      </MyContext.Consumer>
       </Box>
       <Divider />
       <Box p={2}>

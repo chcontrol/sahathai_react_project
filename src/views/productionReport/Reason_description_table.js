@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MaterialTable from 'material-table';
 import tableIcons from '../components/table/tableIcons'
-import API from './API';
+import API from '../components/API';
 
 const Reason_description_table = (props) => {
     const [selectedRow, setSelectedRow] = useState(null);

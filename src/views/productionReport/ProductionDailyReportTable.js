@@ -2,8 +2,7 @@ import React from 'react';
 import { Box, Button, CircularProgress, Menu, MenuItem, Typography } from '@material-ui/core';
 import MaterialTable from 'material-table';
 import tableIcons from '../components/table/tableIcons'
-import API from './API';
-import { Link } from 'react-router-dom';
+import API from '../components/API';
 
 
 const ProductionDailyReportTable = (props) => {
@@ -112,8 +111,8 @@ const ProductionDailyReportTable = (props) => {
             options={{
                 search: false,
                 paging: false,
-                maxBodyHeight: '60vh',
-                minBodyHeight: '60vh',
+                maxBodyHeight: '55vh',
+                minBodyHeight: '55vh',
                 exportButton: true,
                 filtering: false,
                 rowStyle: rowData => ({

@@ -11,6 +11,8 @@ import ProductListView from 'src/views/product/ProductListView';
 import ProductionReportView from 'src/views/productionReport';
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
+import MoveItemView from 'src/views/moveItem/App';
+
 
 const routes = [
   {
@@ -22,6 +24,7 @@ const routes = [
       { path: 'dashboard', element: <DashboardView /> },
       { path: 'products', element: <ProductListView /> },
       { path: 'productionReport', element: <ProductionReportView /> },
+      { path: 'moveItem', element: <MoveItemView /> },
       { path: 'settings', element: <SettingsView /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]

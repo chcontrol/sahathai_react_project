@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MaterialTable, { MTableToolbar } from 'material-table';
 import tableIcons from '../components/table/tableIcons'
-import API from './API';
+import API from '../components/API';
 import moment from "moment";
 import { Chip } from '@material-ui/core';
 

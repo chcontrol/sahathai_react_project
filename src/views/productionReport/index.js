@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Grid, IconButton, Modal, Paper, Snackbar } from '@material-ui/core';
+import {  Grid, IconButton, Modal, Paper, Snackbar } from '@material-ui/core';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake-thai/build/vfs_fonts";
 import { ReportCheckPackingDiary } from './ReportCheckPackingDiary'
@@ -15,8 +15,8 @@ import DateTimePicker from '../components/Input/CDateTimePicker';
 import CButton from '../components/Input/CButton';
 import { Formik } from 'formik';
 import CTextField from '../components/Input/CTextField';
-import API from './API';
-import { convertAllLotReport, checkingByLot } from './function/GroupLot';
+import API from '../components/API';
+import { convertAllLotReport } from './function/GroupLot';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import CAutocomplete from '../components/Input/CAutocomplete ';
 import ResonStopMachineTableEditable from './ReasonStopMachineTableEditable';

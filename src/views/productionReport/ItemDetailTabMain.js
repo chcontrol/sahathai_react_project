@@ -1,8 +1,8 @@
 import React from 'react';
-import API from './API';
+// import API from '../components/API';
 import { Grid, makeStyles, Paper } from '@material-ui/core';
 import CTextField from '../components/Input/CTextField';
-import ItemDetailTabNavigation from './ItemDetailTabNavigation';
+// import ItemDetailTabNavigation from './ItemDetailTabNavigation';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,18 +20,18 @@ const useStyles = makeStyles((theme) => ({
 
 const ItemDetailTabMain = (props) => {
 
-    const CRUDfn_reason_description = async (type, values) => {
-        console.log("function", values)
-        await API.get("RPT_JOBPACKING/data.php", {
-            params: {
-                load: type,
-                id: values.reason_id,
-                reason_description: values.reason_description,
+    // const CRUDfn_reason_description = async (type, values) => {
+    //     console.log("function", values)
+    //     await API.get("RPT_JOBPACKING/data.php", {
+    //         params: {
+    //             load: type,
+    //             id: values.reason_id,
+    //             reason_description: values.reason_description,
 
-            }
-        });
-        console.log(values)
-    }
+    //         }
+    //     });
+    //     console.log(values)
+    // }
     const classes = useStyles();
 
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import MaterialTable from 'material-table';
 import tableIcons from '../components/table/tableIcons'
-import API from './API';
+import API from '../components/API';
 // import AssignmentIcon from '@material-ui/icons/Assignment';
 
 const ResonStopMachineTableEditable = (props) => {

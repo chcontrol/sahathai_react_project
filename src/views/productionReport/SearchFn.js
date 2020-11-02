@@ -1,5 +1,5 @@
 import React from 'react';
-import API from './API';
+import API from '../components/API';
 
 
 const SearchFn = async (values, wc_group_query) => {

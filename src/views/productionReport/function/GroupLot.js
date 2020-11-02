@@ -228,8 +228,8 @@ function convertAllLotReport(wordShow, LotFromData) {
                         console.log('##', tmp4)
                         console.log('##', dataArrGroup[l + 2].lotnum)
 
-                        if (dataArrGroup[l + 1].lotnum - dataArrGroup[l].lotnum == 2 ||
-                            dataArrGroup[l + 1].lotnum - dataArrGroup[l].lotnum == 100) {
+                        if (dataArrGroup[l + 1].lotnum - dataArrGroup[l].lotnum === 2 ||
+                            dataArrGroup[l + 1].lotnum - dataArrGroup[l].lotnum === 100) {
                             // if (l == 1) {
 
                         } else {
