@@ -32,7 +32,7 @@ const UserData = ({ onMobileClose, openMobile }) => {
 
   return (
     <>
-        <MyContext.Consumer>
+        {/* <MyContext.Consumer>
           {context => (
             <Fragment>
               <Avatar
@@ -56,7 +56,7 @@ const UserData = ({ onMobileClose, openMobile }) => {
               </Typography>
             </Fragment>
           )}
-        </MyContext.Consumer>
+        </MyContext.Consumer> */}
 
         {/* <MyContext.Consumer>
           {context => (
