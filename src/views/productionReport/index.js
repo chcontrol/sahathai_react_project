@@ -311,7 +311,7 @@ const ProductionDailyReport = () => {
                                     aria-controls="long-menu"
                                     aria-haspopup="true"
                                     onClick={handleClick}
-                                    onMouseOver={handleClick}
+                                    // onMouseOver={handleClick}
                                   >
                                     <MoreVertIcon />
                                   </IconButton>

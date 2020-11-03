@@ -1,14 +1,9 @@
 import React, { useRef } from 'react';
 import { useReactToPrint } from 'react-to-print';
-import { Container, Button, Box, Table } from '@material-ui/core';
+import { Container, Button } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import SaveIcon from '@material-ui/icons/Save';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+
 
 class ComponentToPrint extends React.Component {
     render() {

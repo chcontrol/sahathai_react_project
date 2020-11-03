@@ -2,7 +2,7 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import MaterialTable from 'material-table'
 import tableIcons from './tableIcons'
-import API from './api';
+import API from '../../../components/API';
 
 import { ThemeProvider } from '@material-ui/core'
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -24,12 +24,12 @@ export default function DenseTable(props) {
         props.handleDocNum(row.doc_num)
         props.handleSTS_qty_move_hdr_loc(row.loc)
         props.handleSTS_qty_move_hdr_date(row.create_date.date)
-        API.get(`module/API_QuantityMove/data.php?load=STS_qty_move_line&doc_num=${row.doc_num}`)
+        API.get(`API_QuantityMove/data.php?load=STS_qty_move_line&doc_num=${row.doc_num}`)
             .then(res => {
                 props.handleSTS_qty_move_line(res.data)
             })
 
-        API.get(`module/API_QuantityMove/data.php?load=checkItemLotLoc&loc=${row.loc}`)
+        API.get(`API_QuantityMove/data.php?load=checkItemLotLoc&loc=${row.loc}`)
             .then(res => {
                 console.log(res.data)
                 props.handlecheckItemLotLoc(res.data)

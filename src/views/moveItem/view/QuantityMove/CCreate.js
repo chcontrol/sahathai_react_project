@@ -5,7 +5,7 @@ import CGroupTextBoxs from './CGroupTextBoxs';
 import CMatTable from './CMatTable';
 import SaveIcon from '@material-ui/icons/Save';
 import { CPrintDocument } from './CPrintDocument';
-import API from './api';
+import API from '../../../components/API';
 import ModalProgressSaving from './ModalProgressSaving';
 
 function CCreate(props) {
@@ -35,7 +35,7 @@ function CCreate(props) {
     setOpenModal(false)
   }, [ProcessSuccess])
   const handleScanTag = (scanTag) => {
-    API.get(`module/API_QuantityMove/data.php?load=SearchTagDetail&tag_id=${scanTag}`)
+    API.get(`API_QuantityMove/data.php?load=SearchTagDetail&tag_id=${scanTag}`)
       .then(res => {
         const items = res.data
         if (res.data.length > 0) {
@@ -47,13 +47,13 @@ function CCreate(props) {
   }
 
   const handleSubmit = () => {
-    if (!toLocation || qtyMoveList.length == 0) {
+    if (!toLocation || qtyMoveList.length === 0) {
       alert("กรุณากรอก location ปลายทาง หรือ scan barcode อย่างน้อย 1 lot")
       setOpenModal(false);
     } else {
       setOpenModal(true);
       //Insert QTY MOVE HEARDER
-      API.get(`module/API_QuantityMove/data.php?load=moveqty_create_hdr&toLoc=${toLocation}&w_c=${w_c}`)
+      API.get(`API_QuantityMove/data.php?load=moveqty_create_hdr&toLoc=${toLocation}&w_c=${w_c}`)
         .then(res => {
           const moveqty_hdr = res.data
           setdocNum(moveqty_hdr.doc_num)
@@ -62,7 +62,7 @@ function CCreate(props) {
             let i = 1;
             //Insert QTY LINE 
             const timer = setInterval(() => {
-              API.get(`module/API_QuantityMove/data.php?load=moveqty_create_line&docnum=${moveqty_hdr.doc_num}&docline=${i}&tagnum=${qtyMoveList[i - 1].id}&toLoc=${toLocation}`)
+              API.get(`API_QuantityMove/data.php?load=moveqty_create_line&docnum=${moveqty_hdr.doc_num}&docline=${i}&tagnum=${qtyMoveList[i - 1].id}&toLoc=${toLocation}`)
                 .then(res => {
                   console.log("Call API moveqty_create_line")
                 })

@@ -12,6 +12,7 @@ import ProductionReportView from 'src/views/productionReport';
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
 import MoveItemView from 'src/views/moveItem/App';
+import ERPStep from 'src/views/ERPStep';
 
 
 const routes = [
@@ -23,6 +24,7 @@ const routes = [
       { path: 'customers', element: <CustomerListView /> },
       { path: 'dashboard', element: <DashboardView /> },
       { path: 'products', element: <ProductListView /> },
+      { path: 'ERPStep', element: <ERPStep /> },
       { path: 'productionReport', element: <ProductionReportView /> },
       { path: 'moveItem', element: <MoveItemView /> },
       { path: 'settings', element: <SettingsView /> },

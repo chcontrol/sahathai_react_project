@@ -1,10 +1,8 @@
-import React, { Fragment, useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import React, {  useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  Avatar,
   Box,
-  // Button,
   Divider,
   Drawer,
   Hidden,
@@ -12,77 +10,10 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
-import {
-  AlertCircle as AlertCircleIcon,
-  BarChart as BarChartIcon,
-  Lock as LockIcon,
-  Settings as SettingsIcon,
-  ShoppingBag as ShoppingBagIcon,
-  User as UserIcon,
-  UserPlus as UserPlusIcon,
-  Users as UsersIcon
-} from 'react-feather';
-import NavItem from './NavItem';
-import MyContext from 'src/views/MyContext';
 
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
-};
-
-const items = [
-  {
-    href: '/app/dashboard',
-    icon: BarChartIcon,
-    title: 'Dashboard'
-  },
-  {
-    href: '/app/customers',
-    icon: UsersIcon,
-    title: 'Customers'
-  },
-  {
-    href: '/app/products',
-    icon: ShoppingBagIcon,
-    title: 'Products'
-  },
-  {
-    href: '/app/productionReport',
-    icon: ShoppingBagIcon,
-    title: 'production report'
-  },
-  {
-    href: '/app/moveItem',
-    icon: ShoppingBagIcon,
-    title: 'move Item'
-  },
-  {
-    href: '/app/account',
-    icon: UserIcon,
-    title: 'Account'
-  },
-  {
-    href: '/app/settings',
-    icon: SettingsIcon,
-    title: 'Settings'
-  },
-  {
-    href: '/login',
-    icon: LockIcon,
-    title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: UserPlusIcon,
-    title: 'Register'
-  },
-  {
-    href: '/404',
-    icon: AlertCircleIcon,
-    title: 'Error'
-  }
-];
+import NavItem from './NavItems';
+import ListItems from './ListItems'
+import UserData from './UserData';
 
 const useStyles = makeStyles(() => ({
   mobileDrawer: {
@@ -123,50 +54,12 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         flexDirection="column"
         p={2}
       >
-        <Avatar
-          className={classes.avatar}
-          component={RouterLink}
-          src={user.avatar}
-          to="/app/account"
-        />
-        <Typography
-          className={classes.name}
-          color="textPrimary"
-          variant="h5"
-        >
-          {user.name}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {user.jobTitle}
-        </Typography>
-
-        <MyContext.Consumer>
-        {context => (
-          <Fragment>
-            {/* <div>
-                API :{context.API}
-              </div> */}
-            {/* {Object.keys(context.cars).map(carID => (
-              
-              // <Car
-              //   key={carID}
-              //   name={context.cars[carID].name}
-              //   price={context.cars[carID].price}
-              //   incrementPrice={() => context.incrementPrice(carID)}
-              //   decrementPrice={() => context.decrementPrice(carID)}
-              // />
-            ))} */}
-          </Fragment>
-        )}
-      </MyContext.Consumer>
+        <UserData />
       </Box>
       <Divider />
       <Box p={2}>
         <List>
-          {items.map((item) => (
+          {ListItems.map((item) => (
             <NavItem
               href={item.href}
               key={item.title}
@@ -189,7 +82,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         >
           ...
         </Typography>
-       
+
       </Box>
     </Box>
   );
@@ -227,7 +120,7 @@ NavBar.propTypes = {
 };
 
 NavBar.defaultProps = {
-  onMobileClose: () => {},
+  onMobileClose: () => { },
   openMobile: false
 };
 

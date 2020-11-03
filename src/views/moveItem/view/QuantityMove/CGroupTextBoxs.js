@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { Grid, TextField, IconButton, InputBase, Divider, TableRow, TableCell } from '@material-ui/core';
+import { Grid, TextField } from '@material-ui/core';
 import CAutocomplete from './CAutocomplete';
-import API from './api';
-import { Container, Button, Modal } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import API from '../../../components/API';
+import { Button, Modal } from '@material-ui/core';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import MaterialTable from 'material-table';
 import tableIcons from './tableIcons'
@@ -50,7 +49,7 @@ function CGroupTextBoxs(props) {
 
 
     useEffect(() => {
-        API.get(`module/API_QuantityMove/data.php?load=location_mst`)
+        API.get(`API_QuantityMove/data.php?load=location_mst`)
             .then(res => {
                 let loc = res.data.map(item => {
                     return { title: item.loc }
@@ -58,7 +57,7 @@ function CGroupTextBoxs(props) {
                 setLocation(loc)
             })
 
-        API.get(`module/API_QuantityMove/data.php?load=wc_mst`)
+        API.get(`API_QuantityMove/data.php?load=wc_mst`)
             .then(res => {
 
                 let w_c = res.data.map(item => {
@@ -126,7 +125,7 @@ function CGroupTextBoxs(props) {
                             }}
                             onRowClick={(event, rowData) => {
                                 console.log(rowData)
-                                API.get(`module/API_QuantityMove/data.php?load=DairyReportCountLotByWCDate&w_c=${rowData.w_c}`)
+                                API.get(`API_QuantityMove/data.php?load=DairyReportCountLotByWCDate&w_c=${rowData.w_c}`)
                                     .then(res => {
                                         let w_c = res.data.map(item => {
                                             return {
@@ -160,7 +159,7 @@ function CGroupTextBoxs(props) {
 
                             onRowClick={(event, rowData) => {
                                 console.log(rowData)
-                                API.get(`module/API_QuantityMove/data.php?load=DairyReportLine&w_c=${rowData.w_c}&date=${rowData.date}`)
+                                API.get(`API_QuantityMove/data.php?load=DairyReportLine&w_c=${rowData.w_c}&date=${rowData.date}`)
                                     .then(res => {
                                         SetDairyReportLine(res.data)
                                     })
@@ -211,7 +210,7 @@ function CGroupTextBoxs(props) {
     }
 
     const DairyReportModal = () => {
-        API.get(`module/API_QuantityMove/data.php?load=DairyReportCountLotByWC`)
+        API.get(`API_QuantityMove/data.php?load=DairyReportCountLotByWC`)
             .then(res => {
                 let w_c = res.data.map(item => {
                     return { w_c: item.w_c, totalLot: item.totalLot }

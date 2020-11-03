@@ -12,7 +12,7 @@ import MyContext from './views/MyContext';
 const App = () => {
   const routing = useRoutes(routes);
   
-  const [state] = useState({
+  const [user] = useState({
     avatar: '/static/images/avatars/avatar_6.png',
     jobTitle: 'Senior Developer',
     name: 'Katarina Smith'
@@ -22,7 +22,7 @@ const App = () => {
     <MyContext.Provider
       value={{
         API: 'http://172.18.1.194/sts_web_center/',
-        cars: state,
+        user: user,
         // incrementPrice: selectedID => {
         //   const cars = Object.assign({}, state.cars);
         //   cars[selectedID].price = cars[selectedID].price + 1;

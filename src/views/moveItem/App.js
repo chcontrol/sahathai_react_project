@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Container, Switch } from '@material-ui/core';
+import {  Switch } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import CCreate from './view/QuantityMove/CCreate';
 import DocumentHearderList from './view/QuantityMove/DocumentHearderList';
-import API from './view/QuantityMove/api';
-import { makeStyles } from '@material-ui/core/styles';
+import API from '../components/API';
 
 
 function App() {
@@ -24,29 +23,18 @@ function App() {
   const handlecheckItemLotLoc = (ItemLoc) => setItemLoc(ItemLoc)
   const handleSetPageState = (pageState) => { setPageState(pageState)}
 
-  const useStyles = makeStyles({
-    MainContainer: {
-      padding: 5
-    }
-  });
 
   useEffect(() => {
-    API.get(`module/API_QuantityMove/data.php?load=STS_qty_move_hrd`)
+    API.get(`API_QuantityMove/data.php?load=STS_qty_move_hrd`)
       .then(res => {
         setSTS_qty_move_hrd(res.data)
       })
-      // localStorage.setItem('w_c','') 
-      // console.log(localStorage);
-      // console.log(localStorage.w_c);
-      
   }, [PageState])
 
-  const classes = useStyles();
   return (
-    <Container maxWidth="lg" className={classes.MainContainer}>
+   
       <Grid container spacing={3}>
         <Grid item xs={(PageState) ? 2 : 5} hidden={(PageState) ? true : false} style={{ textAlign: "center" }}>
-        ย้ายโดยใช้รถ / ย้ายของผลิต / ย้ายของภายใน
           <DocumentHearderList
             STS_qty_move_hrd={STS_qty_move_hrd}
             handleDocNum={handleDocNum}
@@ -70,7 +58,6 @@ function App() {
           />
         </Grid>
       </Grid>
-    </Container>
   );
 }
 export default App;
