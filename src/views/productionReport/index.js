@@ -10,6 +10,7 @@ import { ReportMovingProductReport } from './ReportMovingProductReport'
 import { ReportPackingDiary } from './ReportPackingDiary';
 import { ReportProductionDaily } from './ReportProductionDaily';
 import { ReportForming } from './ReportForming';
+import { ReportStamping } from './ReportStamping';
 import moment from "moment";
 import DateTimePicker from '../components/Input/CDateTimePicker';
 import CButton from '../components/Input/CButton';
@@ -139,6 +140,8 @@ const ProductionDailyReport = () => {
         ReportCheckProductionDiary(response.data, values.startdate, values.enddate)
       } else if (doc_type === 'MovingProductReport') {
         ReportMovingProductReport(response.data, values.startdate, values.enddate)
+      } else if (doc_type === 'Stamping') {
+        ReportStamping(response.data, values.startdate, values.enddate)
       }
       setdata(response.data)
       setisLoadingData(false)
@@ -383,7 +386,7 @@ const ProductionDailyReport = () => {
                     </Grid>
                     <Grid item lg={2}>
                       <CButton label={"ใบขนย้ายระหว่างสาขา"} onClick={() => { SearchFn("MovingProductReport", values, "", "MovingProductReport") }} disabled={false} />
-                      <CButton label={"..."} onClick={() => { handleOpenModal(values) }} disabled={true} />
+                      <CButton label={"รายงานพิมพ์ตรา"} onClick={() => { SearchFn("StampingReport", values, "Stamping", "Stamping") }} disabled={false} />
                     </Grid>
                   </Grid>
                 </form>
