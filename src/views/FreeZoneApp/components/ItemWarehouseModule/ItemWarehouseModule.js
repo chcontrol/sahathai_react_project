@@ -8,14 +8,13 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import api from '../api'
 
 const ItemWarehouseModule = props => {
-    const { className, ...rest } = props;
     const [reportDepartment, setreportDepartment] = useState([])
     const [reportDepartmentSelect, setreportDepartmentSelect] = useState({ report_description: "", })
     const [reportList, setreportList] = useState([])
-    const [reportSelect, setreportSelect] = useState({ report_name: "", report_description: "", department_name: "", report_get_api: "", report_detail: "", report_get_api: "", report_name: "", reprot_query: "" })
+    const [reportSelect, setreportSelect] = useState({ report_name: "", report_description: "", department_name: "", report_get_api: "", report_detail: "", reprot_query: "" })
     const [reportData, setreportData] = useState([])
     const [ColumnData, setColumnData] = useState([])
-    const [fieldSearch, setfieldSearch] = useState([])
+    const [fieldSearch] = useState([])
     const [values, setValues] = useState({});
 
     const handleChange = event => {
@@ -52,21 +51,20 @@ const ItemWarehouseModule = props => {
     useEffect(() => {
         setValues({});
         setColumnData([]);
-        (reportSelect !== null) && SearchInputReport()
     }, [reportSelect])
 
     //แสดง Input Search ของแต่ละรายงาน 
-    const SearchInputReport = () => {
-        api.get(`data.php?load=SearchInputReport&report_name=${reportSelect.report_get_api}`)
-            .then(response => {
-                setfieldSearch(response.data)
-            })
-    }
+    // const SearchInputReport = () => {
+    //     api.get(`data.php?load=SearchInputReport&report_name=${reportSelect.report_get_api}`)
+    //         .then(response => {
+    //             setfieldSearch(response.data)
+    //         })
+    // }
 
     //สร้างคอนลัมของรายงานนั้นๆ และแสดงข้อมูลตามที่ค้นหา
     const SearchReport = () => {
-        if (reportSelect.report_get_api != "") {
-            api.post(`data.php?load=SQLQueryReport&report_name=${reportSelect.report_get_api}`,values)
+        if (reportSelect.report_get_api !== "") {
+            api.post(`data.php?load=SQLQueryReport&report_name=${reportSelect.report_get_api}`, values)
                 .then(response => {
                     let data = response.data;
                     if (data[0].data.length > 0) {

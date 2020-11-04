@@ -1,4 +1,4 @@
-const stepCase = [
+[
 
     {
         "CaseTitle": "บันทึก/แก้ไขเปลี่ยนแปลง PR",
@@ -1178,5 +1178,3 @@ const stepCase = [
             ]
     }
 ]
-
-export default stepCase;

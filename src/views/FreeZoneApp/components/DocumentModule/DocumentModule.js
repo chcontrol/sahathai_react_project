@@ -1,15 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MaterialTable from 'material-table'
 import tableIcons from '../tableIcons'
-import { Grid, Paper, Button, Container, Box, Typography, makeStyles } from '@material-ui/core';
+import { Grid, Paper, Button, Container,  } from '@material-ui/core';
 import api from '../api'
 import { useReactToPrint } from 'react-to-print';
-import styles from './printLayerDocument.css';
 
 
 
 const DocumentModule = props => {
-    const { className, ...rest } = props;
     const [DocumentHeader, setDocumentHeader] = useState([])
     const [DocumentLine, setDocumentLine] = useState([])
     const [headerValues, setheaderValues] = useState({})
@@ -184,7 +182,7 @@ class ComponentToPrint extends React.Component {
                     <Grid container >
                         <Grid item xs={12} style={{ textAlign: "left" }}>
                             <div style={{ fontSize: "30px", textAlign: "center" }}>
-                                {(this.props.headerValues.doc_type == "import") ? "ใบขนสินค้าเข้าเขต FREEZONE" : "ใบขนสินค้าออกเขต FREEZONE"}
+                                {(this.props.headerValues.doc_type === "import") ? "ใบขนสินค้าเข้าเขต FREEZONE" : "ใบขนสินค้าออกเขต FREEZONE"}
                             </div>
 
                             <table border="1px" width={"100%"} style={tableStyle}>

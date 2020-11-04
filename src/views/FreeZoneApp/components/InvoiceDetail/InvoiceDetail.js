@@ -11,7 +11,6 @@ import {
   Grid,
   Button,
   TextField,
-  Box
 } from '@material-ui/core';
 
 import ImportExcel from './../ImportExcel'
@@ -40,20 +39,6 @@ const AccountDetails = props => {
     });
   };
 
-  const states = [
-    {
-      value: 'alabama',
-      label: 'Alabama'
-    },
-    {
-      value: 'new-york',
-      label: 'New York'
-    },
-    {
-      value: 'san-francisco',
-      label: 'San Francisco'
-    }
-  ];
 
   return (
     <Card  {...rest} className={clsx(classes.root, className)} >

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import PropTypes from 'prop-types';
-import { Grid, TextField, Button, } from '@material-ui/core';
+import { Grid, TextField } from '@material-ui/core';
 
 const ComponentDocumentHeader = props => {
-    const { className, ...rest } = props;
+   
 
     const [values, setValues] = useState({
         doc_hdr: '',name: '',address: '',phone: '', tax: '', doc_type: '',  doc_po: '',tax_ex: '',inv_num: '', create_date: '',states: '',docLine: [],

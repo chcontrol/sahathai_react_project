@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
     listItem: {
         borderRadius: "1em",
         padding: 0,
-      },
-    
+    },
+
 }));
 
 export default function SubStepList(props) {
@@ -36,11 +36,29 @@ export default function SubStepList(props) {
         <List className={classes.root} subheader={<li />} >
             {/* {JSON.stringify(props.stepCase.detail)} */}
             {props.stepCase.detail.map((item, index) => (
-                            <ListItem style={{padding:0,paddingBottom:0,paddingLeft:20}} button key={`item-${index} >>${item.title}`} onClick={()=>{alert(item.value)}}>
-                                {/* {JSON.stringify(item)} */}
-                                <ListItemText primary={`${item.title} `}  />
-                            </ListItem>
-                        ))}
+                <ListItem style={{ padding: 0, paddingBottom: 0, paddingLeft: 20 }}
+                    button
+                    key={`item-${index} >>${item.title}`}
+                    onClick={() => {
+                        if (item.title) {
+                            props.setCaseTitle(item.title)
+                            props.setCaseDescription(item.description)
+                        }else{
+                            props.setCaseTitle("")
+                            props.setCaseDescription("")
+                        }
+
+                        if (item.subdetail) {
+                            props.setshowSubDetail(item.subdetail)
+                        }else{
+                            props.setshowSubDetail([])
+                        }
+
+                    }}>
+                    {/* {JSON.stringify(item)} */}
+                    <ListItemText primary={`${item.title} `} />
+                </ListItem>
+            ))}
         </List>
     );
 }

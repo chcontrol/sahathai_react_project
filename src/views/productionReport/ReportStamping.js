@@ -1,5 +1,5 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import { convertAllLotReport, workcenterHeader, dateFormatReport,fontsReport } from './function/GroupLot';
+import {  workcenterHeader, dateFormatReport,fontsReport } from './function/GroupLot';
 import {logo} from './function/logo'
 
 function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {

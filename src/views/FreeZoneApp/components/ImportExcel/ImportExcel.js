@@ -1,20 +1,20 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, {  useState } from 'react';
 import './App.css';
-import { OutTable, ExcelRenderer } from 'react-excel-renderer';
+import {  ExcelRenderer } from 'react-excel-renderer';
 // import { Jumbotron, Col, Input, InputGroup, InputGroupAddon, FormGroup, Label, Button, Fade, FormFeedback, Container, Card } from 'reactstrap';
 import MaterialTable, { MTableToolbar } from 'material-table'
 import tableIcons from './../tableIcons'
-import { Button, ButtonBase, Input, Grid } from '@material-ui/core';
+import {  Input, Grid } from '@material-ui/core';
 
 
 export default function ImportExcel(props) {
 
   // const [isOpen, setisOpen] = useState(false)
-  const [dataLoaded, setdataLoaded] = useState(false)
-  const [isFormInvalid, setisFormInvalid] = useState(false)
-  const [uploadedFileName, setuploadedFileName] = useState("")
-  const [rows, setrows] = useState([])
-  const [cols, setcols] = useState([])
+  const [ setdataLoaded] = useState(false)
+  const [ setisFormInvalid] = useState(false)
+  const [ setuploadedFileName] = useState("")
+  const [ setrows] = useState([])
+  const [ setcols] = useState([])
   const [ExcelData, setExcelData] = useState([])
 
   const renderFile = (fileObj) => {
@@ -30,7 +30,6 @@ export default function ImportExcel(props) {
         setrows(resp.rows)
 
         const data = resp.rows.map((item) => {
-          let po_num_col = item[2].split("PO")[1]
           return {
             "doc_date": item[0],
             "item": item[1],

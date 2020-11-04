@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardContent, CardActions, Divider, Grid, Button, TextField, Modal, Paper, TableCell, TableRow, TableBody, Table, TableContainer, TableHead, Box, } from '@material-ui/core';
+import { Card, CardHeader, CardContent, CardActions, Divider, Grid, Button, TextField, Modal, Paper, TableCell, TableRow, TableBody, Table, TableContainer, TableHead,  } from '@material-ui/core';
 import ImportExcel from '../ImportExcel'
 import axios from 'axios';
 import ComponentDocumentHeader from '../ComponentDocumentHeader';
@@ -12,7 +12,6 @@ import tableIcons from '../tableIcons'
 const ImportModule = props => {
   const [DocLine, setDocLine] = useState([])
   const [openDialog, setOpenDialog] = React.useState(false);
-  const [clearValue, setclearValue] = useState(false)
   const [values, setValues] = useState({
     doc_hdr: '', name: '', address: '', phone: '', tax: '', doc_type: '', doc_po: '', tax_ex: '', inv_num: '', imp_ref: '', create_date: '', states: '', docLine: [],
   });
@@ -47,7 +46,7 @@ const ImportModule = props => {
   const handleConfirmClickOpen = () => {
     setValues({ ...values, docLine: DocLine });
     console.log(values.doc_type)
-    if (DocLine.length > 0 && values.doc_type != "") {
+    if (DocLine.length > 0 && values.doc_type !== "") {
       setOpenDialog(true);
     }
 
