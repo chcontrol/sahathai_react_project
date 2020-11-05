@@ -29,12 +29,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const MainLayout = () => {
+const MainLayout = (props) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <TopBar />
+      <div style={{zIndex:2000}}>{props.userauth}</div>
+      <TopBar status={"Dashboard"} />
       <div className={classes.wrapper}>
         <div className={classes.contentContainer}>
           <div className={classes.content}>
@@ -42,6 +43,7 @@ const MainLayout = () => {
           </div>
         </div>
       </div>
+      <div>MainLayout</div>
     </div>
   );
 };

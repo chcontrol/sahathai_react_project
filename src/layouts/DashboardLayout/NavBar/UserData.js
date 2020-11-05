@@ -57,25 +57,6 @@ const UserData = ({ onMobileClose, openMobile }) => {
             </Fragment>
           )}
         </MyContext.Consumer>
-
-        {/* <MyContext.Consumer>
-          {context => (
-            <Fragment>
-              <div>
-                API :{context.API}
-              </div>
-              {Object.keys(context.cars).map(carID => (
-              <Car
-                key={carID}
-                name={context.cars[carID].name}
-                price={context.cars[carID].price}
-                incrementPrice={() => context.incrementPrice(carID)}
-                decrementPrice={() => context.decrementPrice(carID)}
-              />
-            ))}
-            </Fragment>
-          )}
-        </MyContext.Consumer> */}
     </>
   );
 };

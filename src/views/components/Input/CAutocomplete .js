@@ -26,7 +26,7 @@ export default function CAutocomplete(props) {
         (async () => {
             // const response = await fetch('https://country.register.gov.uk/records.json?page-size=5000');
             const response = await fetch('http://172.18.1.194/sts_web_center/module/RPT_JOBPACKING/data.php?load=workcenter');
-            // const response2 = await API.get("RPT_JOBPACKING/data.php?load=workcenter");
+            // const response2 = await API_sts_web_center.get("RPT_JOBPACKING/data.php?load=workcenter");
             console.log("response", response)
             await sleep(1e3); // For demo purposes.
             const countries = await response.json();

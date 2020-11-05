@@ -16,6 +16,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 // import Logo from 'src/components/Logo';
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -28,12 +29,20 @@ const useStyles = makeStyles(() => ({
 }));
 
 const TopBar = ({
+  Username,
+  UserData,
   className,
   onMobileNavOpen,
   ...rest
 }) => {
   const classes = useStyles();
   const [notifications] = useState([]);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    navigate('/login')
+    localStorage.removeItem('username');
+  }
 
   return (
     <AppBar
@@ -45,12 +54,16 @@ const TopBar = ({
         <RouterLink to="/">
           {/* <Logo style={{marginBottom:25}} /> */}
 
-          <Typography variant="h3" component="h2" style={{ paddingBottom:10, color: '#FFFFFF' }}>
+          <Typography variant="h3" component="h2" style={{ paddingBottom: 25, color: '#FFFFFF' }}>
             SAHATHAI
           </Typography>
+
         </RouterLink>
         <Box flexGrow={1} />
-        <Hidden mdDown>
+        <Hidden xlUp>
+          <Typography variant="h5" component="h5" style={{ paddingBottom: 25, color: '#FFFFFF' }}>
+            {Username}
+          </Typography>
           <IconButton color="inherit" style={{ marginBottom: 25 }}>
             <Badge
               badgeContent={notifications.length}
@@ -60,7 +73,7 @@ const TopBar = ({
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <IconButton color="inherit" style={{ marginBottom: 25 }}>
+          <IconButton color="inherit" style={{ marginBottom: 25 }} onClick={logout}>
             <InputIcon />
           </IconButton>
         </Hidden>

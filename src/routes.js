@@ -19,7 +19,7 @@ import FreeZoneApp from 'src/views/FreeZoneApp';
 const routes = [
   {
     path: 'app',
-    element: <DashboardLayout />,
+    element: <DashboardLayout userauth={"Yes"} />,
     children: [
       { path: 'account', element: <AccountView /> },
       { path: 'customers', element: <CustomerListView /> },
@@ -35,7 +35,7 @@ const routes = [
   },
   {
     path: '/',
-    element: <MainLayout />,
+    element: <MainLayout userauth={"No"} />,
     children: [
       { path: 'login', element: <LoginView /> },
       { path: 'register', element: <RegisterView /> },

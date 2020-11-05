@@ -54,7 +54,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         flexDirection="column"
         p={2}
       >
-        <UserData />
+        <UserData  />
       </Box>
       <Divider />
       <Box p={2}>
