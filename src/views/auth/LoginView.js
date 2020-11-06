@@ -15,8 +15,9 @@ import {
 import FacebookIcon from 'src/icons/Facebook';
 import GoogleIcon from 'src/icons/Google';
 import Page from 'src/components/Page';
-import { API_sts_web_center } from '../components/API';
 import Axios from 'axios';
+import { UserLoginGetNewToken, UserLoginSetDataFromToken, UserLoginSetDataFromToken2, UserLogin } from '../components/API_WEB_STS_API'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,40 +34,68 @@ const LoginView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const login = (values) => {
-    //Authentication Logic 
-    Axios.post(`http://172.18.1.194:99/STS_Web_API/api/account/login`, values)
+
+
+
+  // const gotoDashBoard = async () => {
+  //   let userData = ""
+  //   setTimeout(() => {
+  //     console.log(123)
+  //   }, 1000)
+  //   return userData
+  // }
+
+  const gotoDashBoard = async function (user) {
+    return user;
+  };
+
+
+
+
+  async function UserLogin(values) {
+    let token = ""
+    let userData = ""
+    token = Axios.post(`http://172.18.1.194:99/STS_Web_API/api/account/login`, values)
       .then(res => {
-        const token = res.data;
+        token = res.data;
+        console.log(1)
         console.log('token', token)
-        const instance = Axios.create({
+        localStorage.setItem('token', token.accessToken);
+        console.log(1.5)
+        Axios.create({
           baseURL: `http://172.18.1.194:99/STS_web_api/api/member/data`,
           timeout: 1000,
           headers: { 'Authorization': 'Bearer ' + token.accessToken }
-        });
-
-        instance.get(`http://172.18.1.194:99/STS_web_api/api/member/data`)
+        }).get(`http://172.18.1.194:99/STS_web_api/api/member/data`)
           .then(response => {
-            const userData = response.data;
-            localStorage.setItem('username', values.email);
-            localStorage.setItem('token', token.accessToken);
-            localStorage.setItem('userData', userData);
+            userData = response.data;
+            localStorage.setItem('username', userData.email);
             console.log(userData)
+            console.log(2)
             navigate('/app/dashboard', { replace: true });
           })
+      }).catch(function (error) {
+        localStorage.setItem('username', 'guest');
+        localStorage.setItem('token', "");
+        localStorage.setItem('userData', "");
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log('Error', error.message);
+        }
+        console.log(error.config);
       })
 
-
+    // await navigate('/app/dashboard', { replace: true });
   }
 
-  useEffect(() => {
-    // setTimeout(() => {
-    //   login({
-    //     email: 'guest',
-    //     password: ''
-    //   })
-    // }, 3000);
-  }, [])
+
+
+
 
   return (
     <Page
@@ -92,8 +121,7 @@ const LoginView = () => {
             })}
             onSubmit={(values, actions) => {
               setTimeout(() => {
-                login(values)
-
+                UserLogin(values)
                 actions.setSubmitting(false);
               }, 1000);
 

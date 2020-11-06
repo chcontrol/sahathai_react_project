@@ -14,12 +14,13 @@ import SettingsView from 'src/views/settings/SettingsView';
 import MoveItemView from 'src/views/moveItem/App';
 import ERPStep from 'src/views/ERPStep';
 import FreeZoneApp from 'src/views/FreeZoneApp';
+import UsersListView from 'src/views/users';
 
 
 const routes = [
   {
     path: 'app',
-    element: <DashboardLayout userauth={"Yes"} />,
+    element: <DashboardLayout />,
     children: [
       { path: 'account', element: <AccountView /> },
       { path: 'customers', element: <CustomerListView /> },
@@ -29,13 +30,14 @@ const routes = [
       { path: 'productionReport', element: <ProductionReportView /> },
       { path: 'moveItem', element: <MoveItemView /> },
       { path: 'FreeZoneApp', element: <FreeZoneApp /> },
+      { path: 'users', element: <UsersListView /> },
       { path: 'settings', element: <SettingsView /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },
   {
     path: '/',
-    element: <MainLayout userauth={"No"} />,
+    element: <MainLayout />,
     children: [
       { path: 'login', element: <LoginView /> },
       { path: 'register', element: <RegisterView /> },

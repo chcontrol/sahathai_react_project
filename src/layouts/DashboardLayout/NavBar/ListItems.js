@@ -2,6 +2,8 @@ import BallotIcon from '@material-ui/icons/Ballot';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+
 import {
   AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
@@ -38,6 +40,11 @@ const ListItems = [
     href: '/app/FreeZoneApp',
     icon: DirectionsBoatIcon,
     title: 'Free Zone'
+  },
+  {
+    href: '/app/users',
+    icon: PeopleAltIcon,
+    title: 'Users'
   },
   {
     href: '/app/customers',

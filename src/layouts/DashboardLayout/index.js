@@ -44,6 +44,7 @@ const DashboardLayout = (props) => {
   const [UserData, setUserData] = useState(null)
   const [user, setuser] = useState(null)
   const checkAuth = () => {
+   
     if (localStorage.getItem("username")) {
       setUsername(localStorage.getItem("username"))
       setUserData(localStorage.getItem("UserData"))
