@@ -95,6 +95,35 @@ const LoginView = () => {
 
 
 
+  async function longTimeHello() {
+    return new Promise((resolve, reject) => {
+      setTimeout(()=>{
+          resolve("Delay Hello1");
+      }, 5000);
+  });
+  }
+
+  async function longTimeHello2() {
+   
+    return new Promise((resolve, reject) => {
+      setTimeout(()=>{
+          resolve("Delay Hello2");
+      }, 3000);
+  });
+  }
+
+  async function main() {
+    let a = await longTimeHello();
+    let b = await longTimeHello2();
+
+    console.log(b)
+    console.log(a)
+
+  }
+
+
+
+
 
 
   return (
@@ -122,6 +151,7 @@ const LoginView = () => {
             onSubmit={(values, actions) => {
               setTimeout(() => {
                 UserLogin(values)
+                // main()
                 actions.setSubmitting(false);
               }, 1000);
 

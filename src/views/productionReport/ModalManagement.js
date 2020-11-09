@@ -43,7 +43,7 @@ export default function ModalManagement(props) {
         },
         paper: {
             position: 'absolute',
-            width: 400,
+            width: '70%',
             backgroundColor: theme.palette.background.paper,
             border: '2px solid #000',
             boxShadow: theme.shadows[5],

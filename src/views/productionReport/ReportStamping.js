@@ -72,7 +72,8 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
 
     var docDefinition = {
         pageSize: 'A4',
-        pageMargins: [5, 120, 5, 50],
+        pageOrientation: 'landscape',
+        pageMargins: [20, 120, 10, 50],
         header: function (currentPage, pageCount, pageSize) {
             return {
                 margin: [20, 15, 50, 10],
@@ -125,7 +126,7 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
                         text: [
                             {
                                 text: `ผู้ผลิต /หัวหน้าแผนก................................
-                  FOMFN-08/01-Oct-20`,
+                  FOMFN-07/01-Oct-20`,
                                 margin: [40, 10],
                                 fontSize: 16,
                             },
