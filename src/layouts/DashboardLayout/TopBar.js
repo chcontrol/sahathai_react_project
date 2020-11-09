@@ -60,9 +60,9 @@ const TopBar = ({
 
         </RouterLink>
         <Box flexGrow={1} />
-        <Hidden xlUp>
+        {/* <Hidden xlUp> </Hidden> */}
           <Typography variant="h5" component="h5" style={{ paddingBottom: 25, color: '#FFFFFF' }}>
-            {Username}
+            {/* {Username} */}
           </Typography>
           <IconButton color="inherit" style={{ marginBottom: 25 }}>
             <Badge
@@ -76,8 +76,7 @@ const TopBar = ({
           <IconButton color="inherit" style={{ marginBottom: 25 }} onClick={logout}>
             <InputIcon />
           </IconButton>
-        </Hidden>
-        <Hidden xlUp>
+        
           <IconButton
             color="inherit"
             onClick={onMobileNavOpen}
@@ -85,7 +84,7 @@ const TopBar = ({
           >
             <MenuIcon />
           </IconButton>
-        </Hidden>
+        
       </Toolbar>
     </AppBar>
   );

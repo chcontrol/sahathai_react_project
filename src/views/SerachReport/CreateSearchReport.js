@@ -22,7 +22,7 @@ import tableIcons from './SerachReportView/tableIcons';
 import api from './api'
 import { useEffect } from 'react';
 import Axios from 'axios';
-import API from 'src/APISetting';
+import API from '../components/API';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -308,8 +308,8 @@ const CreateSearchReport = () => {
                                                                         />
                                                                     </Grid>
                                                                     <Grid item md={4} xs={4}>
-                                                                        {/* <Button color="primary" fullWidth={false} size="medium" type="submit" variant="contained">Save</Button>
-                                                                        <Button color="default" fullWidth={false} size="medium" onClick={() => { alert() }} variant="contained">DELETE</Button> */}
+                                                                         <Button color="primary" fullWidth={false} size="medium" type="submit" variant="contained">Save</Button>
+                                                                        <Button color="default" fullWidth={false} size="medium" onClick={() => { alert() }} variant="contained">DELETE</Button> 
 
                                                                     </Grid>
                                                                 </Grid>

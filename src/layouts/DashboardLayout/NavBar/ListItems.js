@@ -3,6 +3,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import FindInPageIcon from '@material-ui/icons/FindInPage';
 
 import {
   AlertCircle as AlertCircleIcon,
@@ -45,6 +46,11 @@ const ListItems = [
     href: '/app/users',
     icon: PeopleAltIcon,
     title: 'Users'
+  },
+  {
+    href: '/app/SerachReport',
+    icon: FindInPageIcon,
+    title: 'Search Report'
   },
   {
     href: '/app/customers',

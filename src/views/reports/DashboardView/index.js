@@ -26,12 +26,13 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
   const classes = useStyles();
 
+  
   return (
     <Page
       className={classes.root}
       title="Dashboard"
     >
-      
+   
       <Container maxWidth={false}>
         <Grid
           container
@@ -44,7 +45,7 @@ const Dashboard = () => {
             xl={3}
             xs={12}
           >
-            <Budget />
+            <Budget inModal={'123'} />
           </Grid>
           <Grid
             item

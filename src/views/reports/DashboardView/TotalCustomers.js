@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import PeopleIcon from '@material-ui/icons/PeopleOutlined';
+import ModalManagement from '../../components/ModalManagement';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,16 +36,29 @@ const useStyles = makeStyles((theme) => ({
 const TotalCustomers = ({ className, ...rest }) => {
   const classes = useStyles();
 
+  const [openModalItem, setOpenModalItem] = React.useState(false);
+
+  const handleCloseModalItem = async () => {
+    setOpenModalItem(false);
+  };
   return (
     <Card
       className={clsx(classes.root, className)}
       {...rest}
     >
+       <ModalManagement
+        modalDetail={
+          <>Total Customers</>
+        }
+        open={openModalItem}
+        onClose={handleCloseModalItem}
+      />
       <CardContent>
         <Grid
           container
           justify="space-between"
           spacing={3}
+          onClick={() => setOpenModalItem(true)}
         >
           <Grid item>
             <Typography
