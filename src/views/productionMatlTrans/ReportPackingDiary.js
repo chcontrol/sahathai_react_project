@@ -1,8 +1,8 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import { workcenterHeader, dateFormatReport, fontsReport } from './function/GroupLot';
-import { logo } from './function/logo'
+import { convertAllLotReport, workcenterHeader, dateFormatReport,fontsReport } from './function/GroupLot';
+import {logo} from './function/logo'
 
-function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
+function ReportPackingDiary(dataNow, selectedDateStart, selectedDateEnd) {
 
     let startdate = dateFormatReport(selectedDateStart)
     let enddate = dateFormatReport(selectedDateEnd)
@@ -17,12 +17,14 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
         { text: "ความหนา\nSCH", fontSize: 11, alignment: 'center' },
         { text: "ความยาว\nLength", fontSize: 11, alignment: 'center' },
         { text: "ชนิด\nType", fontSize: 11, alignment: 'center' },
+        { text: "มัดที่ \n Bundle no", fontSize: 11, alignment: 'center' },
         { text: "เส้น/มัด\nPCS/Bundle", fontSize: 11, alignment: 'center' },
-        { text: "จำนวนมัด \n Bundle", fontSize: 11, alignment: 'center' },
-        { text: "จำนวนเส้น \n PCS", fontSize: 11, alignment: 'center' },
-        { text: "STS PO \n Job", fontSize: 11, alignment: 'center' },
-        { text: "City \n port", fontSize: 11, alignment: 'center' },
+        { text: "จำนวนมัด\nBundle", fontSize: 11, alignment: 'center' },
+        { text: "จำนวนเส้น\nTotal(pcs)", fontSize: 11, alignment: 'center' },
+        { text: "STS PO \nJob", fontSize: 11, alignment: 'center' },
+        { text: "city\n Port", fontSize: 11, alignment: 'center' },
         { text: "Remark", fontSize: 11, alignment: 'center' },
+        { text: "เกรด B \n reject", fontSize: 11, alignment: 'center' },
     ],
     )
 
@@ -31,7 +33,7 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
     let cal_bundel = []
 
     for (let i = 0; i < dataNow.length; i++) {
-
+        
         total_bundle = total_bundle + dataNow[i]["SUMLotBundle"]
         total_pcs = total_pcs + dataNow[i]["SUMLotPCS"]
         cal_bundel.push(dataNow[i]["SUMLotPCS"])
@@ -44,17 +46,19 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
             { text: dataNow[i]["Uf_Schedule"], fontSize: 12, alignment: 'center' },
             { text: dataNow[i]["Uf_length"], fontSize: 12, alignment: 'center' },
             { text: dataNow[i]["Uf_TypeEnd"], fontSize: 12, alignment: 'center' },
-            { text: dataNow[i]["uf_pack"], fontSize: 12, alignment: 'center' },
-            { text: dataNow[i]["countlot"], fontSize: 12, alignment: 'center' },
-            { text: dataNow[i]["uf_pack"] * dataNow[i]["countlot"], fontSize: 12, alignment: 'center' },
+            { text: `${convertAllLotReport("wordslot", dataNow[i]["AllLot"])}`, fontSize: 12, alignment: 'center' },
+            { text: `${convertAllLotReport("wordsqty", dataNow[i]["AllLot"])}`, fontSize: 12, alignment: 'center' },
+            { text: `${convertAllLotReport("wordsqtybundle", dataNow[i]["AllLot"])}`, fontSize: 12, alignment: 'center' },
+            { text: `${convertAllLotReport("wordsqtybundletotal", dataNow[i]["AllLot"])}`, fontSize: 12, alignment: 'right' }, //resuult_qty
             { text: dataNow[i]["ref_num"], fontSize: 12, alignment: 'center' },
-            { text: dataNow[i]["city"], fontSize: 12, alignment: 'center' },
-            { text: ' ', fontSize: 12, alignment: 'center' },
+            { text: dataNow[i]["city"], fontSize: 10, alignment: 'center' },
+            { text: "", fontSize: 12, alignment: 'right' },
+            { text: dataNow[i]["sumBBundle"], fontSize: 12, alignment: 'right' },
         ],
         )
         if (i === dataNow.length - 1) {
             data.push([
-                { text: ` `, fontSize: 11, alignment: 'center', style: 'header', colSpan: 12 },
+                { text: ``, fontSize: 11, alignment: 'center', style: 'header', colSpan: 9 },
                 { text: "", fontSize: 11, alignment: 'center' },
                 { text: "", fontSize: 11, alignment: 'center' },
                 { text: "", fontSize: 11, alignment: 'center' },
@@ -63,6 +67,8 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
                 { text: "", fontSize: 11, alignment: 'center' },
                 { text: "", fontSize: 11, alignment: 'center' },
                 { text: "", fontSize: 11, alignment: 'center' },
+                { text: total_bundle, fontSize: 11, alignment: 'right' },
+                { text: total_pcs, fontSize: 11, alignment: 'right' },
                 { text: "", fontSize: 11, alignment: 'center' },
                 { text: "", fontSize: 11, alignment: 'center' },
                 { text: "", fontSize: 11, alignment: 'center' },
@@ -70,12 +76,12 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
             ],
             )
         }
+
     }
 
     var docDefinition = {
         pageSize: 'A4',
-        pageOrientation: 'landscape',
-        pageMargins: [20, 120, 10, 50],
+        pageMargins: [5, 120, 5, 50],
         header: function (currentPage, pageCount, pageSize) {
             return {
                 margin: [20, 15, 50, 10],
@@ -93,7 +99,7 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
                                 border: [false, false, false, false], text: ''
                             },
                             {
-                                border: [false, false, false, false], text: 'Stamping production report \n รายงานการพิมพ์ตราประจำวัน', fontSize: 18
+                                border: [false, false, false, false], text: 'Packing production performance records \n รายงานการมัดท่อประจำวัน', fontSize: 18
                             },
                         ],
                         [
@@ -128,7 +134,7 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
                         text: [
                             {
                                 text: `ผู้ผลิต /หัวหน้าแผนก................................
-                  FOMFN-07/01-Oct-20`,
+                  FOMFN-08/01-Oct-20`,
                                 margin: [40, 10],
                                 fontSize: 16,
                             },
@@ -158,7 +164,7 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
         content: [
             {
                 table: {
-                    widths: [15, 25, 40, 20, 30, 40, 20, 40, 40, 50, 50, 40, '*'],
+                    widths: [15, 25, 40, 20, 30, 40, 20, 40, 25, 30, 35, 30, 45, 35, 20],
                     headerRows: 1,
                     body: data,
                 },
@@ -171,4 +177,4 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
     pdfMake.createPdf(docDefinition).open()
 }
 
-export { ReportStamping };
+export { ReportPackingDiary };

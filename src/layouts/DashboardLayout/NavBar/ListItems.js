@@ -33,6 +33,11 @@ const ListItems = [
     title: 'production report'
   },
   {
+    href: '/app/productionMatlTrans',
+    icon: AssignmentIcon,
+    title: 'production MatlTrans'
+  },
+  {
     href: '/app/moveItem',
     icon: LocalShippingIcon,
     title: 'move Item'

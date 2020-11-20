@@ -1,6 +1,6 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import { workcenterHeader, dateFormatReport, fontsReport } from './function/GroupLot';
-import { logo } from './function/logo'
+import {  workcenterHeader, dateFormatReport,fontsReport } from './function/GroupLot';
+import {logo} from './function/logo'
 
 function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
 
@@ -19,7 +19,6 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
         { text: "ชนิด\nType", fontSize: 11, alignment: 'center' },
         { text: "เส้น/มัด\nPCS/Bundle", fontSize: 11, alignment: 'center' },
         { text: "จำนวนมัด \n Bundle", fontSize: 11, alignment: 'center' },
-        { text: "จำนวนเส้น \n PCS", fontSize: 11, alignment: 'center' },
         { text: "STS PO \n Job", fontSize: 11, alignment: 'center' },
         { text: "City \n port", fontSize: 11, alignment: 'center' },
         { text: "Remark", fontSize: 11, alignment: 'center' },
@@ -31,7 +30,7 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
     let cal_bundel = []
 
     for (let i = 0; i < dataNow.length; i++) {
-
+        
         total_bundle = total_bundle + dataNow[i]["SUMLotBundle"]
         total_pcs = total_pcs + dataNow[i]["SUMLotPCS"]
         cal_bundel.push(dataNow[i]["SUMLotPCS"])
@@ -46,7 +45,6 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
             { text: dataNow[i]["Uf_TypeEnd"], fontSize: 12, alignment: 'center' },
             { text: dataNow[i]["uf_pack"], fontSize: 12, alignment: 'center' },
             { text: dataNow[i]["countlot"], fontSize: 12, alignment: 'center' },
-            { text: dataNow[i]["uf_pack"] * dataNow[i]["countlot"], fontSize: 12, alignment: 'center' },
             { text: dataNow[i]["ref_num"], fontSize: 12, alignment: 'center' },
             { text: dataNow[i]["city"], fontSize: 12, alignment: 'center' },
             { text: ' ', fontSize: 12, alignment: 'center' },
@@ -66,10 +64,10 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
                 { text: "", fontSize: 11, alignment: 'center' },
                 { text: "", fontSize: 11, alignment: 'center' },
                 { text: "", fontSize: 11, alignment: 'center' },
-                { text: "", fontSize: 11, alignment: 'center' },
             ],
             )
         }
+
     }
 
     var docDefinition = {
@@ -158,7 +156,7 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
         content: [
             {
                 table: {
-                    widths: [15, 25, 40, 20, 30, 40, 20, 40, 40, 50, 50, 40, '*'],
+                    widths: [15, 25, 40, 20, 30, 40, 20, 40, 40, 50, 40, '*'],
                     headerRows: 1,
                     body: data,
                 },

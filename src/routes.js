@@ -9,6 +9,8 @@ import LoginView from 'src/views/auth/LoginView';
 import NotFoundView from 'src/views/errors/NotFoundView';
 import ProductListView from 'src/views/product/ProductListView';
 import ProductionReportView from 'src/views/productionReport';
+import ProductionMatlTransView from 'src/views/productionMatlTrans';
+
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
 import MoveItemView from 'src/views/moveItem/App';
@@ -29,6 +31,7 @@ const routes = [
       { path: 'products', element: <ProductListView /> },
       { path: 'ERPStep', element: <ERPStep /> },
       { path: 'productionReport', element: <ProductionReportView /> },
+      { path: 'productionMatlTrans', element: <ProductionMatlTransView /> },
       { path: 'moveItem', element: <MoveItemView /> },
       { path: 'FreeZoneApp', element: <FreeZoneApp /> },
       { path: 'SerachReport', element: <SerachReportView /> },

@@ -1,72 +1,78 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import { workcenterHeader, dateFormatReport, fontsReport } from './function/GroupLot';
+import moment from "moment";
+import { workcenterHeader } from './function/GroupLot';
 import { logo } from './function/logo'
+moment.locale("th");
 
-function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
+function dateFormatReport(DateTime) {
+    return `  วันที่  (Date): ${moment(DateTime).format('YYYY-MM-DD')}  เวลา (Time): ${moment(DateTime).format('HH:mm:ss')} น.  `
+}
+
+function ReportCheckProductionDiary(dataNow, selectedDateStart, selectedDateEnd) {
 
     let startdate = dateFormatReport(selectedDateStart)
     let enddate = dateFormatReport(selectedDateEnd)
 
-    pdfMake.fonts = fontsReport
+    pdfMake.fonts = {
+        THSarabunNew: {
+            normal: 'THSarabunNew.ttf',
+            bold: 'THSarabunNew-Bold.ttf',
+            italics: 'THSarabunNew-Italic.ttf',
+            bolditalics: 'THSarabunNew-BoldItalic.ttf'
+        },
+        Roboto: {
+            normal: 'Roboto-Regular.ttf',
+            bold: 'Roboto-Medium.ttf',
+            italics: 'Roboto-Italic.ttf',
+            bolditalics: 'Roboto-MediumItalic.ttf'
+        }
+    }
     const data = []
+
     data.push([
-        { text: `No.`, fontSize: 11, alignment: 'center', style: 'header' },
-        { text: "ขนาด\nSize", fontSize: 11, alignment: 'center' },
-        { text: "มาตรฐาน\nStandard", fontSize: 11, alignment: 'center' },
-        { text: "เกรด\nGrade", fontSize: 11, alignment: 'center' },
-        { text: "ความหนา\nSCH", fontSize: 11, alignment: 'center' },
-        { text: "ความยาว\nLength", fontSize: 11, alignment: 'center' },
-        { text: "ชนิด\nType", fontSize: 11, alignment: 'center' },
-        { text: "เส้น/มัด\nPCS/Bundle", fontSize: 11, alignment: 'center' },
-        { text: "จำนวนมัด \n Bundle", fontSize: 11, alignment: 'center' },
-        { text: "จำนวนเส้น \n PCS", fontSize: 11, alignment: 'center' },
-        { text: "STS PO \n Job", fontSize: 11, alignment: 'center' },
-        { text: "City \n port", fontSize: 11, alignment: 'center' },
-        { text: "Remark", fontSize: 11, alignment: 'center' },
+        { text: `No.`, fontSize: 14, alignment: 'center', style: 'header' },
+        { text: "จำนวน", fontSize: 14, alignment: 'center' },
+        { text: "lot", fontSize: 14, alignment: 'center' },
+        { text: "act weight", fontSize: 14, alignment: 'center' },
+        { text: "sts_no", fontSize: 14, alignment: 'center' },
+        { text: "remark", fontSize: 14, alignment: 'center' },
     ],
     )
 
     let total_bundle = 0;
     let total_pcs = 0;
-    let cal_bundel = []
 
     for (let i = 0; i < dataNow.length; i++) {
 
         total_bundle = total_bundle + dataNow[i]["SUMLotBundle"]
         total_pcs = total_pcs + dataNow[i]["SUMLotPCS"]
-        cal_bundel.push(dataNow[i]["SUMLotPCS"])
+
+        let datadetialJson = JSON.parse("[" + dataNow[i]["AllLot2"] + "]")
+
+
 
         data.push([
-            { text: i + 1, alignment: 'center' },
-            { text: dataNow[i]["Uf_NPS"], fontSize: 12, alignment: 'center' },
+            {
+                text:
+                    `Item : ${dataNow[i]["item"]}  Description : ${dataNow[i]["item"]}  STS PO : ${dataNow[i]["ref_num"]}  City : ${dataNow[i]["city"]}
+                   ข้อมูล:: Size: ${dataNow[i]["Uf_NPS"]} | Standard: ${dataNow[i]["Uf_NPS"]} | Grade: ${dataNow[i]["Uf_Grade"]} | ความหนา: ${dataNow[i]["Uf_Schedule"]} | ความยาว: ${dataNow[i]["Uf_length"]}  | ชนิด: ${dataNow[i]["Uf_TypeEnd"]}`
+                , fontSize: 13, alignment: 'left', colSpan: 6,
+            },
             { text: dataNow[i]["Uf_spec"], fontSize: 12, alignment: 'center' },
             { text: dataNow[i]["Uf_Grade"], fontSize: 12, alignment: 'center' },
             { text: dataNow[i]["Uf_Schedule"], fontSize: 12, alignment: 'center' },
-            { text: dataNow[i]["Uf_length"], fontSize: 12, alignment: 'center' },
-            { text: dataNow[i]["Uf_TypeEnd"], fontSize: 12, alignment: 'center' },
-            { text: dataNow[i]["uf_pack"], fontSize: 12, alignment: 'center' },
-            { text: dataNow[i]["countlot"], fontSize: 12, alignment: 'center' },
-            { text: dataNow[i]["uf_pack"] * dataNow[i]["countlot"], fontSize: 12, alignment: 'center' },
-            { text: dataNow[i]["ref_num"], fontSize: 12, alignment: 'center' },
-            { text: dataNow[i]["city"], fontSize: 12, alignment: 'center' },
-            { text: ' ', fontSize: 12, alignment: 'center' },
+            { text: '', fontSize: 12, alignment: 'center' },
         ],
         )
-        if (i === dataNow.length - 1) {
+
+        for (let j = 0; j < datadetialJson.length; j++) {
             data.push([
-                { text: ` `, fontSize: 11, alignment: 'center', style: 'header', colSpan: 12 },
-                { text: "", fontSize: 11, alignment: 'center' },
-                { text: "", fontSize: 11, alignment: 'center' },
-                { text: "", fontSize: 11, alignment: 'center' },
-                { text: "", fontSize: 11, alignment: 'center' },
-                { text: "", fontSize: 11, alignment: 'center' },
-                { text: "", fontSize: 11, alignment: 'center' },
-                { text: "", fontSize: 11, alignment: 'center' },
-                { text: "", fontSize: 11, alignment: 'center' },
-                { text: "", fontSize: 11, alignment: 'center' },
-                { text: "", fontSize: 11, alignment: 'center' },
-                { text: "", fontSize: 11, alignment: 'center' },
-                { text: "", fontSize: 11, alignment: 'center' },
+                { text: j + 1, alignment: 'center' },
+                { text: datadetialJson[j].qty, fontSize: 12, alignment: 'center' },
+                { text: datadetialJson[j].lot, fontSize: 12, alignment: 'center' },
+                { text: datadetialJson[j].uf_act_weight, fontSize: 12, alignment: 'center' },
+                { text: datadetialJson[j].sts_no, fontSize: 12, alignment: 'center' },
+                { text: ' ', fontSize: 12, alignment: 'center' },
             ],
             )
         }
@@ -74,8 +80,7 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
 
     var docDefinition = {
         pageSize: 'A4',
-        pageOrientation: 'landscape',
-        pageMargins: [20, 120, 10, 50],
+        pageMargins: [25, 120, 25, 50],
         header: function (currentPage, pageCount, pageSize) {
             return {
                 margin: [20, 15, 50, 10],
@@ -93,7 +98,7 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
                                 border: [false, false, false, false], text: ''
                             },
                             {
-                                border: [false, false, false, false], text: 'Stamping production report \n รายงานการพิมพ์ตราประจำวัน', fontSize: 18
+                                border: [false, false, false, false], text: 'Production Inspection From \n ใบตรวจสอบการผลิตท่อประจำวัน', fontSize: 18
                             },
                         ],
                         [
@@ -127,8 +132,8 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
                         fontSize: 16,
                         text: [
                             {
-                                text: `ผู้ผลิต /หัวหน้าแผนก................................
-                  FOMFN-07/01-Oct-20`,
+                                text: `ผู้ตรวจสอบ ................................
+                  FOMFN-08/01-Oct-20`,
                                 margin: [40, 10],
                                 fontSize: 16,
                             },
@@ -152,13 +157,16 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
                         alignment: 'center'
                     }
                 ]
+
             };
         },
 
         content: [
             {
+
+
                 table: {
-                    widths: [15, 25, 40, 20, 30, 40, 20, 40, 40, 50, 50, 40, '*'],
+                    widths: [35, '*', '*', '*', '*', '*'],
                     headerRows: 1,
                     body: data,
                 },
@@ -167,8 +175,10 @@ function ReportStamping(dataNow, selectedDateStart, selectedDateEnd) {
         defaultStyle: {
             font: 'THSarabunNew',
         },
+
     };
     pdfMake.createPdf(docDefinition).open()
+
 }
 
-export { ReportStamping };
+export { ReportCheckProductionDiary };
