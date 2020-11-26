@@ -10,7 +10,7 @@ import NotFoundView from 'src/views/errors/NotFoundView';
 import ProductListView from 'src/views/product/ProductListView';
 import ProductionReportView from 'src/views/productionReport';
 import ProductionMatlTransView from 'src/views/productionMatlTrans';
-import DomesticBacklogView from 'src/views/ReportsModule/SaleDomestic/DomesticBacklog';
+import DomesticBacklogView from 'src/views/ERPModule/SaleDomestic/DomesticBacklog';
 
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
