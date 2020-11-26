@@ -1,4 +1,4 @@
-import React, {  useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -8,11 +8,14 @@ import {
   Hidden,
   List,
   Typography,
-  makeStyles
+  makeStyles,
+  Collapse
 } from '@material-ui/core';
 
 import NavItem from './NavItems';
 import ListItems from './ListItems'
+import ListItems2 from './ListItems2'
+import MenuItems from './MenuItems'
 import UserData from './UserData';
 
 const useStyles = makeStyles(() => ({
@@ -34,6 +37,11 @@ const useStyles = makeStyles(() => ({
 const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles();
   const location = useLocation();
+  const [open, setOpen] = React.useState(true)
+
+  function handleClick() {
+    setOpen(!open)
+  }
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -54,10 +62,10 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         flexDirection="column"
         p={2}
       >
-        <UserData  />
+        <UserData />
       </Box>
       <Divider />
-      <Box p={2}>
+      {/* <Box p={2}>
         <List>
           {ListItems.map((item) => (
             <NavItem
@@ -68,8 +76,16 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             />
           ))}
         </List>
+      </Box> */}
+
+
+      <Box p={2}>
+        {ListItems2.map((item, index) => (
+            <MenuItems {...item} key={index}></MenuItems>
+        ))}
       </Box>
       <Box flexGrow={1} />
+
       <Box
         p={2}
         m={2}
@@ -89,7 +105,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
 
   return (
     <>
-      <Hidden xlUp>
+      <Hidden >
         <Drawer
           anchor="left"
           classes={{ paper: classes.mobileDrawer }}

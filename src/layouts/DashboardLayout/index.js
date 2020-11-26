@@ -14,15 +14,15 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     width: '100%'
   },
-  // wrapper: {
-  //   display: 'flex',
-  //   flex: '1 1 auto',
-  //   overflow: 'hidden',
-  //   paddingTop: 40,
-  //   // [theme.breakpoints.up('lg')]: {
-  //   //   paddingLeft: 256
-  //   // }
-  // },
+  wrapper: {
+    display: 'flex',
+    flex: '1 1 auto',
+    overflow: 'hidden',
+    paddingTop: 40,
+    // [theme.breakpoints.up('lg')]: {
+    //   paddingLeft: 256
+    // }
+  },
   contentContainer: {
     display: 'flex',
     flex: '1 1 auto',
@@ -61,7 +61,7 @@ const DashboardLayout = (props) => {
   }
 
   useEffect(() => {
-    // checkAuth()
+    checkAuth()
   }, [])
 
 
@@ -72,10 +72,10 @@ const DashboardLayout = (props) => {
       }}
     >
       <div className={classes.root}>
-        {/* <TopBar
+        <TopBar
           Username={Username}
           onMobileNavOpen={() => setMobileNavOpen(true)}
-        /> */}
+        />
         <NavBar
           UserData={UserData}
           onMobileClose={() => setMobileNavOpen(false)}
