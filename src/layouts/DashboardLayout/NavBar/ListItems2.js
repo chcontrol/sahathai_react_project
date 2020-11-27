@@ -67,7 +67,7 @@ const ListItems2 = [
             {
                 href: '/app/4',
                 Icon: AssignmentIcon,
-                title: 'Ledger Posted Local Sales Report'
+                title: 'Domestic Ledger Posted '
             },
             {
                 href: '/app/5',
@@ -81,9 +81,19 @@ const ListItems2 = [
         menutitle: 'ขายต่างประเทศ',
         submenu: [
             {
-                href: '/app/productionReport',
+                href: '/app/1',
                 Icon: AssignmentIcon,
-                title: 'Production report'
+                title: 'รายงานค้างส่งในประเทศ'
+            },
+            {
+                href: '/app/2',
+                Icon: AssignmentIcon,
+                title: 'รายงาน Item Invoice'
+            },
+            {
+                href: '/app/3',
+                Icon: AssignmentIcon,
+                title: 'Export Ledger Posted '
             },
         ]
     },
@@ -94,7 +104,37 @@ const ListItems2 = [
             {
                 href: '/app/productionReport',
                 Icon: AssignmentIcon,
-                title: 'รายงานค้างส่งในประเทศ'
+                title: 'รายงาน AR Transaction'
+            },
+            {
+                href: '/app/productionReport',
+                Icon: AssignmentIcon,
+                title: 'General Ledger'
+            },
+            {
+                href: '/app/productionReport',
+                Icon: AssignmentIcon,
+                title: 'Collection Day'
+            },
+            {
+                href: '/app/productionReport',
+                Icon: AssignmentIcon,
+                title: 'Material Purchase'
+            },
+            {
+                href: '/app/productionReport',
+                Icon: AssignmentIcon,
+                title: 'Workbanch shipping'
+            },
+            {
+                href: '/app/productionReport',
+                Icon: AssignmentIcon,
+                title: 'Payment Invice Checking'
+            },
+            {
+                href: '/app/productionReport',
+                Icon: AssignmentIcon,
+                title: 'กำหนดกลุ่ม Work center'
             },
         ]
     },
@@ -105,7 +145,17 @@ const ListItems2 = [
             {
                 href: '/app/productionReport',
                 Icon: AssignmentIcon,
-                title: 'Production report'
+                title: 'รายงานการมัดท่อ'
+            },
+            {
+                href: '/app/productionReport',
+                Icon: AssignmentIcon,
+                title: 'Hotroll Checking'
+            },
+            {
+                href: '/app/productionReport',
+                Icon: AssignmentIcon,
+                title: 'DO Packing'
             },
         ]
     },
@@ -116,7 +166,32 @@ const ListItems2 = [
             {
                 href: '/app/productionReport',
                 Icon: AssignmentIcon,
-                title: 'Production report'
+                title: 'รายงานสต็อคเหล็กม้วนคงเหลือ'
+            },
+            {
+                href: '/app/productionReport',
+                Icon: AssignmentIcon,
+                title: 'Check Item Location'
+            },
+            {
+                href: '/app/productionReport',
+                Icon: AssignmentIcon,
+                title: 'Quantity Move'
+            },
+            {
+                href: '/app/productionReport',
+                Icon: AssignmentIcon,
+                title: 'DO Checking'
+            },
+            {
+                href: '/app/productionReport',
+                Icon: AssignmentIcon,
+                title: 'พิมพ์ใบนับสต๊อคสินค้า'
+            },
+            {
+                href: '/app/productionReport',
+                Icon: AssignmentIcon,
+                title: 'ใบนับสด๊อค Item'
             },
         ]
     },
