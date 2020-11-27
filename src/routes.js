@@ -2,22 +2,22 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import DashboardLayout from 'src/layouts/DashboardLayout';
 import MainLayout from 'src/layouts/MainLayout';
-import AccountView from 'src/views/account/AccountView';
+import AccountView from 'src/views/UserAccountManagement/AccountView';
 import CustomerListView from 'src/views/customer/CustomerListView';
 import DashboardView from 'src/views/reports/DashboardView';
 import LoginView from 'src/views/auth/LoginView';
 import NotFoundView from 'src/views/errors/NotFoundView';
-import ProductListView from 'src/views/product/ProductListView';
+import ProductListView from 'src/views/ERPModule/Production/ProductListView';
 import ProductionReportView from 'src/views/productionReport';
 import ProductionMatlTransView from 'src/views/productionMatlTrans';
 import DomesticBacklogView from 'src/views/ERPModule/SaleDomestic/DomesticBacklog';
 
 import RegisterView from 'src/views/auth/RegisterView';
-import SettingsView from 'src/views/settings/SettingsView';
-import MoveItemView from 'src/views/moveItem/App';
+import SettingsView from 'src/views/UserAccountManagement/SettingsView';
+import MoveItemView from 'src/views/ERPModule/Production/moveItem/App';
 import ERPStep from 'src/views/ERPStep';
-import FreeZoneApp from 'src/views/FreeZoneApp';
-import UsersListView from 'src/views/users';
+import FreeZoneApp from 'src/views/ERPModule/SaleExport/FreeZoneApp';
+import UsersListView from 'src/views/UserAccountManagement/users';
 import SerachReportView from 'src/views/SerachReport';
 
 
