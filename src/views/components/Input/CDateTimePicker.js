@@ -11,7 +11,7 @@ const DateTimePicker = (props) => {
         <MuiPickersUtilsProvider utils={MomentUtils} >
             <KeyboardDateTimePicker
             variant="outlined"
-            
+            inputVariant="outlined"
             size="small"
                 ampm={false}
                 label={props.label}
