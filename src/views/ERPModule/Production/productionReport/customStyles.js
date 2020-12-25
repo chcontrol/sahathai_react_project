@@ -21,6 +21,16 @@ const customStyles = makeStyles((theme) => ({
         marginTop: '5%',
         marginLeft: '1.5%'
     },
+    paperModalSM: {
+        position: 'absolute',
+        width: '40%',
+        height: '60%',
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 3, 5),
+        marginTop: '10%',
+        marginLeft: '30%'
+    },
     paperModalReasonMaster: {
         position: 'absolute',
         width: '50%',

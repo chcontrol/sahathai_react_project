@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {  Grid, IconButton, Modal, Paper, Snackbar } from '@material-ui/core';
+import { Grid, IconButton, Modal, Paper, Snackbar } from '@material-ui/core';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake-thai/build/vfs_fonts";
 import { ReportCheckPackingDiary } from './ReportCheckPackingDiary'
@@ -20,7 +20,9 @@ import API from '../../../components/API';
 import { convertAllLotReport } from './function/GroupLot';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import CAutocomplete from '../../../components/Input/CAutocomplete ';
-import ResonStopMachineTableEditable from './ReasonStopMachineTableEditable';
+import ReasonStopMachineTableEditable from './ReasonStopMachineTableEditable';
+import ReasonStopMachineDetailTableEditable from './ReasonStopMachineDetailTableEditable';
+
 import ReasonRecordStopMachineTableEditable from './ReasonRecordStopMachineTableEditable';
 import ReasonRecordStopMachineMetersTableEditable from './ReasonRecordStopMachineMetersTableEditable';
 import customStyles from "./customStyles.js";
@@ -30,6 +32,7 @@ import ProductionDailyReportTable from './ProductionDailyReportTable';
 import ShiftSelect from './ShiftSelect';
 import ItemDetail from './ItemDetail';
 import ModalManagement from './ModalManagement';
+import ReasonAddNewReason from './ReasonAddNewReason';
 
 
 moment.locale("th");
@@ -39,12 +42,15 @@ const ProductionDailyReport = () => {
   const classes = useStyles();
   const [data, setdata] = useState([])
   const [isLoadingData, setisLoadingData] = useState(false)
-  const [openModal, setOpenModal] = React.useState(false);
+  const [openModal, setOpenModal] = React.useState(true);
   const [openModalReasonMaster, setOpenModalReasonMaster] = React.useState(false);
+  const [openModalReasonMasterDetail, setOpenModalReasonMasterDetail] = React.useState(false);
+  const [openModalAddNewReason, setOpenModalAddNewReason] = React.useState(false);
   const [openModalItem, setOpenModalItem] = React.useState(false);
   const [dataFormingRecord, setDataFormingRecord] = useState([])
   const [dataFormingRecord_reason_meter, setDataFormingRecord_reason_meter] = useState([])
   const [dataFormingRecord_description, setDataFormingRecord_description] = useState([])
+  const [dataFormingRecord_description_detail, setDataFormingRecord_description_detail] = useState([])
   const [selectFormingRecordReason, setselectFormingRecordReason] = useState()
   const [openAlert, setOpenAlert] = React.useState(false);
   const [SizeGridInModalLeft, setSizeGridInModalLeft] = useState(6)
@@ -94,6 +100,14 @@ const ProductionDailyReport = () => {
 
   const handleCloseModalReasonMaster = async () => {
     setOpenModalReasonMaster(false);
+  };
+
+  const handleCloseModalReasonMasterDetail = async () => {
+    setOpenModalReasonMasterDetail(false);
+  };
+
+  const handleCloseModalAddNewReason = async () => {
+    setOpenModalAddNewReason(false);
   };
 
   const handleOpenModalItem = async (item) => {
@@ -161,13 +175,13 @@ const ProductionDailyReport = () => {
   });
 
   const HoverInModalRight = async () => {
-    setSizeGridInModalLeft(4)
-    setSizeGridInModalRight(8)
+    setSizeGridInModalLeft(6)
+    setSizeGridInModalRight(6)
   }
 
   const HoverInModalLeft = async () => {
-    setSizeGridInModalLeft(8)
-    setSizeGridInModalRight(4)
+    setSizeGridInModalLeft(6)
+    setSizeGridInModalRight(6)
   }
 
   const handleClickAlert = () => {
@@ -243,154 +257,171 @@ const ProductionDailyReport = () => {
               isSubmitting,
               setFieldValue
             }) => (
-                <form onSubmit={handleSubmit}>
-                  {/* <Button color="primary" variant="contained" onClick={() => { handleOpenModalItem(123) }}>1234</Button> */}
+              <form onSubmit={handleSubmit}>
+                {/* <Button color="primary" variant="contained" onClick={() => { handleOpenModalItem(123) }}>1234</Button> */}
+                <ModalManagement
+                  modalDetail={<ItemDetail itemModal={itemModal} />}
+                  open={openModalItem}
+                  onClose={handleCloseModalItem}
+                />
 
-                  <ModalManagement
-                    modalDetail={<ItemDetail itemModal={itemModal} />}
-                    open={openModalItem}
-                    onClose={handleCloseModalItem}
+                <Modal open={openModalReasonMaster} onClose={handleCloseModalReasonMaster} >
+                  <ReasonStopMachineTableEditable
+                    setDataFormingRecord_description={setDataFormingRecord_description}
+                    dataFormingRecord_description={dataFormingRecord_description}
                   />
+                </Modal>
+                <Modal open={openModalReasonMasterDetail} onClose={handleCloseModalReasonMasterDetail} >
+                  <ReasonStopMachineDetailTableEditable
+                    setDataFormingRecord_description_detail={setDataFormingRecord_description_detail}
+                    dataFormingRecord_description_detail={dataFormingRecord_description_detail}
+                  />
+                </Modal>
+                <Modal open={openModalAddNewReason} onClose={handleCloseModalAddNewReason} >
+                  <ReasonAddNewReason
+                    handleCloseModalAddNewReason={handleCloseModalAddNewReason}
+                    w_c={values.w_c}
+                    dataFormingRecord={dataFormingRecord}
+                    setDataFormingRecord={setDataFormingRecord}
 
-                  <Modal open={openModalReasonMaster} onClose={handleCloseModalReasonMaster} >
-                    <ResonStopMachineTableEditable
-                      setDataFormingRecord_description={setDataFormingRecord_description}
-                      dataFormingRecord_description={dataFormingRecord_description}
-                    />
-                  </Modal>
-                  <Modal open={openModal} onClose={handleCloseModal} >
-                    {/* {JSON.stringify(values)} */}
-                    <Grid container spacing={0} className={classes.paperModal}>
-                      <Grid item xs={SizeGridInModalLeft} onMouseOver={() => { HoverInModalLeft() }} hidden={false}>
-                        <ReasonRecordStopMachineTableEditable
-                          dataFormingRecord={dataFormingRecord}
-                          setDataFormingRecord={setDataFormingRecord}
-                          w_c={values.w_c}
-                          selectFormingRecordReason={selectFormingRecordReason}
-                          values={values}
-                          setDataFormingRecord_description={setDataFormingRecord_description}
-                          setOpenModalReasonMaster={setOpenModalReasonMaster}
-                        />
-                      </Grid>
-                      <Grid item xs={SizeGridInModalRight} onMouseOver={() => { HoverInModalRight() }}>
-                        <ReasonRecordStopMachineMetersTableEditable
-                          w_c={values.w_c}
-                          values={values}
-                          setOpenModalReasonMaster={setOpenModalReasonMaster}
-                          dataFormingRecord_reason_meter={dataFormingRecord_reason_meter}
-                          setDataFormingRecord_reason_meter={setDataFormingRecord_reason_meter}
-                        />
-                      </Grid>
+                  />
+                </Modal>
+                <Modal open={openModal} onClose={handleCloseModal} >
+                  {/* {JSON.stringify(values)} */}
+                  <Grid container spacing={0} className={classes.paperModal}>
+                    <Grid item xs={SizeGridInModalLeft} onMouseOver={() => { HoverInModalLeft() }} hidden={false}>
+                      <ReasonRecordStopMachineTableEditable
+                        dataFormingRecord={dataFormingRecord}
+                        setDataFormingRecord={setDataFormingRecord}
+                        w_c={values.w_c}
+                        selectFormingRecordReason={selectFormingRecordReason}
+                        values={values}
+                        setDataFormingRecord_description={setDataFormingRecord_description}
+                        setDataFormingRecord_description_detail={setDataFormingRecord_description_detail}
+                        setOpenModalReasonMaster={setOpenModalReasonMaster}
+                        setOpenModalReasonMasterDetail={setOpenModalReasonMasterDetail}
+                        setOpenModalAddNewReason={setOpenModalAddNewReason}
+                      />
                     </Grid>
-                  </Modal>
-                  <Grid container spacing={2}>
-                    <Grid item lg={12} >
-                      <Grid container spacing={2}>
-                        <Grid item lg={4} >
-                          <Grid container spacing={3}>
-                            <Grid item lg={6} >
-                              <DateTimePicker
-                                label="วันเวลาเริ่ม"
-                                name={"enddate"}
-                                value={values.startdate}
-                                onBlur={handleBlur}
-                                onChange={e => setFieldValue('startdate', moment(e).format('YYYY-MM-DD HH:mm:ss'))}
-                              />
-                            </Grid>
-                            <Grid item lg={6}>
-                              <Grid container spacing={0}>
-                                <Grid item lg={11}>
-                                  <DateTimePicker
-                                    label="วันเวลาสิ้นสุด"
-                                    name={"enddate"}
-                                    value={values.enddate}
-                                    onBlur={handleBlur}
-                                    onChange={e => { setFieldValue('enddate', moment(e).format('YYYY-MM-DD HH:mm:ss')) }}
-                                  />
-                                </Grid>
-                                <Grid item lg={1}>
-                                  <IconButton
-                                    aria-label="more"
-                                    aria-controls="long-menu"
-                                    aria-haspopup="true"
-                                    onClick={handleClick}
-                                    // onMouseOver={handleClick}
-                                  >
-                                    <MoreVertIcon />
-                                  </IconButton>
-                                  <ShiftSelect
-                                    anchorEl={anchorEl}
-                                    open={Boolean(anchorEl)}
-                                    onClose={handleClose}
-                                    setFieldValue={setFieldValue}
-                                    setAnchorEl={setAnchorEl}
-                                  />
-                                </Grid>
+                    <Grid item xs={SizeGridInModalRight} onMouseOver={() => { HoverInModalRight() }}>
+                      <ReasonRecordStopMachineMetersTableEditable
+                        w_c={values.w_c}
+                        values={values}
+                        setOpenModalReasonMaster={setOpenModalReasonMaster}
+                        dataFormingRecord_reason_meter={dataFormingRecord_reason_meter}
+                        setDataFormingRecord_reason_meter={setDataFormingRecord_reason_meter}
+                      />
+                    </Grid>
+                  </Grid>
+                </Modal>
+                <Grid container spacing={2}>
+                  <Grid item lg={12} >
+                    <Grid container spacing={2}>
+                      <Grid item lg={4} >
+                        <Grid container spacing={3}>
+                          <Grid item lg={6} >
+                            <DateTimePicker
+                              label="วันเวลาเริ่ม"
+                              name={"enddate"}
+                              value={values.startdate}
+                              onBlur={handleBlur}
+                              onChange={e => setFieldValue('startdate', moment(e).format('YYYY-MM-DD HH:mm:ss'))}
+                            />
+                          </Grid>
+                          <Grid item lg={6}>
+                            <Grid container spacing={0}>
+                              <Grid item lg={11}>
+                                <DateTimePicker
+                                  label="วันเวลาสิ้นสุด"
+                                  name={"enddate"}
+                                  value={values.enddate}
+                                  onBlur={handleBlur}
+                                  onChange={e => { setFieldValue('enddate', moment(e).format('YYYY-MM-DD HH:mm:ss')) }}
+                                />
+                              </Grid>
+                              <Grid item lg={1}>
+                                <IconButton
+                                  aria-label="more"
+                                  aria-controls="long-menu"
+                                  aria-haspopup="true"
+                                  onClick={handleClick}
+                                // onMouseOver={handleClick}
+                                >
+                                  <MoreVertIcon />
+                                </IconButton>
+                                <ShiftSelect
+                                  anchorEl={anchorEl}
+                                  open={Boolean(anchorEl)}
+                                  onClose={handleClose}
+                                  setFieldValue={setFieldValue}
+                                  setAnchorEl={setAnchorEl}
+                                />
                               </Grid>
                             </Grid>
                           </Grid>
                         </Grid>
-                        <Grid item lg={8} >
-                          <Grid container spacing={3}>
-                            <Grid item lg={4}>
-                              <CTextField
-                                error={Boolean(touched.item && errors.item)}
-                                helperText={touched.item && errors.item}
-                                label="item"
-                                name="item"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.item}
-                                Autocomplete={false}
-                              />
-                            </Grid>
-                            <Grid item lg={2}>
-                              <CTextField
-                                error={Boolean(touched.refnum && errors.refnum)}
-                                helperText={touched.refnum && errors.refnum}
-                                label="ref num"
-                                name="refnum"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.refnum}
-                              />
-                            </Grid>
-                            <Grid item lg={4}>
-                              <CAutocomplete
-                                onBlur={handleBlur}
-                                name="w_c"
-                                value={values.w_c}
-                                setFieldValue={setFieldValue}
-                              />
-                            </Grid>
-                            <Grid item lg={2}>
-                              <CButton label={"Search"} onClick={() => { SearchFn("ajax2", values, "") }} />
-                            </Grid>
+                      </Grid>
+                      <Grid item lg={8} >
+                        <Grid container spacing={3}>
+                          <Grid item lg={4}>
+                            <CTextField
+                              error={Boolean(touched.item && errors.item)}
+                              helperText={touched.item && errors.item}
+                              label="item"
+                              name="item"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.item}
+                              Autocomplete={false}
+                            />
+                          </Grid>
+                          <Grid item lg={2}>
+                            <CTextField
+                              error={Boolean(touched.refnum && errors.refnum)}
+                              helperText={touched.refnum && errors.refnum}
+                              label="ref num"
+                              name="refnum"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.refnum}
+                            />
+                          </Grid>
+                          <Grid item lg={4}>
+                            <CAutocomplete
+                              onBlur={handleBlur}
+                              name="w_c"
+                              value={values.w_c}
+                              setFieldValue={setFieldValue}
+                            />
+                          </Grid>
+                          <Grid item lg={2}>
+                            <CButton label={"Search"} onClick={() => { SearchFn("ajax2", values, "") }} />
                           </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid container spacing={2}>
-                    <Grid item lg={2}>
-                      <CButton label={"รายงานการมัดท่อ"} onClick={() => { SearchFn("ajax2", values, "Packing", "Packing") }} />
-                      <CButton label={"ใบตรวจสอบการมัดท่อ"} onClick={() => { SearchFn("ajax2", values, "Packing", "CheckPacking") }} />
-                    </Grid>
-                    <Grid item lg={2}>
-                      <CButton label={"รายงานการผลิต"} onClick={() => { SearchFn("ajax2", values, "Production", "Production") }} />
-                      <CButton label={"ใบตรวจสอบการผลิต"} onClick={() => { SearchFn("ajax2", values, "Production", "CheckProduction") }} disabled={false} />
-                    </Grid>
-                    <Grid item lg={2}>
-                      <CButton label={"รายงาน Forming"} onClick={() => { SearchFn("ajax2", values, "Forming", "Forming") }} disabled={false} />
-                      <CButton label={"บันทึกผลิต Forming"} onClick={() => { handleOpenModal(values) }} disabled={false} />
-                    </Grid>
-                    <Grid item lg={2}>
-                      <CButton label={"ใบขนย้ายระหว่างสาขา"} onClick={() => { SearchFn("MovingProductReport", values, "", "MovingProductReport") }} disabled={false} />
-                      <CButton label={"รายงานพิมพ์ตรา"} onClick={() => { SearchFn("StampingReport", values, "Stamping", "Stamping") }} disabled={false} />
-                    </Grid>
+                </Grid>
+                <Grid container spacing={2}>
+                  <Grid item lg={2}>
+                    <CButton label={"รายงานการมัดท่อ"} onClick={() => { SearchFn("ajax2", values, "Packing", "Packing") }} />
+                    <CButton label={"ใบตรวจสอบการมัดท่อ"} onClick={() => { SearchFn("ajax2", values, "Packing", "CheckPacking") }} />
                   </Grid>
-                </form>
-              )}
+                  <Grid item lg={2}>
+                    <CButton label={"รายงานการผลิต"} onClick={() => { SearchFn("ajax2", values, "Production", "Production") }} />
+                    <CButton label={"ใบตรวจสอบการผลิต"} onClick={() => { SearchFn("ajax2", values, "Production", "CheckProduction") }} disabled={false} />
+                  </Grid>
+                  <Grid item lg={2}>
+                    <CButton label={"รายงาน Forming"} onClick={() => { SearchFn("ajax2", values, "Forming", "Forming") }} disabled={false} />
+                    <CButton label={"บันทึกผลิต Forming"} onClick={() => { handleOpenModal(values) }} disabled={false} />
+                  </Grid>
+                  <Grid item lg={2}>
+                    <CButton label={"ใบขนย้ายระหว่างสาขา"} onClick={() => { SearchFn("MovingProductReport", values, "", "MovingProductReport") }} disabled={false} />
+                    <CButton label={"รายงานพิมพ์ตรา"} onClick={() => { SearchFn("StampingReport", values, "Stamping", "Stamping") }} disabled={false} />
+                  </Grid>
+                </Grid>
+              </form>
+            )}
           </Formik>
           <Grid container spacing={3}>
             <Grid item xs={12}>

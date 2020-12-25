@@ -4,7 +4,7 @@ import tableIcons from '../components/table/tableIcons'
 import API from '../components/API';
 // import AssignmentIcon from '@material-ui/icons/Assignment';
 
-const ResonStopMachineTableEditable = (props) => {
+const ReasonStopMachineTableEditable = (props) => {
     // const [selectedRow, setSelectedRow] = useState(null);
 
     const CRUDfn_reason_description = async (type, values) => {
@@ -89,4 +89,4 @@ const ResonStopMachineTableEditable = (props) => {
     );
 };
 
-export default ResonStopMachineTableEditable;
+export default ReasonStopMachineTableEditable;
