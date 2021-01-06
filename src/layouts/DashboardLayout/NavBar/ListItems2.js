@@ -27,6 +27,11 @@ import {
 const ListItems2 = [
     {
         Icon: BarChartIcon,
+        menutitle: 'รายงาน OT พนักงาน',
+        href: '/app/ProductionOvertime',
+    },
+    {
+        Icon: BarChartIcon,
         menutitle: 'Dashboard',
         href: '/app/dashboard',
     },
@@ -217,7 +222,7 @@ const ListItems2 = [
         ]
     },
     {
-        Icon: LocalAtmIcon ,
+        Icon: LocalAtmIcon,
         menutitle: 'ตุ้นทุน',
         submenu: [
             {
