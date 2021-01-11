@@ -73,9 +73,10 @@ export default function PagePrintDocument(props) {
                                     <TableRow>
                                         <TableCell align="right">#</TableCell>
                                         <TableCell align="right">lot</TableCell>
+                                        <TableCell align="right">barcode</TableCell>
                                         <TableCell align="right">From&nbsp;Location</TableCell>
                                         <TableCell align="right">item</TableCell>
-                                        <TableCell align="right">เส้น/มัด</TableCell>
+                                        <TableCell align="right">เส้น/มัด1</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -83,6 +84,7 @@ export default function PagePrintDocument(props) {
                                         <TableRow key={row.id}>
                                             <TableCell align="right">{index + 1}</TableCell>
                                             <TableCell align="right">{row.lot}</TableCell>
+                                            <TableCell align="right">{row.tagid}</TableCell>
                                             <TableCell align="right">{row.fromloc}</TableCell>
                                             <TableCell align="right">{row.item}</TableCell>
                                             <TableCell align="right">{row.qty1}</TableCell>
