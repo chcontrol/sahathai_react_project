@@ -1,7 +1,4 @@
-import React, {
-    useState
-    //    , useEffect
-} from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -39,26 +36,23 @@ const useStyles = makeStyles({
 
 export default function LinearWithValueLabel(props) {
     const classes = useStyles();
-    const [
-        progress,
-        // setProgress
-    ] = useState(0);
+    const [progress, setProgress] = useState(0);
 
-    // useEffect(() => {
-    //     let i = 1;
-    //     const timer = setInterval(() => {
-    //         setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 100 / props.listLength));
-    //         if (i === props.listLength + 1) {
-    //             clearInterval(timer);
-    //             alert("ย้ายข้อมูลสำเร็จ")
-    //             props.handleProcessSuccess(false)
-    //         }
-    //         i = i + 1;
-    //     }, 1200);
-    //     return () => {
-    //         clearInterval(timer);
-    //     };
-    // }, []);
+    useEffect(() => {
+        let i = 1;
+        const timer = setInterval(() => {
+            setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 100 / props.listLength));
+            if (i === props.listLength + 1) {
+                clearInterval(timer);
+                alert("ย้ายข้อมูลสำเร็จ")
+                props.handleProcessSuccess(false)
+            }
+            i = i + 1;
+        }, 1200);
+        return () => {
+            clearInterval(timer);
+        };
+    }, []);
 
     return (
         <div className={classes.root}>
