@@ -35,12 +35,26 @@ function CCreate(props) {
   useEffect(() => {
     setOpenModal(false)
   }, [ProcessSuccess])
+
+
+  const removeDuplicatesFromArrayByProperty = (arr, prop) => arr.reduce((accumulator, currentValue) => {
+    if(!accumulator.find(obj => obj[prop] === currentValue[prop])){
+      accumulator.push(currentValue);
+    }
+    return accumulator;
+  }, [])
+
   const handleScanTag = (scanTag) => {
     API.get(`API_QuantityMove/data.php?load=SearchTagDetail&tag_id=${scanTag}`)
       .then(res => {
         const items = res.data
         if (res.data.length > 0) {
+          console.log(qtyMoveList)
+          
           setQtyMoveList(qtyMoveList => [...qtyMoveList, { id: items[0].id, lot: items[0].lot, loc: items[0].loc, item: items[0].item, qty1: items[0].qty1, u_m: items[0].u_m, }])
+          removeDuplicatesFromArrayByProperty(qtyMoveList, 'id');
+          setQtyMoveList(qtyMoveList => removeDuplicatesFromArrayByProperty(qtyMoveList, 'id'))
+
         } else {
           alert("ไม่พบ Tags")
         }
