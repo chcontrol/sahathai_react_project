@@ -12,6 +12,8 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import OfflinePinIcon from '@material-ui/icons/OfflinePin';
 import HomeIcon from '@material-ui/icons/Home';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
+import WatchLaterIcon from '@material-ui/icons/WatchLater';
+import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 
 import {
     AlertCircle as AlertCircleIcon,
@@ -24,12 +26,19 @@ import {
     Users as UsersIcon
 } from 'react-feather';
 
+
 const ListItems2 = [
     {
-        Icon: BarChartIcon,
+        Icon: LocalLibraryIcon,
+        menutitle: 'รายงานผู้บริหาร',
+        href: '/app/ExecutiveReport',
+    },
+    {
+        Icon: WatchLaterIcon,
         menutitle: 'รายงาน OT พนักงาน',
         href: '/app/ProductionOvertime',
     },
+    
     {
         Icon: BarChartIcon,
         menutitle: 'Dashboard',

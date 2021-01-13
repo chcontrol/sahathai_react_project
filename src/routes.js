@@ -6,6 +6,8 @@ import AccountView from 'src/views/UserAccountManagement/AccountView';
 import CustomerListView from 'src/views/customer/CustomerListView';
 import DashboardView from 'src/views/reports/DashboardView';
 import ProductionOvertimeView from 'src/views/ProductionOvertime/';
+import ExecutiveReportView from 'src/views/ExecutiveReport/';
+
 import LoginView from 'src/views/auth/LoginView';
 import NotFoundView from 'src/views/errors/NotFoundView';
 import ProductListView from 'src/views/ERPModule/Production/ProductListView';
@@ -27,6 +29,9 @@ const routes = [
     path: 'app',
     element: <DashboardLayout />,
     children: [
+      
+
+      { path: 'ExecutiveReport', element: <ExecutiveReportView /> },
       { path: 'ProductionOvertime', element: <ProductionOvertimeView /> },
       { path: 'account', element: <AccountView /> },
       { path: 'customers', element: <CustomerListView /> },
