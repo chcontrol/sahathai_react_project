@@ -12,6 +12,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import PeopleIcon from '@material-ui/icons/PeopleOutlined';
 import ModalManagementFullPage from '../components/ModalManagementFullPage';
 import ReportProductForming from '../ERPModule/Production/ReportProductForming';
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 const TotalCustomers = ({ className, ...rest }) => {
   const classes = useStyles();
 
-  const [openModalItem, setOpenModalItem] = React.useState(true);
+  const [openModalItem, setOpenModalItem] = React.useState(false);
 
   const handleCloseModalItem = async () => {
     setOpenModalItem(false);
@@ -85,11 +86,11 @@ const TotalCustomers = ({ className, ...rest }) => {
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>
-              <PeopleIcon />
+              <HourglassEmptyIcon />
             </Avatar>
           </Grid>
         </Grid>
-        <Box
+        {/* <Box
           mt={0}
           display="flex"
           alignItems="center"
@@ -107,7 +108,7 @@ const TotalCustomers = ({ className, ...rest }) => {
           >
             Since last month
           </Typography>
-        </Box>
+        </Box> */}
       </CardContent>
     </Card>
   );

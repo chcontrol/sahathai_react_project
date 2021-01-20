@@ -11,6 +11,9 @@ import { DataGrid } from '@material-ui/data-grid';
 import MaterialTable, { MTableToolbar } from 'material-table';
 import tableIcons from 'src/views/components/table/tableIcons';
 import API from 'src/views/components/API';
+import MenuChip from './MenuChip';
+import ModalNopaperLGPage from 'src/views/components/ModalNopaperLGPage';
+import V_STS_execRpt_F_byMarket_Live from './V_STS_execRpt_F_byMarket_Live';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,31 +25,55 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const ReportProductFinish = () => {
+const ReportProductFinish = (props) => {
   const classes = useStyles();
   const [DataReportProductFinish, setDataReportProductFinish] = useState([])
+  const [openModalItem2, setOpenModalItem2] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
 
   const searchReportProductFinish = () => {
+
 
     API.get(`API_ExecutiveReport/data.php?load=ReportProductFinish`)
       .then(res => {
         setDataReportProductFinish(res.data)
       })
-
   }
 
   useEffect(() => {
     searchReportProductFinish()
   }, [])
 
+  const handleClick = (event) => {
+    setOpenModalItem2(true);
 
+  };
+
+  const handleCloseModalItem = async () => {
+    setOpenModalItem2(false);
+  };
 
   return (
     <Page
       className={classes.root}
       title="Dashboard"
     >
+
+      <ModalNopaperLGPage
+        modalHeader={
+          <>รายงาน {`${props.label} By Size`}</>
+        }
+        modalDetail={
+          <V_STS_execRpt_F_byMarket_Live
+            title={`${props.label} By TypeSize`}
+            daystart={props.daystart}
+            dayend={props.dayend}
+          />
+        }
+        open={openModalItem2}
+        onClose={handleCloseModalItem}
+      />
 
       <Container maxWidth={false}>
 
@@ -62,23 +89,26 @@ const ReportProductFinish = () => {
               icons={tableIcons}
 
               columns={[
-                { title: 'แผนก', field: 'แผนก', width: 300, cellStyle: { backgroundColor: 'gray', width: 130 } },
                 {
-                  title: '0-1 วัน เส้น', field: '0-1 วัน จำนวนเส้น', type: 'numeric', cellStyle: { backgroundColor: '' },
+                  title: 'Market', field: 'Market', width: 300,
+                  headerStyle: { backgroundColor: '#f8f7ff', width: 130 },
+                  cellStyle: { backgroundColor: '#f8f7ff', width: 130 }
                 },
-                { title: '0-1 วัน นน.ตัน', field: '0-1 วัน นน.ตัน', type: 'numeric' },
-                { title: '2-7 วัน เส้น', field: '2-7 วัน จำนวนเส้น', type: 'numeric' },
-                { title: '2-7 วัน นน.ตัน', field: '2-7 วัน นน.ตัน', type: 'numeric' },
-                { title: '8-14 วัน เส้น', field: '8-14 วัน จำนวนเส้น', type: 'numeric' },
-                { title: '8-14 วัน นน.ตัน', field: '8-14 วัน นน.ตัน', type: 'numeric' },
-                { title: '15-30 วัน เส้น', field: '15-30 วัน จำนวนเส้น', type: 'numeric' },
-                { title: '15-30 วัน นน.ตัน', field: '15-30 วัน นน.ตัน', type: 'numeric' },
-                { title: '31-90 วัน เส้น', field: '31-90 วัน จำนวนเส้น', type: 'numeric' },
-                { title: '31-90 วัน นน.ตัน', field: '31-90 วัน นน.ตัน', type: 'numeric' },
-                { title: '91-180 วัน เส้น', field: '91-180 วัน จำนวนเส้น', type: 'numeric' },
-                { title: '91-180 วัน นน.ตัน', field: '91-180 วัน นน.ตัน', type: 'numeric' },
-                { title: '>180 วัน เส้น', field: '>180 วัน จำนวนเส้น', type: 'numeric' },
-                { title: '>180 วัน นน.ตัน', field: '>180 วัน นน.ตัน', type: 'numeric' },
+                {
+                  title: 'Type', field: 'Type', width: 300,
+                  headerStyle: { backgroundColor: '#f8f7ff', width: 130 },
+                  cellStyle: { backgroundColor: '#f8f7ff', width: 130 }
+                },
+                { title: '0-1 เดือน จำนวนเส้น', field: '0-1 เดือน จำนวนเส้น', type: 'numeric', cellStyle: { backgroundColor: '' }, },
+                { title: '(0-30 วัน) นน.ตัน', field: '(0-30 วัน) นน.ตัน', type: 'numeric' },
+                { title: '2-3 เดือน จำนวนเส้น', field: '2-3 เดือน จำนวนเส้น', type: 'numeric' },
+                { title: '(31-90 วัน) นน.ตัน', field: '(31-90 วัน) นน.ตัน', type: 'numeric' },
+                { title: '4-6 เดือน จำนวนเส้น', field: '0-1 เดือน จำนวนเส้น', type: 'numeric' },
+                { title: '(91-180 วัน) นน.ตัน', field: '(91-180 วัน) นน.ตัน', type: 'numeric' },
+                { title: '7-12 เดือน จำนวนเส้น', field: '0-1 เดือน จำนวนเส้น', type: 'numeric' },
+                { title: '(181-365 วัน) นน.ตัน', field: '(181-365 วัน) นน.ตัน', type: 'numeric' },
+                { title: '>2 ปี จำนวนเส้น', field: '>2 ปี จำนวนเส้น', type: 'numeric' },
+                { title: '(>730 วัน) นน.ตัน', field: '(>730 วัน) นน.ตัน', type: 'numeric' },
                 { title: 'รวม เส้น', field: 'รวม จำนวนเส้น', type: 'numeric' },
                 { title: 'รวม นน.ตัน', field: 'รวม นน.ตัน', type: 'numeric' },
 
@@ -89,20 +119,31 @@ const ReportProductFinish = () => {
                   <div>
                     <MTableToolbar {...props} />
                     <div style={{ padding: '0px 10px' }}>
-                      <Chip onClick={()=>alert()} label="0-1 วัน" color="secondary" style={{ marginRight: 5 }} />
-                      <Chip label="2-7 วัน" color="secondary" style={{ marginRight: 5 }} />
-                      <Chip label="8-14 วัน" color="secondary" style={{ marginRight: 5 }} />
-                      <Chip label="15-30 วัน" color="secondary" style={{ marginRight: 5 }} />
-                      <Chip label="31-90 วัน" color="secondary" style={{ marginRight: 5 }} />
-                      <Chip label="91-180 วัน" color="secondary" style={{ marginRight: 5 }} />
-                      <Chip label="> 180 วัน" color="secondary" style={{ marginRight: 5 }} />
-                      <Chip label="รวม" color="secondary" style={{ marginRight: 5 }} />
+                      <Chip
+                        aria-controls="customized-menu"
+                        aria-haspopup="true"
+                        variant="contained"
+                        color="primary"
+                        onClick={handleClick}
+                        label={"รายงานจำแนกโดยชนิดท่อ"}
+                      >
+                      </Chip>
+                      <Button label="0-1 วัน" daystart="0" dayend="1" />
+                      <MenuChip label="0-1 วัน" daystart="0" dayend="1" />
+                      <MenuChip label="2-7 วัน" daystart="2" dayend="7" />
+                      <MenuChip label="8-14 วัน" daystart="8" dayend="14" />
+                      <MenuChip label="15-30 วัน" daystart="15" dayend="30" />
+                      <MenuChip label="31-90 วัน" daystart="31" dayend="90" />
+                      <MenuChip label="91-180 วัน" daystart="91" dayend="180" />
+                      <MenuChip label="มากกว่า 180 วัน" daystart="181" dayend="3000" />
+                      <MenuChip label="รวม" daystart="0" dayend="3000" />
                     </div>
                   </div>
                 ),
               }}
+
               options={{
-                
+
                 cellStyle: { padding: '0.0' },
                 headerStyle: { padding: '0.1' },
                 search: false,

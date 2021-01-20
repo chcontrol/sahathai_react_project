@@ -10,6 +10,7 @@ import LatestOrders from './LatestOrders';
 import LatestProducts from './LatestProducts';
 import Sales from './Sales';
 import CardReportProductionDaily from './CardReportProductionDaily';
+import CardNext from './CardNext';
 import CardReportProductFromming from './CardReportProductFromming';
 import CardAppProductionOvertime from './CardAppProductionOvertime';
 import TrafficByDevice from './TrafficByDevice';
@@ -44,13 +45,16 @@ const ExecutiveReport = () => {
                 <CardReportProductFromming />
               </Grid>
               <Grid item xs={12}>
-                <CardReportProductFinish inModal={'123'} />
+                <CardReportProductFinish />
               </Grid>
               <Grid item xs={12}>
                 <CardReportProductionDaily />
               </Grid>
               <Grid item xs={12}>
                 <CardAppProductionOvertime />
+              </Grid>
+              <Grid item xs={12}>
+                <CardNext />
               </Grid>
             </Grid>
           </Grid>

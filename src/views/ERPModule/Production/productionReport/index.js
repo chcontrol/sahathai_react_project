@@ -42,7 +42,7 @@ const ProductionDailyReport = () => {
   const classes = useStyles();
   const [data, setdata] = useState([])
   const [isLoadingData, setisLoadingData] = useState(false)
-  const [openModal, setOpenModal] = React.useState(true);
+  const [openModal, setOpenModal] = React.useState(false);
   const [openModalReasonMaster, setOpenModalReasonMaster] = React.useState(false);
   const [openModalReasonMasterDetail, setOpenModalReasonMasterDetail] = React.useState(false);
   const [openModalAddNewReason, setOpenModalAddNewReason] = React.useState(false);

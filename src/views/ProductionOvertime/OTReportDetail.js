@@ -13,7 +13,12 @@ import {
     Container,
     Button,
     Modal,
-    Paper
+    Paper,
+    FormControl,
+    FormLabel,
+    RadioGroup,
+    FormControlLabel,
+    Radio
 } from '@material-ui/core';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import MoneyIcon from '@material-ui/icons/Money';
@@ -23,11 +28,14 @@ import CButton from '../components/Input/CButton';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import CreateOTReport from './CreateOTReport';
 import { DataGrid } from '@material-ui/data-grid';
+import CTextField from '../components/Input/CTextField';
+import SaveIcon from '@material-ui/icons/Save';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        height: '100%'
+        height: '100%',paddingBottom:10
     },
     avatar: {
         backgroundColor: colors.red[600],
@@ -40,7 +48,8 @@ const useStyles = makeStyles((theme) => ({
     differenceValue: {
         color: colors.red[900],
         marginRight: theme.spacing(1)
-    }
+    },
+
 }));
 
 const columns = [
@@ -65,7 +74,7 @@ const columns = [
     {
         field: 'statusShow', headerName: 'สถานะ', width: 130, type: 'number',
         valueGetter: (params) =>
-            `${(params.getValue("status")) ? 'อนุมัติ' :'ไม่อนุมัติ'} `
+            `${(params.getValue("status")) ? 'อนุมัติ' : 'ไม่อนุมัติ'} `
     },
     {
         field: 'status',
@@ -111,70 +120,125 @@ const OTReport = ({ className, ...rest }) => {
         >
 
             <Container maxWidth={false} style={{ paddingTop: 10 }}>
-                <Grid container spacing={3}>
+                <Grid container spacing={2}>
                     <Grid item xs={12} alignContent="center">
                         ใบขออนุมัติทำงานล่วงเวลา (OT)
                     </Grid>
+                    <Grid item xs={4} >
+
+                        <CTextField
+                            label="ฝ่าย/แผนก ที่ขอทำ OT"
+                            name="item"
+                            value="พ่นสี"
+                            Autocomplete={false}
+                        />
+                    </Grid>
+                    <Grid item xs={4} >
+
+                        <CTextField
+                            label="วันเดือนปี"
+                            name="item"
+                            value="18/01/2020"
+                            Autocomplete={false}
+                        />
+                    </Grid>
+                    <Grid item xs={4} >
+                        <CTextField
+                            label="ผู้ขออนุมัติ (หัวหน้าแผนก)"
+                            name=""
+                            value="Mr. หัวหน้าแผนก"
+                            Autocomplete={false}
+                        />
+                    </Grid>
+                    <Grid item xs={4} >
+
+                        <CTextField
+                            label="ผู้ขออนุมัติ (ผู้จัดการฝ่าย)"
+                            name=""
+                            value="Mr. ผู้จัดการฝ่าย"
+                            Autocomplete={false}
+                        />
+                    </Grid>
+                    <Grid item xs={4} >
+
+                        <CTextField
+                            label="รอง/ผู้จัดการโรงงาน"
+                            name="item"
+                            value="Mr. รอง/ผู้จัดการโรงงาน"
+                            Autocomplete={false}
+                        />
+                    </Grid>
+                    <Grid item xs={4} >
+
+                        <CTextField
+                            label="ฝ่ายบุคคลดำเนินการ Pay Roll"
+                            name="item"
+                            value="Mr. ฝ่ายบุคคลดำเนินการ Pay Roll"
+                            Autocomplete={false}
+                        />
+                    </Grid>
+
                     <Grid item xs={6} >
-                        ฝ่าย/แผนก ที่ขอทำ OT
+                        <FormControl component="fieldset" style={{ fontSize: 10 }}>
+                            <FormLabel component="legend"><span style={{ fontSize: '0.8rem' }}>ประเภทของ OT</span></FormLabel>
+                            <RadioGroup row aria-label="position" name="position" defaultValue="top">
+                                <FormControlLabel value="OT" control={<Radio color="primary" />} label={<span style={{ fontSize: '0.8rem' }}>{"วันปกติ"}</span>} />
+                                <FormControlLabel value="oliday" control={<Radio color="primary" />} label={<span style={{ fontSize: '0.8rem' }}>{"ทำงานวันหยุด"}</span>} />
+                                <FormControlLabel value="holidayOT" control={<Radio color="primary" />} label={<span style={{ fontSize: '0.8rem' }}>{"ล่วงเวลาวันหยุด"}</span>} />
+                            </RadioGroup>
+                        </FormControl>
                     </Grid>
-                    <Grid item xs={6} >
-                        วันเดือนปี
-                    </Grid>
-                    <Grid item xs={12} >
-                        <Grid container >
-                            <Grid item xs={4} >
-                                <Grid container >
-                                    <Grid item xs={12} >
-                                        ผู้ขออนุมัติ (หัวหน้าแผนก)
-                                    </Grid>
-                                    <Grid item xs={12} >
-                                        ผู้ขออนุมัติ (ผู้จัดการฝ่าย)
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={4} >
-                                <Grid container >
-                                    <Grid item xs={12} >
-                                        รอง/ผู้จัดการโรงงาน
-                                    </Grid>
-                                    <Grid item xs={12} >
-                                        ฝ่ายบุคคลดำเนินการ Pay Roll
-                                    </Grid>
-                                </Grid>
-
-                            </Grid>
-                            <Grid item xs={4} >ประเภทของ OT </Grid>
-                        </Grid>
-
-                    </Grid>
-
                 </Grid>
             </Container>
 
 
             <CardContent>
+                <Grid container spacing={2}>
+                    <Grid style={{ height: 380, width: '100%' }}>
+                        <DataGrid
+                            rows={rows}
+                            columns={columns}
+                            pageSize={25}
+                            checkboxSelection
+                            hideFooterPagination
+                            onSelectionChange={(newSelection) => {
+                                setSelection(newSelection.rowIds);
 
-                <div style={{ height: 400, width: '100%' }}>
-                    <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        pageSize={25}
-                        checkboxSelection
-                        hideFooterPagination
-                        onSelectionChange={(newSelection) => {
-                            setSelection(newSelection.rowIds);
-
-                        }}
-                    />
-                </div>
-                <Grid>
-                    <Button>บันทึกข้อมูล</Button>
-                    <Button>ยกเลิกเอกสาร</Button>
-                    <h1>{JSON.stringify(select)}</h1>
-
+                            }}
+                        />
+                    </Grid>
                 </Grid>
             </CardContent>
+
+            <Grid container spacing={2}>
+                <Grid item xs={6} alignContent="center" spacing={2} style={{ textAlign: 'right', padding: 10 }}>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        style={{ backgroundColor: colors.green[600] }}
+                        className={classes.button}
+                        startIcon={<SaveIcon />}
+                        onClick={() => setopenModalCreateOTReprot(true)}
+                    >
+                        บันทึกข้อมูล
+            </Button>
+            
+                </Grid>
+                <Grid item xs={6} alignContent="center" spacing={2} style={{ textAlign: 'left', padding: 10 }}>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        style={{ backgroundColor: colors.red[600] }}
+                        className={classes.button}
+                        startIcon={<DeleteForeverIcon />}
+                        onClick={() => setopenModalCreateOTReprot(true)}
+                    >
+                        ยกเลิกเอกสาร
+            </Button>
+                    {/* <h1>{JSON.stringify(select)}</h1> */}
+
+                </Grid>
+            </Grid>
 
         </Card>
     );

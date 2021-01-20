@@ -22,6 +22,9 @@ import tableIcons from '../components/table/tableIcons'
 import CButton from '../components/Input/CButton';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import CreateOTReport from './CreateOTReport';
+import AccessibilityIcon from '@material-ui/icons/Accessibility';
+import ModalManagementFullPage from '../components/ModalManagementFullPage';
+import EmployeeList from './EmployeeList';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,6 +54,11 @@ const OTReport = ({ className, ...rest }) => {
   };
 
 
+  const [openModalEmployee, setOpenModalEmployee] = React.useState(false);
+
+
+
+
   return (
     <Card
       className={clsx(classes.root, className)}
@@ -60,12 +68,9 @@ const OTReport = ({ className, ...rest }) => {
       <Container maxWidth={false} style={{ paddingTop: 10 }}>
         <Grid
           container
-          spacing={3}
+          spacing={1}
         >
-          <Grid
-            item
-            xs={4}
-          >
+          <Grid item xs={3} >
             <Button
               variant="contained"
               color="secondary"
@@ -75,18 +80,39 @@ const OTReport = ({ className, ...rest }) => {
             >
               สร้างรายงาน
             </Button>
+
             <Modal open={openModalCreateOTReprot} onClose={handleCloseModalItem} >
               <CreateOTReport
                 handleCloseModalItem={handleCloseModalItem}
               />
             </Modal>
           </Grid>
-          <Grid
-            item
-            xs={6}
-          >
-            
+          <Grid item xs={3} >
+            <Button
+              variant="contained"
+              color="secondary"
+              style={{ backgroundColor: colors.yellow[800] }}
+              className={classes.button}
+              startIcon={<AccessibilityIcon />}
+              onClick={() => setOpenModalEmployee(true)}
+            >
+              พนักงาน
+            </Button>
+            <ModalManagementFullPage
+              modalHeader={
+                <>ข้อมูลพนักงานและประวัติการทำ OT</>
+              }
+              modalDetail={
+                <EmployeeList />
+              }
+
+              open={openModalEmployee}
+              onClose={handleCloseModalItem}
+            />
+
           </Grid>
+
+
         </Grid>
       </Container>
 
@@ -97,14 +123,28 @@ const OTReport = ({ className, ...rest }) => {
           icons={tableIcons}
           columns={[
             { title: 'เลขที่เอกสาร', field: 'name' },
-            { title: 'วันที่เอกสาร', field: 'surname' },
-            { title: 'แผนก', field: 'surname' },
-            { title: 'สถานะ', field: 'birthYear', type: 'numeric' },
+            { title: 'วันที่เอกสาร', field: 'date' },
+            { title: 'แผนก', field: 'branch' },
+            { title: 'สถานะ', field: 'status' },
           ]}
           data={[
-            { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-            { name: 'Zerya Betül', surname: 'Baran', birthYear: 2017, birthCity: 34 },
+            { name: 'OT21010001', date: '17/01/2020', branch: 'มัดท่อ', status: 'อนุมัติ' },
+            { name: 'OT21010002', date: '18/01/2020', branch: 'พ่นสี', status: 'ไม่อนุมัติ' },
           ]}
+          options={{
+            search: false,
+            paging: false,
+            maxBodyHeight: '60vh',
+            minBodyHeight: '60vh',
+            exportButton: true,
+            filtering: false,
+            rowStyle: rowData => ({
+              // backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF',
+              fontSize: 12,
+              padding: 0
+            }
+            ),
+          }}
           detailPanel={rowData => {
             return (
               <iframe
@@ -119,7 +159,7 @@ const OTReport = ({ className, ...rest }) => {
           }}
         />
       </CardContent>
-      
+
     </Card>
   );
 };

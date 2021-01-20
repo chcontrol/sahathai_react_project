@@ -89,7 +89,7 @@ const CardReportProductFinish = ({ className, ...rest }) => {
             </Avatar>
           </Grid>
         </Grid>
-        <Box
+        {/* <Box
           mt={0}
           display="flex"
           alignItems="center"
@@ -108,7 +108,7 @@ const CardReportProductFinish = ({ className, ...rest }) => {
           >
             Since last month
           </Typography>
-        </Box>
+        </Box> */}
       </CardContent>
     </Card>
   );

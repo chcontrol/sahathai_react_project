@@ -99,7 +99,8 @@ const ReportProductForming = () => {
                       <MenuChip label="15-30 วัน" daystart="15" dayend="30" />
                       <MenuChip label="31-90 วัน" daystart="31" dayend="90" />
                       <MenuChip label="91-180 วัน" daystart="91" dayend="180" />
-                      <MenuChip label="มากกว่า 180 วัน" daystart="181" dayend="999" />
+                      <MenuChip label="มากกว่า 180 วัน" daystart="181" dayend="3000" />
+                      <MenuChip label="รวม" daystart="0" dayend="3000" />
                     </div>
                   </div>
                 ),

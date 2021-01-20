@@ -80,12 +80,12 @@ const CardAppProductionOvertime = ({ className, ...rest }) => {
             </Avatar>
           </Grid>
         </Grid>
-        <Box mt={3}>
+        {/* <Box mt={3}>
           <LinearProgress
             value={75.5}
             variant="determinate"
           />
-        </Box>
+        </Box> */}
       </CardContent>
     </Card>
   );
