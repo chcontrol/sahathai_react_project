@@ -11,10 +11,8 @@ import {
   colors,
   makeStyles
 } from '@material-ui/core';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import MoneyIcon from '@material-ui/icons/Money';
 import ModalManagementFullPage from '../components/ModalManagementFullPage';
-import Sales from './Sales';
 import ReportProductFinish from '../ERPModule/Production/ReportProductFinish';
 
 

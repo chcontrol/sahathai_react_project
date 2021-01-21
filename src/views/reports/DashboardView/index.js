@@ -12,7 +12,7 @@ import Sales from './Sales';
 import TasksProgress from './TasksProgress';
 import TotalCustomers from './TotalCustomers';
 import TotalProfit from './TotalProfit';
-import TrafficByDevice from './TrafficByDevice';
+import PieChartExecutiveSummary from './PieChartExecutiveSummary';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -90,7 +90,7 @@ const Dashboard = () => {
             xl={3}
             xs={12}
           >
-            <TrafficByDevice />
+            <PieChartExecutiveSummary />
           </Grid>
           <Grid
             item

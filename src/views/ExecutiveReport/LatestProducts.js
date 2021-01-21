@@ -4,27 +4,36 @@ import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
 import moment from 'moment';
 import {
+  Avatar,
   Box,
   Button,
   Card,
+  CardContent,
   CardHeader,
+  CardMedia,
   Divider,
   IconButton,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  makeStyles
+  makeStyles,
+  Typography,
+  useTheme
 } from '@material-ui/core';
+
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+
+
 
 const data = [
   {
     id: uuid(),
-    name: 'Dropbox',
+    name: 'Coil aged exceed 6 month',
     imageUrl: '/static/images/products/product_1.png',
-    updatedAt: moment().subtract(2, 'hours')
+    updatedAt: moment().subtract(2, 'hours'),
+    description: '123456789'
   },
   {
     id: uuid(),
@@ -57,14 +66,17 @@ const useStyles = makeStyles(({
     height: '100%'
   },
   image: {
-    height: 48,
-    width: 48
+    height: 120,
+    width: 120
   }
 }));
+
+
 
 const LatestProducts = ({ className, ...rest }) => {
   const classes = useStyles();
   const [products] = useState(data);
+  const theme = useTheme();
 
   return (
     <Card
@@ -73,7 +85,7 @@ const LatestProducts = ({ className, ...rest }) => {
     >
       <CardHeader
         subtitle={`${products.length} in total`}
-        title="Latest Products"
+        title="OUTSTANDDING"
       />
       <Divider />
       <List>
@@ -82,6 +94,12 @@ const LatestProducts = ({ className, ...rest }) => {
             divider={i < products.length - 1}
             key={product.id}
           >
+
+
+
+
+
+
             <ListItemAvatar>
               <img
                 alt="Product"
@@ -91,8 +109,9 @@ const LatestProducts = ({ className, ...rest }) => {
             </ListItemAvatar>
             <ListItemText
               primary={product.name}
-              secondary={`Updated ${product.updatedAt.fromNow()}`}
+              secondary={`${product.description}`}
             />
+            
             <IconButton
               edge="end"
               size="small"
