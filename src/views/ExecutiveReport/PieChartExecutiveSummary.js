@@ -138,19 +138,31 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
       })
   }
 
-  const aaa = showLineDataSetByItemGroup('Domestic', CoilRecive)/(showLineDataSetByItemGroup('Domestic', CoilRecive)+showLineDataSetByItemGroup('International', CoilRecive)) * 100;
-  const bbb = showLineDataSetByItemGroup('International', CoilRecive)/(showLineDataSetByItemGroup('Domestic', CoilRecive)+showLineDataSetByItemGroup('International', CoilRecive)) * 100;
-  const a = showLineDataSetByItemGroup('Domestic', CoilRecive);
-  const devices = [
+  const CoilReciveDataSet = [
     {
       title: 'Domestic',
-      value: (aaa>0)? aaa.toFixed(2):0,
+      value: showLineDataSetByItemGroup('Domestic', CoilRecive),
       icon: ArrowDownwardIcon,
       color: colors.indigo[600]
     },
     {
       title: 'International',
-      value: (bbb>0)? bbb.toFixed(2):0,
+      value: showLineDataSetByItemGroup('International', CoilRecive),
+      icon: ArrowUpwardIcon,
+      color: colors.red[600]
+    }
+  ];
+
+  const  PipeSaleDataSet = [
+    {
+      title: 'Domestic',
+      value: showLineDataSetByItemGroup('Domestic', PipeSale),
+      icon: ArrowDownwardIcon,
+      color: colors.indigo[600]
+    },
+    {
+      title: 'International',
+      value: showLineDataSetByItemGroup('International', PipeSale),
       icon: ArrowUpwardIcon,
       color: colors.red[600]
     }
@@ -231,7 +243,7 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
               justifyContent="center"
               mt={2}
             >
-              {devices.map(({
+              {CoilReciveDataSet.map(({
                 color,
                 icon: Icon,
                 title,
@@ -254,7 +266,6 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
                     variant="h2"
                   >
                     {value}
-                %
               </Typography>
                 </Box>
               ))}
@@ -276,7 +287,7 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
               justifyContent="center"
               mt={2}
             >
-              {devices.map(({
+              {PipeSaleDataSet.map(({
                 color,
                 icon: Icon,
                 title,
@@ -299,7 +310,7 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
                     variant="h2"
                   >
                     {value}
-                %
+                
               </Typography>
                 </Box>
               ))}

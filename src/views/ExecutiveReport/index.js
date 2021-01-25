@@ -65,13 +65,13 @@ const ExecutiveReport = () => {
 
 
           
-          <Grid item xs={4} >
+          <Grid item xs={6} >
             <PieChartExecutiveSummary />
           </Grid>
           {/* <Grid item lg={4} md={6} xl={3} xs={12} >
             <LatestProducts />
           </Grid> */}
-          <Grid xs={8}  >
+          <Grid xs={6}  >
             <LatestProducts />
           </Grid>
           
