@@ -104,15 +104,18 @@ const TableExecutiveSummary = ({ className, ...rest }) => {
 
 
     const searchExecutiveSummaryData = () => {
-        API.get(`API_ExecutiveReport/data.php?load=setExecutiveSummaryData11`)
-            .then(res => {
-                (res.data) ? setExecutiveSummaryData1(res.data) : setExecutiveSummaryData1([])
-            })
+        setTimeout(() => {
+            API.get(`API_ExecutiveReport/data.php?load=setExecutiveSummaryData1`)
+                .then(res => {
+                    (res.data) ? setExecutiveSummaryData1(res.data) : setExecutiveSummaryData1([])
+                })
 
-        API.get(`API_ExecutiveReport/data.php?load=setExecutiveSummaryData22`)
-            .then(res => {
-                (res.data) ? setExecutiveSummaryData2(res.data) : setExecutiveSummaryData2([])
-            })
+            API.get(`API_ExecutiveReport/data.php?load=setExecutiveSummaryData2`)
+                .then(res => {
+                    (res.data) ? setExecutiveSummaryData2(res.data) : setExecutiveSummaryData2([])
+                })
+        }, 2000);
+
     }
 
     useEffect(() => {
@@ -133,8 +136,8 @@ const TableExecutiveSummary = ({ className, ...rest }) => {
                     justify="space-between"
                     spacing={1}
                 >
-                    
-                  
+
+
                     {/* <Grid item xs={8}>
                         <div style={{ padding: '0px 5px' }}>
                             <span style={{ padding: '0px 4px' }}>

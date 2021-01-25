@@ -63,16 +63,16 @@ const ReportProductForming = () => {
 
               columns={[
                 {
-                  title: 'แผนก', field: 'แผนก', width: 300,
+                  title: 'แผนก', field: 'แผนก', width: 200,
                   headerStyle: { backgroundColor: '#f8f7ff', width: 130 },
                   cellStyle: { backgroundColor: '#f8f7ff', width: 130 }
                 },
-                {
-                  title: '0-1 วัน เส้น', field: '0-1 วัน จำนวนเส้น', type: 'numeric', cellStyle: { backgroundColor: '' },
-                },
-                { title: '0-1 วัน นน.ตัน', field: '0-1 วัน นน.ตัน', type: 'numeric' },
-                { title: '2-7 วัน เส้น', field: '2-7 วัน จำนวนเส้น', type: 'numeric' },
-                { title: '2-7 วัน นน.ตัน', field: '2-7 วัน นน.ตัน', type: 'numeric' },
+                {title: 'Today จำนวนเส้น', field: 'Today จำนวนเส้น', type: 'currency'},
+                {title: 'Today นน.ตัน', field: 'Today นน.ตัน', type: 'numeric'},
+                { title: '1-7 วัน จำนวนเส้น', field: '1-7 วัน จำนวนเส้น', type: 'numeric' },
+                { title: '1-7 วัน นน.ตัน', field: '1-7 วัน นน.ตัน', type: 'numeric' },
+                { title: '8-14 วัน จำนวนเส้น', field: '8-14 วัน จำนวนเส้น', type: 'numeric' },
+                { title: '8-14 วัน นน.ตัน', field: '8-14 วัน นน.ตัน', type: 'numeric' },
                 { title: '8-14 วัน เส้น', field: '8-14 วัน จำนวนเส้น', type: 'numeric' },
                 { title: '8-14 วัน นน.ตัน', field: '8-14 วัน นน.ตัน', type: 'numeric' },
                 { title: '15-30 วัน เส้น', field: '15-30 วัน จำนวนเส้น', type: 'numeric' },
@@ -81,8 +81,10 @@ const ReportProductForming = () => {
                 { title: '31-90 วัน นน.ตัน', field: '31-90 วัน นน.ตัน', type: 'numeric' },
                 { title: '91-180 วัน เส้น', field: '91-180 วัน จำนวนเส้น', type: 'numeric' },
                 { title: '91-180 วัน นน.ตัน', field: '91-180 วัน นน.ตัน', type: 'numeric' },
-                { title: '>180 วัน เส้น', field: '>180 วัน จำนวนเส้น', type: 'numeric' },
-                { title: '>180 วัน นน.ตัน', field: '>180 วัน นน.ตัน', type: 'numeric' },
+                { title: '181-365 วัน จำนวนเส้น', field: '181-365 วัน จำนวนเส้น', type: 'numeric' },
+                { title: '181-365 วัน นน.ตัน', field: '181-365 วัน นน.ตัน', type: 'numeric' },
+                { title: '>2 ปี จำนวนเส้น', field: '>2 ปี จำนวนเส้น', type: 'numeric' },
+                { title: '>2 ปี วัน นน.ตัน', field: '>2 ปี วัน นน.ตัน', type: 'numeric' },
                 { title: 'รวม เส้น', field: 'รวม จำนวนเส้น', type: 'numeric' },
                 { title: 'รวม นน.ตัน', field: 'รวม นน.ตัน', type: 'numeric' },
 
@@ -122,7 +124,8 @@ const ReportProductForming = () => {
                   // backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF',
                   fontSize: 14,
                   padding: 0,
-                  width: 500
+                  width: 500,
+                  fontFamily: 'sans-serif'
                 }
                 ),
               }}

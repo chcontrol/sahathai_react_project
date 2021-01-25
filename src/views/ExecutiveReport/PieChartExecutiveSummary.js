@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { Doughnut, Pie } from 'react-chartjs-2';
@@ -13,12 +13,10 @@ import {
   makeStyles,
   useTheme,
   Grid,
-  Chip
+  Chip,
+  List
 
 } from '@material-ui/core';
-import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-import PhoneIcon from '@material-ui/icons/Phone';
-import TabletIcon from '@material-ui/icons/Tablet';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import moment from "moment";
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
@@ -92,7 +90,7 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
     labels: ['Domestic', 'International']
   };
 
-  
+
 
   const options = {
     animation: false,
@@ -138,6 +136,10 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
       })
   }
 
+  useEffect(() => {
+    ExecPie()
+  }, [])
+
   const CoilReciveDataSet = [
     {
       title: 'Domestic',
@@ -153,7 +155,7 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
     }
   ];
 
-  const  PipeSaleDataSet = [
+  const PipeSaleDataSet = [
     {
       title: 'Domestic',
       value: showLineDataSetByItemGroup('Domestic', PipeSale),
@@ -174,6 +176,8 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
       {...rest}
     >
       <CardContent>
+              <CardHeader title="Coil Received(MT) & STEEL PIPE DELIVERY(MT)" />
+
         <Grid container spacing={3} >
           <Grid item xs={4}>
             <MuiPickersUtilsProvider utils={MomentUtils} >
@@ -224,7 +228,6 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
         </Grid>
 
       </CardContent>
-      <CardHeader title="Coil Received(MT) & STEEL PIPE DELIVERY(MT)" />
       <Divider />
       <CardContent>
         <Grid container >
@@ -243,32 +246,33 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
               justifyContent="center"
               mt={2}
             >
-              {CoilReciveDataSet.map(({
-                color,
-                icon: Icon,
-                title,
-                value
-              }) => (
-                <Box
-                  key={title}
-                  p={1}
-                  textAlign="center"
-                >
-                  <Icon color="action" />
-                  <Typography
-                    color="textPrimary"
-                    variant="body1"
-                  >
-                    {title}
-                  </Typography>
-                  <Typography
-                    style={{ color }}
-                    variant="h2"
-                  >
-                    {value}
-              </Typography>
-                </Box>
-              ))}
+                {/* <Grid item xs={12}>
+                  Coil Received(MT)
+                </Grid> */}
+                  {CoilReciveDataSet.map(({
+                    color,
+                    icon: Icon,
+                    title,
+                    value
+                  }) => (
+                    <Box key={title} p={1} textAlign="center" >
+                      <Icon color="action" />
+                      <Typography
+                        color="textPrimary"
+                        variant="body1"
+                      >
+                        {title}
+                      </Typography>
+                      <Typography
+                        style={{ color }}
+                        variant="h2"
+                      >
+                        {value}
+                      </Typography>
+                    </Box>
+                  ))}
+
+
             </Box>
           </Grid>
           <Grid item xs={6}>
@@ -310,8 +314,8 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
                     variant="h2"
                   >
                     {value}
-                
-              </Typography>
+
+                  </Typography>
                 </Box>
               ))}
             </Box>

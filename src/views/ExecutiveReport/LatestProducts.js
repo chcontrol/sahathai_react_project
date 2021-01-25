@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
@@ -25,18 +25,21 @@ import {
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import API from '../components/API';
+import { green } from '@material-ui/core/colors';
 
 
 
 
 const useStyles = makeStyles(({
   root: {
-    height: '100%'
+
+
   },
   image: {
     height: 120,
     width: 120
-  }
+  },
+
 }));
 
 
@@ -55,68 +58,39 @@ const LatestProducts = ({ className, ...rest }) => {
   const [V_STS_execSUM_Outs_Finished_BundledPipe, setV_STS_execSUM_Outs_Finished_BundledPipe] = useState([])
 
 
-  const data = [
-    {
-      id: uuid(),
-      name: V_STS_execSUM_Outs_Coil,
-      imageUrl: '/static/images/products/product_1.png',
-      updatedAt: moment().subtract(2, 'hours'),
-      description: '123456789'
-    },
-    {
-      id: uuid(),
-      name: 'Medium Corporation',
-      imageUrl: '/static/images/products/product_2.png',
-      updatedAt: moment().subtract(2, 'hours')
-    },
-    {
-      id: uuid(),
-      name: 'Slack',
-      imageUrl: '/static/images/products/product_3.png',
-      updatedAt: moment().subtract(3, 'hours')
-    },
-    {
-      id: uuid(),
-      name: 'Lyft',
-      imageUrl: '/static/images/products/product_4.png',
-      updatedAt: moment().subtract(5, 'hours')
-    },
-    {
-      id: uuid(),
-      name: 'GitHub',
-      imageUrl: '/static/images/products/product_5.png',
-      updatedAt: moment().subtract(9, 'hours')
-    }
-  ];
-
   const SearchOutStanding = () => {
-    API.get(`API_ExecutiveReport/data.php?load=setV_STS_execSUM_Outs_Coil`)
+    API.get(`API_ExecutiveReport/data.php?load=V_STS_execSUM_Outs_Coil`)
       .then(res => {
         (res.data) ? setV_STS_execSUM_Outs_Coil(res.data) : setV_STS_execSUM_Outs_Coil([])
       })
-    API.get(`API_ExecutiveReport/data.php?load=setV_STS_execSUM_Outs_Strip`)
+    API.get(`API_ExecutiveReport/data.php?load=V_STS_execSUM_Outs_Strip`)
       .then(res => {
         (res.data) ? setV_STS_execSUM_Outs_Strip(res.data) : setV_STS_execSUM_Outs_Strip([])
       })
-    API.get(`API_ExecutiveReport/data.php?load=setV_STS_execSUM_Outs_ProcessingPipe`)
+    API.get(`API_ExecutiveReport/data.php?load=V_STS_execSUM_Outs_ProcessingPipe`)
       .then(res => {
         (res.data) ? setV_STS_execSUM_Outs_ProcessingPipe(res.data) : setV_STS_execSUM_Outs_ProcessingPipe([])
       })
-    API.get(`API_ExecutiveReport/data.php?load=setV_STS_execSUM_Outs_FinishedPipe`)
+    API.get(`API_ExecutiveReport/data.php?load=V_STS_execSUM_Outs_FinishedPipe`)
       .then(res => {
         (res.data) ? setV_STS_execSUM_Outs_FinishedPipe(res.data) : setV_STS_execSUM_Outs_FinishedPipe([])
       })
-    API.get(`API_ExecutiveReport/data.php?load=setV_STS_execSUM_Outs_Finished_BarePipe`)
+    API.get(`API_ExecutiveReport/data.php?load=V_STS_execSUM_Outs_Finished_BarePipe`)
       .then(res => {
         (res.data) ? setV_STS_execSUM_Outs_Finished_BarePipe(res.data) : setV_STS_execSUM_Outs_Finished_BarePipe([])
       })
-    API.get(`API_ExecutiveReport/data.php?load=setV_STS_execSUM_Outs_Finished_BundledPipe`)
+    API.get(`API_ExecutiveReport/data.php?load=V_STS_execSUM_Outs_Finished_BundledPipe`)
       .then(res => {
         (res.data) ? setV_STS_execSUM_Outs_Finished_BundledPipe(res.data) : setV_STS_execSUM_Outs_Finished_BundledPipe([])
       })
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      SearchOutStanding()
+    }, 3000);
 
+  }, [])
 
 
 
@@ -125,10 +99,15 @@ const LatestProducts = ({ className, ...rest }) => {
     <Card
       className={clsx(classes.root, className)}
       {...rest}
+      style={{
+        maxHeight: '62.5vh',
+        overflowY: 'scroll',
+      }}
     >
       <CardHeader
         subtitle={` in total`}
         title="OUTSTANDDING"
+        onClick={SearchOutStanding}
       />
       <Divider />
 
@@ -136,60 +115,136 @@ const LatestProducts = ({ className, ...rest }) => {
       <List>
         <ListItem>
           <ListItemAvatar>
-            <img alt="Product" className={classes.image} src={'/static/images/products/product_2.png'} />
+            <img alt="Product" className={classes.image} src={'/static/images/products/auth.jpeg'} />
           </ListItemAvatar>
-          <ListItemText
-            primary='Coil'
-            secondary='456'
-          />
-          <IconButton edge="end" size="small" >
-            <MoreVertIcon />
-          </IconButton>
+
+          <List component="nav" className={classes.root} aria-label="mailbox folders">
+            <ListItem button>
+              <ListItemText primary="Coil" />
+            </ListItem>
+            <Divider />
+            {V_STS_execSUM_Outs_Coil.map((value) =>
+              <>
+                <ListItem button>
+                  <ListItemText primary={`${value.aged} = ${value.TotalCoil} (${value.sumQTY})`} />
+                </ListItem>
+              </>
+            )}
+          </List>
         </ListItem>
       </List>
+      <Divider />
 
       <List>
         <ListItem>
           <ListItemAvatar>
-            <img alt="Product" className={classes.image} src={'/static/images/products/product_2.png'} />
+            <img alt="Product" className={classes.image} src={'/static/images/products/auth.jpeg'} />
           </ListItemAvatar>
-          <ListItemText
-            primary='Strip'
-            secondary='456'
-          />
-          <IconButton edge="end" size="small" >
-            <MoreVertIcon />
-          </IconButton>
+
+          <List component="nav" className={classes.root} aria-label="mailbox folders">
+            <ListItem button>
+              <ListItemText primary="Strip" />
+            </ListItem>
+            <Divider />
+            {V_STS_execSUM_Outs_Strip.map((value) =>
+              <>
+                <ListItem button>
+                  <ListItemText primary={`${value.aged} = ${value.TotalStrip} (${value.sumQTY})`} />
+                </ListItem>
+              </>
+            )}
+          </List>
         </ListItem>
       </List>
+      <Divider />
 
       <List>
         <ListItem>
           <ListItemAvatar>
-            <img alt="Product" className={classes.image} src={'/static/images/products/product_2.png'} />
+            <img alt="Product" className={classes.image} src={'/static/images/products/auth.jpeg'} />
           </ListItemAvatar>
-          <ListItemText
-            primary='Processing Pipe'
-            secondary='456'
-          />
-          <IconButton edge="end" size="small" >
-            <MoreVertIcon />
-          </IconButton>
+
+          <List component="nav" className={classes.root} aria-label="mailbox folders">
+            <ListItem button>
+              <ListItemText primary="ProcessingPipe" />
+            </ListItem>
+            <Divider />
+            {V_STS_execSUM_Outs_ProcessingPipe.map((value) =>
+              <>
+                <ListItem button>
+                  <ListItemText primary={`${value.aged} = ${value.TotalPipe} (${value.sumQTY})`} />
+                </ListItem>
+              </>
+            )}
+          </List>
+
         </ListItem>
       </List>
+      <Divider />
+      <List>
+        <ListItem>
+          <ListItemAvatar>
+            <img alt="Product" className={classes.image} src={'/static/images/products/auth.jpeg'} />
+          </ListItemAvatar>
+
+          <List component="nav" className={classes.root} aria-label="mailbox folders">
+            <ListItem button>
+              <ListItemText primary="Finished Pipe" />
+            </ListItem>
+            <Divider />
+            {V_STS_execSUM_Outs_FinishedPipe.map((value) =>
+              <>
+                <ListItem button>
+                  <ListItemText primary={`${value.aged} = ${value.TotalPipe} (${value.sumQTY})`} />
+                </ListItem>
+              </>
+            )}
+          </List>
+
+        </ListItem>
+      </List>
+      <Divider />
 
       <List>
         <ListItem>
           <ListItemAvatar>
-            <img alt="Product" className={classes.image} src={'/static/images/products/product_2.png'} />
+            <img alt="Product" className={classes.image} src={'/static/images/products/auth.jpeg'} />
           </ListItemAvatar>
-          <ListItemText
-            primary='Finished Pipe'
-            secondary='456'
-          />
-          <IconButton edge="end" size="small" >
-            <MoreVertIcon />
-          </IconButton>
+          <List component="nav" className={classes.root} aria-label="mailbox folders">
+            <ListItem button>
+              <ListItemText primary="Finished Bare Pipe" />
+            </ListItem>
+            <Divider />
+            {V_STS_execSUM_Outs_Finished_BarePipe.map((value) =>
+              <>
+                <ListItem button>
+                  <ListItemText primary={`${value.aged} = ${value.TotalPipe} (${value.sumQTY})`} />
+                </ListItem>
+              </>
+            )}
+          </List>
+        </ListItem>
+      </List>
+      <Divider />
+
+      <List>
+        <ListItem>
+          <ListItemAvatar variant="rounded" className={classes.rounded}>
+            <img alt="Product" className={classes.image} src={'/static/images/products/auth.jpeg'} />
+          </ListItemAvatar>
+          <List component="nav" className={classes.root} aria-label="mailbox folders">
+            <ListItem button>
+              <ListItemText primary="Finished Bundled Pipe" />
+            </ListItem>
+            <Divider />
+            {V_STS_execSUM_Outs_Finished_BundledPipe.map((value) =>
+              <>
+                <ListItem button>
+                  <ListItemText primary={`${value.aged} = ${value.TotalPipe} (${value.sumQTY})`} />
+                </ListItem>
+              </>
+            )}
+          </List>
         </ListItem>
       </List>
 
