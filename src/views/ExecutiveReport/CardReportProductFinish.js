@@ -18,7 +18,8 @@ import ReportProductFinish from '../ERPModule/Production/ReportProductFinish';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100%'
+    height: '100%',
+
   },
   avatar: {
     backgroundColor: colors.red[600],

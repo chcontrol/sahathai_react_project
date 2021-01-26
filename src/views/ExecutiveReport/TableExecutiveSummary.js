@@ -194,7 +194,7 @@ const TableExecutiveSummary = ({ className, ...rest }) => {
                             <Table className={classes.table} aria-label="customized table">
                                 <TableHead>
                                     <TableRow>
-                                        <StyledTableCell>Date Now</StyledTableCell>
+                                        <StyledTableCell>Month to date</StyledTableCell>
                                         <StyledTableCell align="right">Coil</StyledTableCell>
                                         <StyledTableCell align="right">Strip</StyledTableCell>
                                         <StyledTableCell align="right">Processing&nbsp;Pipe</StyledTableCell>

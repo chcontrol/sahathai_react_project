@@ -1,39 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { v4 as uuid } from 'uuid';
-import moment from 'moment';
 import {
-  Avatar,
   Box,
   Button,
   Card,
-  CardContent,
   CardHeader,
-  CardMedia,
   Divider,
-  IconButton,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
   makeStyles,
-  Typography,
   useTheme
 } from '@material-ui/core';
 
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import API from '../components/API';
-import { green } from '@material-ui/core/colors';
 
 
 
 
 const useStyles = makeStyles(({
   root: {
-
-
+    height: '100%'
   },
   image: {
     height: 120,
@@ -100,7 +90,7 @@ const LatestProducts = ({ className, ...rest }) => {
       className={clsx(classes.root, className)}
       {...rest}
       style={{
-        maxHeight: '62.5vh',
+        maxHeight: '70vh',
         overflowY: 'scroll',
       }}
     >
@@ -115,7 +105,7 @@ const LatestProducts = ({ className, ...rest }) => {
       <List>
         <ListItem>
           <ListItemAvatar>
-            <img alt="Product" className={classes.image} src={'/static/images/products/auth.jpeg'} />
+            <img alt="Product" className={classes.image} src={'/static/images/products/coil.jpg'} />
           </ListItemAvatar>
 
           <List component="nav" className={classes.root} aria-label="mailbox folders">
@@ -126,7 +116,7 @@ const LatestProducts = ({ className, ...rest }) => {
             {V_STS_execSUM_Outs_Coil.map((value) =>
               <>
                 <ListItem button>
-                  <ListItemText primary={`${value.aged} = ${value.TotalCoil} (${value.sumQTY})`} />
+                  <ListItemText primary={`${value.aged} = ${value.TotalCoil} coils (${value.sumQTY} MT)`} />
                 </ListItem>
               </>
             )}
@@ -138,7 +128,7 @@ const LatestProducts = ({ className, ...rest }) => {
       <List>
         <ListItem>
           <ListItemAvatar>
-            <img alt="Product" className={classes.image} src={'/static/images/products/auth.jpeg'} />
+            <img alt="Product" className={classes.image} src={'/static/images/products/strip.jpg'} />
           </ListItemAvatar>
 
           <List component="nav" className={classes.root} aria-label="mailbox folders">
@@ -149,7 +139,7 @@ const LatestProducts = ({ className, ...rest }) => {
             {V_STS_execSUM_Outs_Strip.map((value) =>
               <>
                 <ListItem button>
-                  <ListItemText primary={`${value.aged} = ${value.TotalStrip} (${value.sumQTY})`} />
+                  <ListItemText primary={`${value.aged} = ${value.TotalStrip} strips (${value.sumQTY} MT)`} />
                 </ListItem>
               </>
             )}
@@ -161,7 +151,7 @@ const LatestProducts = ({ className, ...rest }) => {
       <List>
         <ListItem>
           <ListItemAvatar>
-            <img alt="Product" className={classes.image} src={'/static/images/products/auth.jpeg'} />
+            <img alt="Product" className={classes.image} src={'/static/images/products/processingPipe.jpg'} />
           </ListItemAvatar>
 
           <List component="nav" className={classes.root} aria-label="mailbox folders">
@@ -172,7 +162,7 @@ const LatestProducts = ({ className, ...rest }) => {
             {V_STS_execSUM_Outs_ProcessingPipe.map((value) =>
               <>
                 <ListItem button>
-                  <ListItemText primary={`${value.aged} = ${value.TotalPipe} (${value.sumQTY})`} />
+                  <ListItemText primary={`${value.aged} = ${value.TotalPipe} pcs (${value.sumQTY} MT)`} />
                 </ListItem>
               </>
             )}
@@ -184,7 +174,7 @@ const LatestProducts = ({ className, ...rest }) => {
       <List>
         <ListItem>
           <ListItemAvatar>
-            <img alt="Product" className={classes.image} src={'/static/images/products/auth.jpeg'} />
+            <img alt="Product" className={classes.image} src={'/static/images/products/packing.jpg'} />
           </ListItemAvatar>
 
           <List component="nav" className={classes.root} aria-label="mailbox folders">
@@ -195,7 +185,7 @@ const LatestProducts = ({ className, ...rest }) => {
             {V_STS_execSUM_Outs_FinishedPipe.map((value) =>
               <>
                 <ListItem button>
-                  <ListItemText primary={`${value.aged} = ${value.TotalPipe} (${value.sumQTY})`} />
+                  <ListItemText primary={`${value.aged} = ${value.TotalPipe} pcs (${value.sumQTY} MT)`} />
                 </ListItem>
               </>
             )}
@@ -208,7 +198,7 @@ const LatestProducts = ({ className, ...rest }) => {
       <List>
         <ListItem>
           <ListItemAvatar>
-            <img alt="Product" className={classes.image} src={'/static/images/products/auth.jpeg'} />
+            <img alt="Product" className={classes.image} src={'/static/images/products/packing2.jpg'} />
           </ListItemAvatar>
           <List component="nav" className={classes.root} aria-label="mailbox folders">
             <ListItem button>
@@ -218,7 +208,7 @@ const LatestProducts = ({ className, ...rest }) => {
             {V_STS_execSUM_Outs_Finished_BarePipe.map((value) =>
               <>
                 <ListItem button>
-                  <ListItemText primary={`${value.aged} = ${value.TotalPipe} (${value.sumQTY})`} />
+                  <ListItemText primary={`${value.aged} = ${value.TotalPipe} pcs (${value.sumQTY} MT) `} />
                 </ListItem>
               </>
             )}
@@ -230,7 +220,7 @@ const LatestProducts = ({ className, ...rest }) => {
       <List>
         <ListItem>
           <ListItemAvatar variant="rounded" className={classes.rounded}>
-            <img alt="Product" className={classes.image} src={'/static/images/products/auth.jpeg'} />
+            <img alt="Product" className={classes.image} src={'/static/images/products/packing3.jpg'} />
           </ListItemAvatar>
           <List component="nav" className={classes.root} aria-label="mailbox folders">
             <ListItem button>
@@ -240,7 +230,7 @@ const LatestProducts = ({ className, ...rest }) => {
             {V_STS_execSUM_Outs_Finished_BundledPipe.map((value) =>
               <>
                 <ListItem button>
-                  <ListItemText primary={`${value.aged} = ${value.TotalPipe} (${value.sumQTY})`} />
+                  <ListItemText primary={`${value.aged} = ${value.TotalPipe} pcs (${value.sumQTY} MT)`} />
                 </ListItem>
               </>
             )}

@@ -24,12 +24,13 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
 import MomentUtils from "@date-io/moment";
 import API from '../components/API';
+import { Fragment } from 'react';
 
 moment.locale("th");
 
 const useStyles = makeStyles(() => ({
   root: {
-    height: '100%'
+    minHeight: '70vh'
   }
 }));
 
@@ -38,10 +39,21 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
   const theme = useTheme();
 
 
-  const [selectedDateStart, setSelectedDateStart] = useState(new Date());
-  const [selectedDateEnd, setSelectedDateEnd] = useState(new Date());
+  const [selectedDateStart, setSelectedDateStart] = useState(moment().subtract(12, 'months').format("YYYY-MM-DD"));
+  const [selectedDateEnd, setSelectedDateEnd] = useState(moment().format("YYYY-MM-DD"));
   const [CoilRecive, setCoilRecive] = useState([]);
   const [PipeSale, setPipeSale] = useState([]);
+
+
+
+
+  const onDateStartChange = (date, value) => {
+    setSelectedDateStart(value)
+  };
+
+  const onDateEndChange = (date, value) => {
+    setSelectedDateEnd(value)
+  };
 
 
 
@@ -113,23 +125,20 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
       titleFontColor: theme.palette.text.primary
     }
   };
-  const handleDateChangeStart = (date) => {
-    setSelectedDateStart(date)
-  }
 
-  const handleDateChangeEnd = (date) => {
-    setSelectedDateEnd(date.date)
-  }
 
   const ExecPie = (selectedDateStart, selectedDateEnd) => {
+    console.log(selectedDateStart)
+    console.log(selectedDateEnd)
 
-    API.get(`API_ExecutiveReport/data.php?load=STS_execSUM_Coil_Rec&startDate=2020-01-01&endDate=2020-02-01`)
+
+    API.get(`API_ExecutiveReport/data.php?load=STS_execSUM_Coil_Rec&startDate=${selectedDateStart}&endDate=${selectedDateEnd}`)
       .then(res => {
         (res.data) ? setCoilRecive(res.data) : setCoilRecive([])
         console.log(res.data)
       })
 
-    API.get(`API_ExecutiveReport/data.php?load=STS_execSUM_Pipe_Sale&startDate=2020-01-01&endDate=2020-02-01`)
+    API.get(`API_ExecutiveReport/data.php?load=STS_execSUM_Pipe_Sale&startDate=${selectedDateStart}&endDate=${selectedDateEnd}`)
       .then(res => {
         (res.data) ? setPipeSale(res.data) : setPipeSale([])
         console.log(res.data)
@@ -137,7 +146,9 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
   }
 
   useEffect(() => {
-    ExecPie()
+    setTimeout(() => {
+      ExecPie(selectedDateStart, selectedDateEnd)
+    }, 2000);
   }, [])
 
   const CoilReciveDataSet = [
@@ -170,59 +181,57 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
     }
   ];
 
+
+  const dateFormatter = str => {
+    return str;
+  };
+
   return (
     <Card
       className={clsx(classes.root, className)}
       {...rest}
     >
       <CardContent>
-              <CardHeader title="Coil Received(MT) & STEEL PIPE DELIVERY(MT)" />
+        <CardHeader title="Coil Received(MT) & STEEL PIPE DELIVERY(MT)" />
 
         <Grid container spacing={3} >
           <Grid item xs={4}>
-            <MuiPickersUtilsProvider utils={MomentUtils} >
-              <KeyboardDatePicker
-                variant="outlined"
-                inputVariant="outlined"
-                size="small"
-                ampm={false}
-                label={""}
-                value={selectedDateStart}
-                // onBlur={props.handleBlur}
-                onError={console.log}
-                style={{ fontSize: 5 }}
-                format="YYYY-MM-DD"
-                type="text"
-                onChange={date => handleDateChangeStart(date.date)}
-                fullWidth
-              />
-            </MuiPickersUtilsProvider>
+            <Fragment>
+              <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
+                <KeyboardDatePicker
+                  autoOk={true}
+                  showTodayButton={true}
+                  value={selectedDateStart}
+                  format="YYYY-MM-DD"
+                  inputValue={selectedDateStart}
+                  onChange={onDateStartChange}
+                  rifmFormatter={dateFormatter}
+                />
+              </MuiPickersUtilsProvider>
+            </Fragment>
           </Grid>
           <Grid item xs={4}>
-            <MuiPickersUtilsProvider utils={MomentUtils} >
-              <KeyboardDatePicker
-                variant="outlined"
-                inputVariant="outlined"
-                size="small"
-                ampm={false}
-                label={""}
-                value={selectedDateEnd}
-                // onBlur={props.handleBlur}
-                onError={console.log}
-                style={{ fontSize: 5 }}
-                format="YYYY-MM-DD"
-                type="text"
-                onChange={date => handleDateChangeEnd(date)}
-                fullWidth
-              />
-            </MuiPickersUtilsProvider>
+
+            <Fragment>
+              <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
+                <KeyboardDatePicker
+                  autoOk={true}
+                  showTodayButton={true}
+                  value={selectedDateEnd}
+                  format="YYYY-MM-DD"
+                  inputValue={selectedDateEnd}
+                  onChange={onDateEndChange}
+                  rifmFormatter={dateFormatter}
+                />
+              </MuiPickersUtilsProvider>
+            </Fragment>
+
           </Grid>
           <Grid item xs={4}>
             <div style={{ padding: '0px 5px' }}>
               <span style={{ padding: '0px 4px' }}>
                 <Chip color="primary" onClick={() => { ExecPie(selectedDateStart, selectedDateEnd) }} label={"PROCESS"} > </Chip>
               </span>
-
             </div>
           </Grid>
         </Grid>
@@ -246,31 +255,31 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
               justifyContent="center"
               mt={2}
             >
-                {/* <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                   Coil Received(MT)
                 </Grid> */}
-                  {CoilReciveDataSet.map(({
-                    color,
-                    icon: Icon,
-                    title,
-                    value
-                  }) => (
-                    <Box key={title} p={1} textAlign="center" >
-                      <Icon color="action" />
-                      <Typography
-                        color="textPrimary"
-                        variant="body1"
-                      >
-                        {title}
-                      </Typography>
-                      <Typography
-                        style={{ color }}
-                        variant="h2"
-                      >
-                        {value}
-                      </Typography>
-                    </Box>
-                  ))}
+              {CoilReciveDataSet.map(({
+                color,
+                icon: Icon,
+                title,
+                value
+              }) => (
+                <Box key={title} p={1} textAlign="center" >
+                  <Icon color="action" />
+                  <Typography
+                    color="textPrimary"
+                    variant="body1"
+                  >
+                    {title}
+                  </Typography>
+                  <Typography
+                    style={{ color }}
+                    variant="h2"
+                  >
+                    {value}
+                  </Typography>
+                </Box>
+              ))}
 
 
             </Box>
