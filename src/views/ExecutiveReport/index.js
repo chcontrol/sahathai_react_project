@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Container,
   Grid,
@@ -25,6 +25,17 @@ const useStyles = makeStyles((theme) => ({
 
 const ExecutiveReport = () => {
   const classes = useStyles();
+
+  useEffect(() => {
+
+    var isMobile = window.orientation > -1;
+
+    if (isMobile == true) {
+      setTimeout(() => {
+        document.documentElement.webkitRequestFullScreen();
+      }, 5000);
+    }
+  }, [])
 
 
   return (
