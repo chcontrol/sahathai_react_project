@@ -6,11 +6,9 @@ import {
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import CardReportProductFinish from './CardReportProductFinish';
-import LatestOrders from './LatestOrders';
 import LatestProducts from './LatestProducts';
 import ChartExecutiveSummary from './ChartExecutiveSummary';
 import CardReportProductionDaily from './CardReportProductionDaily';
-import CardNext from './CardNext';
 import TableExecutiveSummary from './TableExecutiveSummary';
 import CardReportProductFromming from './CardReportProductFromming';
 import CardAppProductionOvertime from './CardAppProductionOvertime';

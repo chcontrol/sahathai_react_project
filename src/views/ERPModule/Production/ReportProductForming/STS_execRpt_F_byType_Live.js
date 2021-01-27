@@ -97,7 +97,8 @@ const STS_execRpt_F_byType_Live = (props) => {
                   // backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF',
                   fontSize: 14,
                   padding: 0,
-                  width: 500
+                  width: 500,
+                  fontFamily: 'sans-serif'
                 }
                 ),
               }}

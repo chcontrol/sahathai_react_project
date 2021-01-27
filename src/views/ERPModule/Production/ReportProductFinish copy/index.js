@@ -117,7 +117,8 @@ const ReportProductFinish = () => {
                   // backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF',
                   fontSize: 14,
                   padding: 0,
-                  width: 500
+                  width: 500,
+                  fontFamily: 'sans-serif'
                 }
                 ),
               }}

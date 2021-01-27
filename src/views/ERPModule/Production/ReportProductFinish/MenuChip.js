@@ -98,11 +98,11 @@ export default function MenuChip(props) {
             
             <ModalNopaperLGPage
                 modalHeader={
-                    <>รายงาน {`${props.label} By Type3`}</>
+                    <>รายงาน {`${props.label} By Size`}</>
                 }
                 modalDetail={
                     <STS_execRpt_F_bySize_Live
-                        title={`${props.label} By Type3`}
+                        title={`${props.label} By Size`}
                         daystart={props.daystart}
                         dayend={props.dayend}
                     />
@@ -113,11 +113,11 @@ export default function MenuChip(props) {
 
             <ModalNopaperLGPage
                 modalHeader={
-                    <>รายงาน {`${props.label} By Type4`}</>
+                    <>รายงาน {`${props.label} By SizeType`}</>
                 }
                 modalDetail={
                     <STS_execRpt_F_bySizeType_Live
-                        title={`${props.label} By Type4`}
+                        title={`${props.label} By SizeType`}
                         daystart={props.daystart}
                         dayend={props.dayend}
                     />

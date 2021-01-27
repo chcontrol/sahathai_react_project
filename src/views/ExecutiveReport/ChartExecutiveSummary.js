@@ -21,6 +21,9 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import { useState } from 'react';
 import API from '../components/API';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import moment from "moment";
+
+moment.locale("th");
 
 const useStyles = makeStyles((theme) => ({
   // root: {
@@ -46,6 +49,7 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
     setLoadingData(false)
 
     if (Item_Group == 'all') {
+
       API.get(`API_ExecutiveReport/data.php?load=STS_execRpt_SUM_mthly_all`)
         .then(res => {
           (res.data) ? setGarphLineDataAll(res.data) : setGarphLineDataAll([])
@@ -54,7 +58,7 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
         })
     }
     else {
-      API.get(`API_ExecutiveReport/data.php?load=STS_execRpt_SUM_mthly&startDate=2020-01-01&endDate=2021-01-31&codeItem=${Item_Group}`)
+      API.get(`API_ExecutiveReport/data.php?load=STS_execRpt_SUM_mthly&startDate=${moment().subtract(12, 'months').format("YYYY-MM-DD")}&endDate=${moment().format("YYYY-MM-DD")}&codeItem=${Item_Group}`)
         .then(res => {
           (res.data) ? setGarphLineData(res.data) : setGarphLineData([])
           setLoadingData(true)
@@ -88,12 +92,14 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
     var dataset = data.filter(function (data) {
       return data.Item_Group == Item_Group;
     });
-    let o = dataset.map((i) => {
+    let datasetGroup = dataset.map((i) => {
       return i.sumQTY
     })
 
+    console.log('data--->',data)
 
-    return o
+    let dataReturn = [0,0,0,0,0,0,0,0,0,0,0,0,...datasetGroup]
+    return dataReturn
   }
 
 
@@ -122,7 +128,22 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
         borderColor: colors.orange[500],
       }
     ],
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', 'January']
+    labels: [
+      [moment().subtract(12, 'months').format("YY-MMMM")],
+      [moment().subtract(11, 'months').format("YY-MMMM")],
+      [moment().subtract(10, 'months').format("YY-MMMM")],
+      [moment().subtract(9, 'months').format("YY-MMMM")],
+      [moment().subtract(8, 'months').format("YY-MMMM")],
+      [moment().subtract(7, 'months').format("YY-MMMM")],
+      [moment().subtract(6, 'months').format("YY-MMMM")],
+      [moment().subtract(5, 'months').format("YY-MMMM")],
+      [moment().subtract(4, 'months').format("YY-MMMM")],
+      [moment().subtract(3, 'months').format("YY-MMMM")],
+      [moment().subtract(2, 'months').format("YY-MMMM")],
+      [moment().subtract(1, 'months').format("YY-MMMM")],
+      [moment().format("YY-MMMM")],
+      [moment().add(1, 'months').format("YY-MMMM")],
+    ]
   };
 
   const data_all = {
@@ -134,7 +155,7 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
         fill: false,
         borderColor: colors.indigo[500],
 
-      },{
+      }, {
         backgroundColor: colors.orange[500],
         data: showLineDataSetByItemGroupAll("Strip", GarphLineDataAll),
         label: 'Strip',
@@ -155,7 +176,7 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
         fill: false,
         borderColor: colors.green[500],
       },
-      
+
       {
         backgroundColor: colors.blue[300],
         data: showLineDataSetByItemGroupAll("Scrap Pipe", GarphLineDataAll),
@@ -163,9 +184,25 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
         fill: false,
         borderColor: colors.blue[300],
       },
-      
+
     ],
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', 'January']
+    labels:
+      [
+        [moment().subtract(12, 'months').format("YY-MMMM")],
+        [moment().subtract(11, 'months').format("YY-MMMM")],
+        [moment().subtract(10, 'months').format("YY-MMMM")],
+        [moment().subtract(9, 'months').format("YY-MMMM")],
+        [moment().subtract(8, 'months').format("YY-MMMM")],
+        [moment().subtract(7, 'months').format("YY-MMMM")],
+        [moment().subtract(6, 'months').format("YY-MMMM")],
+        [moment().subtract(5, 'months').format("YY-MMMM")],
+        [moment().subtract(4, 'months').format("YY-MMMM")],
+        [moment().subtract(3, 'months').format("YY-MMMM")],
+        [moment().subtract(2, 'months').format("YY-MMMM")],
+        [moment().subtract(1, 'months').format("YY-MMMM")],
+        [moment().format("YY-MMMM")],
+        [moment().add(1, 'months').format("YY-MMMM")],
+      ]
   };
 
 
@@ -293,12 +330,13 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
             options={options}
           />
         </Box> */}
+
         <Box
           height={400}
           position="relative"
         >
           <Line
-            data={(Item_Group=='all')?data_all:data}
+            data={(Item_Group == 'all') ? data_all : data}
             options={optionsLine}
           />
         </Box>
@@ -314,6 +352,7 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
           endIcon={<ArrowRightIcon />}
           size="small"
           variant="text"
+          onClick={()=>{STS_execRpt_SUM_mthly("all")}}
         >
           Overview
         </Button>

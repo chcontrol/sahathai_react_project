@@ -26,7 +26,7 @@ export default function ModalNopaperLGPage(props) {
 
     function getModalStyle() {
         const top = 50 + rand();
-        const left = 50 + rand();
+        const left = 60 + rand();
 
         return {
             top: `${top}%`,
@@ -43,9 +43,9 @@ export default function ModalNopaperLGPage(props) {
         },
         paper: {
             position: 'absolute',
-            width: '85vw',
+            width: '95vw',
             height: '85vh',
-            marginLeft:'15vw',
+            marginLeft:'20vw',
             backgroundColor: theme.palette.background.paper,
             border: '2px solid #000',
             boxShadow: theme.shadows[5],
