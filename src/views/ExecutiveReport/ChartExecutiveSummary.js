@@ -88,16 +88,12 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
   }
 
   const showLineDataSetByItemGroupAll = (Item_Group, data) => {
-
     var dataset = data.filter(function (data) {
       return data.Item_Group == Item_Group;
     });
     let datasetGroup = dataset.map((i) => {
       return i.sumQTY
     })
-
-    console.log('data--->',data)
-
     let dataReturn = [0,0,0,0,0,0,0,0,0,0,0,...datasetGroup]
     return dataReturn
   }
@@ -129,7 +125,7 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
       }
     ],
     labels: [
-      [moment().subtract(12, 'months').format("MMMM-YY")],
+      [moment().subtract(12, 'months').format("MMMM-YYYY")],
       [moment().subtract(11, 'months').format("MMM-YYYY")],
       [moment().subtract(10, 'months').format("MMM-YYYY")],
       [moment().subtract(9, 'months').format("MMM-YYYY")],
@@ -208,8 +204,8 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
 
 
   const optionsLine = {
-    animation: false,
-    cornerRadius: 20,
+    animation: true,
+    cornerRadius: 40,
     layout: { padding: 0 },
     legend: { display: true },
     maintainAspectRatio: false,
@@ -304,7 +300,7 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
               <MenuItem onClick={() => handleClose("all")}>OVERALL BALANCE</MenuItem>
               <MenuItem onClick={() => handleClose("COIL")}>COIL</MenuItem>
               <MenuItem onClick={() => handleClose("Strip")}>Strip</MenuItem>
-              <MenuItem onClick={() => handleClose("Processing Pipe")}>Processing Pipe</MenuItem>
+              {/* <MenuItem onClick={() => handleClose("Processing Pipe")}>Processing Pipe</MenuItem> */}
               <MenuItem onClick={() => handleClose("Finshed Pipe")}>Finshed Pipe</MenuItem>
               <MenuItem onClick={() => handleClose("Scrap Pipe")}>Scrap Pipe</MenuItem>
             </Menu>

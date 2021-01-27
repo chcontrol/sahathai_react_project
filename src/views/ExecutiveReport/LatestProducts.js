@@ -179,7 +179,7 @@ const LatestProducts = ({ className, ...rest }) => {
 
           <List component="nav" className={classes.root} aria-label="mailbox folders">
             <ListItem button>
-              <ListItemText primary="Finished Pipe" />
+              <ListItemText primary="Finished Pipe(all category)" />
             </ListItem>
             <Divider />
             {V_STS_execSUM_Outs_FinishedPipe.map((value) =>

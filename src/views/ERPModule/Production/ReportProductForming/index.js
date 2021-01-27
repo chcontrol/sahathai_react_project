@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  colors,
   Container,
   Grid,
   makeStyles
@@ -99,33 +100,75 @@ const ReportProductForming = () => {
           <Grid item xs={12}>
             <ThemeProvider theme={theme}>
               <MaterialTable
-                title={"รายงานอายุสินค้าระหว่างผลิต  (" + moment().subtract(12, 'months').format("YYYY-MM-DD HH:mm:ss")+")"}
+                title={"รายงานอายุสินค้าระหว่างผลิต  (" + moment().subtract(12, 'months').format("YYYY-MM-DD HH:mm:ss") + ")"}
 
                 icons={tableIcons}
                 columns={[
                   {
                     title: 'ผลิตเสร็จแล้ว', field: 'แผนก', width: 200,
-                    headerStyle: { backgroundColor: '#f8f7ff', width: 130 },
-                    cellStyle: { backgroundColor: '#f8f7ff', width: 130 }
+                    headerStyle: { backgroundColor: colors.lightBlue[100], width: 130 },
+                    cellStyle: { backgroundColor: colors.lightBlue[100], width: 130 }
                   },
                   { title: 'Today จำนวนเส้น', field: 'Today จำนวนเส้น', type: 'numeric' },
                   { title: 'Today นน.ตัน', field: 'Today นน.ตัน', type: 'numeric' },
-                  { title: '1-7 วัน จำนวนเส้น', field: '1-7 วัน จำนวนเส้น', type: 'numeric' },
-                  { title: '1-7 วัน นน.ตัน', field: '1-7 วัน นน.ตัน', type: 'numeric' },
+                  {
+                    title: '1-7 วัน จำนวนเส้น', field: '1-7 วัน จำนวนเส้น', type: 'numeric',
+                    headerStyle: { backgroundColor: colors.lightBlue[50], width: 130 },
+                    cellStyle: { backgroundColor: colors.lightBlue[50] },
+                  },
+                  {
+                    title: '1-7 วัน นน.ตัน', field: '1-7 วัน นน.ตัน', type: 'numeric',
+                    headerStyle: { backgroundColor: colors.lightBlue[50], width: 130 },
+                    cellStyle: { backgroundColor: colors.lightBlue[50] }
+                  },
                   { title: '8-14 วัน จำนวนเส้น', field: '8-14 วัน จำนวนเส้น', type: 'numeric' },
                   { title: '8-14 วัน นน.ตัน', field: '8-14 วัน นน.ตัน', type: 'numeric' },
-                  { title: '15-30 วัน เส้น', field: '15-30 วัน จำนวนเส้น', type: 'numeric' },
-                  { title: '15-30 วัน นน.ตัน', field: '15-30 วัน นน.ตัน', type: 'numeric' },
+                  {
+                    title: '15-30 วัน เส้น', field: '15-30 วัน จำนวนเส้น', type: 'numeric',
+                    headerStyle: { backgroundColor: colors.lightBlue[50], width: 130 },
+                    cellStyle: { backgroundColor: colors.lightBlue[50] }
+                  },
+                  {
+                    title: '15-30 วัน นน.ตัน', field: '15-30 วัน นน.ตัน', type: 'numeric',
+                    headerStyle: { backgroundColor: colors.lightBlue[50], width: 130 },
+                    cellStyle: { backgroundColor: colors.lightBlue[50] }
+                  },
                   { title: '31-90 วัน เส้น', field: '31-90 วัน จำนวนเส้น', type: 'numeric' },
                   { title: '31-90 วัน นน.ตัน', field: '31-90 วัน นน.ตัน', type: 'numeric' },
-                  { title: '91-180 วัน เส้น', field: '91-180 วัน จำนวนเส้น', type: 'numeric' },
-                  { title: '91-180 วัน นน.ตัน', field: '91-180 วัน นน.ตัน', type: 'numeric' },
+                  {
+                    title: '91-180 วัน เส้น', field: '91-180 วัน จำนวนเส้น', type: 'numeric',
+                    headerStyle: { backgroundColor: colors.lightBlue[50], width: 130 },
+                    cellStyle: { backgroundColor: colors.lightBlue[50] }
+                  },
+                  {
+                    title: '91-180 วัน นน.ตัน', field: '91-180 วัน นน.ตัน', type: 'numeric',
+                    headerStyle: { backgroundColor: colors.lightBlue[50], width: 130 },
+                    cellStyle: { backgroundColor: colors.lightBlue[50] }
+                  },
                   { title: '181-365 วัน จำนวนเส้น', field: '181-365 วัน จำนวนเส้น', type: 'numeric' },
                   { title: '181-365 วัน นน.ตัน', field: '181-365 วัน นน.ตัน', type: 'numeric' },
+                  {
+                    title: '366-730 วัน จำนวนเส้น', field: '1-2 ปี จำนวนเส้น', type: 'numeric',
+                    headerStyle: { backgroundColor: colors.lightBlue[50], width: 130 },
+                    cellStyle: { backgroundColor: colors.lightBlue[50] }
+                  },
+                  {
+                    title: '366-730 วัน นน.ตัน', field: '1-2 ปี วัน นน.ตัน', type: 'numeric',
+                    headerStyle: { backgroundColor: colors.lightBlue[50], width: 130 },
+                    cellStyle: { backgroundColor: colors.lightBlue[50] }
+                  },
                   { title: '>2 ปี จำนวนเส้น', field: '>2 ปี จำนวนเส้น', type: 'numeric' },
                   { title: '>2 ปี วัน นน.ตัน', field: '>2 ปี วัน นน.ตัน', type: 'numeric' },
-                  { title: 'รวม เส้น', field: 'รวม จำนวนเส้น', type: 'numeric' },
-                  { title: 'รวม นน.ตัน', field: 'รวม นน.ตัน', type: 'numeric' },
+                  {
+                    title: 'รวม เส้น', field: 'รวม จำนวนเส้น', type: 'numeric',
+                    headerStyle: { backgroundColor: colors.lightBlue[50], width: 130 },
+                    cellStyle: { backgroundColor: colors.lightBlue[50] }
+                  },
+                  {
+                    title: 'รวม นน.ตัน', field: 'รวม นน.ตัน', type: 'numeric',
+                    headerStyle: { backgroundColor: colors.lightBlue[50], width: 130 },
+                    cellStyle: { backgroundColor: colors.lightBlue[50] }
+                  },
                 ]}
                 data={DataReportProductForming}
                 components={{

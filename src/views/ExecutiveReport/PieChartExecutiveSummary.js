@@ -39,7 +39,7 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
   const theme = useTheme();
 
 
-  const [selectedDateStart, setSelectedDateStart] = useState(moment().subtract(12, 'months').format("YYYY-MM-DD"));
+  const [selectedDateStart, setSelectedDateStart] = useState(moment().subtract(1, 'months').format("YYYY-MM-DD"));
   const [selectedDateEnd, setSelectedDateEnd] = useState(moment().format("YYYY-MM-DD"));
   const [CoilRecive, setCoilRecive] = useState([]);
   const [PipeSale, setPipeSale] = useState([]);
@@ -254,6 +254,12 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
               display="flex"
               justifyContent="center"
               mt={2}
+            > Coil Received(MT)
+            </Box>
+            <Box
+              display="flex"
+              justifyContent="center"
+              mt={2}
             >
               {/* <Grid item xs={12}>
                   Coil Received(MT)
@@ -294,6 +300,12 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
                 data={dataPipe}
                 options={options}
               />
+            </Box>
+            <Box
+              display="flex"
+              justifyContent="center"
+              mt={2}
+            > STEEL PIPE DELIVERY(MT)
             </Box>
             <Box
               display="flex"
