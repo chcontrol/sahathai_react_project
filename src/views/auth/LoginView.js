@@ -53,6 +53,8 @@ const LoginView = () => {
 
 
   async function UserLogin(values) {
+    navigate('/app/dashboard', { replace: true });
+
     let token = ""
     let userData = ""
     token = Axios.post(`http://172.18.1.194:99/STS_Web_API/api/account/login`, values)
@@ -88,6 +90,8 @@ const LoginView = () => {
           console.log('Error', error.message);
         }
         console.log(error.config);
+        navigate('/app/dashboard', { replace: true });
+
       })
 
     // await navigate('/app/dashboard', { replace: true });

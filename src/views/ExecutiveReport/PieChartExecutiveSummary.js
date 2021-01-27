@@ -268,13 +268,13 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
                   <Icon color="action" />
                   <Typography
                     color="textPrimary"
-                    variant="body1"
+                    variant="body2"
                   >
                     {title}
                   </Typography>
                   <Typography
                     style={{ color }}
-                    variant="h2"
+                    variant="h4"
                   >
                     {value}
                   </Typography>
@@ -314,13 +314,13 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
                   <Icon color="action" />
                   <Typography
                     color="textPrimary"
-                    variant="body1"
+                    variant="body2"
                   >
                     {title}
                   </Typography>
                   <Typography
                     style={{ color }}
-                    variant="h2"
+                    variant="h4"
                   >
                     {value}
 

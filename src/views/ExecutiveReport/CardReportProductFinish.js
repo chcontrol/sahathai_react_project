@@ -52,7 +52,7 @@ const CardReportProductFinish = ({ className, ...rest }) => {
     >
       <ModalManagementFullPage
         modalHeader={
-          <>รายงานอายุสินค้าสำเร็จรูป พร้อมส่งมอบ</>
+          <>รายงานอายุสินค้าสำเร็จรูป</>
         }
         modalDetail={
           <ReportProductFinish />
@@ -79,7 +79,7 @@ const CardReportProductFinish = ({ className, ...rest }) => {
               color="textPrimary"
               variant="h6"
             >
-              อายุสินค้าสำเร็จรูป พร้อมส่งมอบ
+              อายุสินค้าสำเร็จรูป
             </Typography>
           </Grid>
           <Grid item>

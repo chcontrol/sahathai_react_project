@@ -224,7 +224,7 @@ const LatestProducts = ({ className, ...rest }) => {
           </ListItemAvatar>
           <List component="nav" className={classes.root} aria-label="mailbox folders">
             <ListItem button>
-              <ListItemText primary="Finished Bundled Pipe" />
+              <ListItemText primary="Finished Governor Pipe" />
             </ListItem>
             <Divider />
             {V_STS_execSUM_Outs_Finished_BundledPipe.map((value) =>

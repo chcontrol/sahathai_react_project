@@ -36,16 +36,16 @@ const ExecutiveReport = () => {
       <Container maxWidth={false}>
         <Grid item lg={12}>
           <Grid container spacing={2}>
-            <Grid item lg={3} >
+            <Grid item sm={6} xl={3} xs={12} lg={3} >
               <CardReportProductFromming />
             </Grid>
-            <Grid item lg={3}>
+            <Grid item sm={6} xl={3} xs={12} lg={3}>
               <CardReportProductFinish />
             </Grid>
-            <Grid item lg={3}>
+            <Grid item sm={6} xl={3} xs={12} lg={3}>
               <CardReportProductionDaily />
             </Grid>
-            <Grid item lg={3}>
+            <Grid item sm={6} xl={3} xs={12} lg={3}>
               <CardAppProductionOvertime />
             </Grid>
             {/* <Grid item xs={12}>
@@ -54,22 +54,22 @@ const ExecutiveReport = () => {
           </Grid>
         </Grid>
         <Grid container spacing={2} >
-          <Grid item xs={6} >
+          <Grid item sm={6} xl={6} xs={12} lg={6} >
             <TableExecutiveSummary />
           </Grid>
-          <Grid item xs={6} >
+          <Grid item sm={6} xl={6} xs={12} lg={6} >
             <ChartExecutiveSummary />
           </Grid>
 
 
 
-          <Grid item xs={6} >
+          <Grid item sm={6} xl={6} xs={12} lg={6} >
             <PieChartExecutiveSummary />
           </Grid>
           {/* <Grid item lg={4} md={6} xl={3} xs={12} >
             <LatestProducts />
           </Grid> */}
-          <Grid item xs={6}  >
+          <Grid item sm={6} xl={6} xs={12} lg={6}  >
             <LatestProducts />
           </Grid>
 

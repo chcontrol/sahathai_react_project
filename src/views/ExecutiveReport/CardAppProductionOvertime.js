@@ -71,7 +71,7 @@ const CardAppProductionOvertime = ({ className, ...rest }) => {
               color="textPrimary"
               variant="h6"
             >
-              บันทึกเวลาทำงานล่วงเวลาพนักงาน
+              บันทึก OT พนักงาน
             </Typography>
           </Grid>
           <Grid item>

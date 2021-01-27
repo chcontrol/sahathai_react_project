@@ -55,8 +55,16 @@ const DashboardLayout = (props) => {
       })
 
     } else {
-      setUsername("")
-      navigate('/login')
+      setUsername(localStorage.getItem("username"))
+      setUserData(localStorage.getItem("UserData"))
+      setuser({
+        avatar: '/static/images/avatars/avatar_6.png',
+        jobTitle: 'Senior Developer',
+        name: localStorage.getItem("username")
+      })
+
+      // setUsername("")
+      // navigate('/app/dashboard')
     }
   }
 

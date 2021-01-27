@@ -69,7 +69,7 @@ const CardReportProductionDaily = ({ className, ...rest }) => {
               color="textPrimary"
               variant="h6"
             >
-              มัดท่อ,การผลิต,Forming,พิมพ์ตรา
+              มัดท่อ,การผลิต,Forming
             </Typography>
           </Grid>
           <Grid item>

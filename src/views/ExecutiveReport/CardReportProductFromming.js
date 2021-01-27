@@ -20,6 +20,7 @@ import ReportProductForming from '../ERPModule/Production/ReportProductForming';
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100%',
+    width:'100%'
   },
   avatar: {
     backgroundColor: colors.green[600],

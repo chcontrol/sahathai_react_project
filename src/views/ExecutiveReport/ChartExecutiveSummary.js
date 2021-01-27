@@ -98,7 +98,7 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
 
     console.log('data--->',data)
 
-    let dataReturn = [0,0,0,0,0,0,0,0,0,0,0,0,...datasetGroup]
+    let dataReturn = [0,0,0,0,0,0,0,0,0,0,0,...datasetGroup]
     return dataReturn
   }
 
@@ -129,20 +129,20 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
       }
     ],
     labels: [
-      [moment().subtract(12, 'months').format("YY-MMMM")],
-      [moment().subtract(11, 'months').format("YY-MMMM")],
-      [moment().subtract(10, 'months').format("YY-MMMM")],
-      [moment().subtract(9, 'months').format("YY-MMMM")],
-      [moment().subtract(8, 'months').format("YY-MMMM")],
-      [moment().subtract(7, 'months').format("YY-MMMM")],
-      [moment().subtract(6, 'months').format("YY-MMMM")],
-      [moment().subtract(5, 'months').format("YY-MMMM")],
-      [moment().subtract(4, 'months').format("YY-MMMM")],
-      [moment().subtract(3, 'months').format("YY-MMMM")],
-      [moment().subtract(2, 'months').format("YY-MMMM")],
-      [moment().subtract(1, 'months').format("YY-MMMM")],
-      [moment().format("YY-MMMM")],
-      [moment().add(1, 'months').format("YY-MMMM")],
+      [moment().subtract(12, 'months').format("MMMM-YY")],
+      [moment().subtract(11, 'months').format("MMM-YYYY")],
+      [moment().subtract(10, 'months').format("MMM-YYYY")],
+      [moment().subtract(9, 'months').format("MMM-YYYY")],
+      [moment().subtract(8, 'months').format("MMM-YYYY")],
+      [moment().subtract(7, 'months').format("MMM-YYYY")],
+      [moment().subtract(6, 'months').format("MMM-YYYY")],
+      [moment().subtract(5, 'months').format("MMM-YYYY")],
+      [moment().subtract(4, 'months').format("MMM-YYYY")],
+      [moment().subtract(3, 'months').format("MMM-YYYY")],
+      [moment().subtract(2, 'months').format("MMM-YYYY")],
+      [moment().subtract(1, 'months').format("MMM-YYYY")],
+      [moment().format("MMM-YYYY")],
+      [moment().add(1, 'months').format("MMM-YYYY")],
     ]
   };
 
@@ -188,20 +188,20 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
     ],
     labels:
       [
-        [moment().subtract(12, 'months').format("YY-MMMM")],
-        [moment().subtract(11, 'months').format("YY-MMMM")],
-        [moment().subtract(10, 'months').format("YY-MMMM")],
-        [moment().subtract(9, 'months').format("YY-MMMM")],
-        [moment().subtract(8, 'months').format("YY-MMMM")],
-        [moment().subtract(7, 'months').format("YY-MMMM")],
-        [moment().subtract(6, 'months').format("YY-MMMM")],
-        [moment().subtract(5, 'months').format("YY-MMMM")],
-        [moment().subtract(4, 'months').format("YY-MMMM")],
-        [moment().subtract(3, 'months').format("YY-MMMM")],
-        [moment().subtract(2, 'months').format("YY-MMMM")],
-        [moment().subtract(1, 'months').format("YY-MMMM")],
-        [moment().format("YY-MMMM")],
-        [moment().add(1, 'months').format("YY-MMMM")],
+        [moment().subtract(12, 'months').format("MMM-YYYY")],
+        [moment().subtract(11, 'months').format("MMM-YYYY")],
+        [moment().subtract(10, 'months').format("MMM-YYYY")],
+        [moment().subtract(9, 'months').format("MMM-YYYY")],
+        [moment().subtract(8, 'months').format("MMM-YYYY")],
+        [moment().subtract(7, 'months').format("MMM-YYYY")],
+        [moment().subtract(6, 'months').format("MMM-YYYY")],
+        [moment().subtract(5, 'months').format("MMM-YYYY")],
+        [moment().subtract(4, 'months').format("MMM-YYYY")],
+        [moment().subtract(3, 'months').format("MMM-YYYY")],
+        [moment().subtract(2, 'months').format("MMM-YYYY")],
+        [moment().subtract(1, 'months').format("MMM-YYYY")],
+        [moment().format("MMM-YYYY")],
+        [moment().add(1, 'months').format("MMM-YYYY")],
       ]
   };
 

@@ -2,22 +2,14 @@ import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {
-    Avatar,
-    Box,
     Card,
     CardContent,
     Grid,
-    LinearProgress,
-    Typography,
     makeStyles,
     withStyles,
     colors,
-    Chip
 } from '@material-ui/core';
-import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
-import ModalManagement from '../components/ModalManagement';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import MaterialTable from 'material-table';
 
 
 import Table from '@material-ui/core/Table';
@@ -27,11 +19,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import DateTimePicker from '../components/Input/CDateTimePicker';
 
-import { MuiPickersUtilsProvider, KeyboardDateTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 import moment from "moment";
-import MomentUtils from "@date-io/moment";
 import API from '../components/API';
 moment.locale("th");
 
@@ -56,9 +45,6 @@ const StyledTableCell = withStyles((theme) => ({
     },
 }))(TableCell);
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
 
 const StyledTableRow = withStyles((theme) => ({
     root: {
@@ -67,21 +53,6 @@ const StyledTableRow = withStyles((theme) => ({
         },
     },
 }))(TableRow);
-
-
-
-// const rows = [
-//     createData('Received', 159, 6.0, 24, 4.0),
-//     createData('Released', 237, 9.0, 37, 4.3),
-//     createData('Balance', 262, 16.0, 24, 6.0),
-// ];
-
-const rows = [
-    { Data_Group: 'Received', Coil: 159, Strip: 6.0, ProcessingPipe: 24, FinishedPipe: 4.0, ScrapPipe: 4.0 },
-    { Data_Group: 'Received', Coil: 159, Strip: 6.0, ProcessingPipe: 24, FinishedPipe: 4.0, ScrapPipe: 4.0 },
-    { Data_Group: 'Received', Coil: 159, Strip: 6.0, ProcessingPipe: 24, FinishedPipe: 4.0, ScrapPipe: 4.0 },
-];
-
 
 
 const TableExecutiveSummary = ({ className, ...rest }) => {
@@ -163,7 +134,7 @@ const TableExecutiveSummary = ({ className, ...rest }) => {
                             <Table className={classes.table} aria-label="customized table">
                                 <TableHead>
                                     <TableRow>
-                                        <StyledTableCell>Last Month</StyledTableCell>
+                                        <StyledTableCell>{moment().subtract(1, 'months').format("MMM-YYYY")}</StyledTableCell>
                                         <StyledTableCell align="right">Coil</StyledTableCell>
                                         <StyledTableCell align="right">Strip</StyledTableCell>
                                         <StyledTableCell align="right">Processing&nbsp;Pipe</StyledTableCell>
@@ -194,7 +165,7 @@ const TableExecutiveSummary = ({ className, ...rest }) => {
                             <Table className={classes.table} aria-label="customized table">
                                 <TableHead>
                                     <TableRow>
-                                        <StyledTableCell>Month to date</StyledTableCell>
+                                        <StyledTableCell>{moment().format("MMM")} to date</StyledTableCell>
                                         <StyledTableCell align="right">Coil</StyledTableCell>
                                         <StyledTableCell align="right">Strip</StyledTableCell>
                                         <StyledTableCell align="right">Processing&nbsp;Pipe</StyledTableCell>
