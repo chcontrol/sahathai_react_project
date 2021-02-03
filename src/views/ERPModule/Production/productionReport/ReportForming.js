@@ -103,7 +103,8 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
         forming_reason_meter_start = forming_reason_meter[0]
         forming_reason_meter_end = forming_reason_meter[1]
         meters_minute_forming_reason = dataNow[0]["meters_minute_forming_reason"]
-        sum_time_used_forming_reason = fancyTimeFormat(dataNow[0]["sum_time_used_forming_reason"])
+        // sum_time_used_forming_reason = fancyTimeFormat(dataNow[0]["sum_time_used_forming_reason"])
+        sum_time_used_forming_reason = fancyTimeFormat( (forming_reason_meter_end - forming_reason_meter_start) * 60)
 
     } else {
         forming_reason_meter = ['..................', '..................']
@@ -136,18 +137,18 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
                                 border: [false, false, false, false], text: ''
                             },
                             {
-                                border: [false, false, false, false], text: 'Production performance Forming records \n รายงานการผลิตสินค้าเครื่องฟรอมมิ่ง', fontSize: 18
+                                border: [false, false, false, false], text: 'Production performance Forming records \n รายงานการผลิตสินค้าเครื่องฟอร์มมิ่ง', fontSize: 18
                             },
                         ],
                         [
                             {
-                                border: [false, false, false, false], text: `บริษัท สหไทย สตีลไพพ์ จำกัด (มหาชน)        ${workcenterHeader(dataNow)} `, fontSize: 14, colSpan: 3
+                                border: [false, false, false, false], text: `บริษัท สหไทย สตีลไพพ์ จำกัด (มหาชน)        ${workcenterHeader(dataNow)} ไม่พักพักเที่ยง  ไม่พักเยน `, fontSize: 14, colSpan: 3
                             },
                             {
                                 border: [false, false, false, false], text: ''
                             },
                             {
-                                border: [false, false, false, false], text: ''
+                                border: [false, false, false, false], text: 'ไม่พักพักเที่ยง  ไม่พักเย็น'
                             },
                         ],
                         [
