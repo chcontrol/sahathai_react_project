@@ -59,6 +59,7 @@ const ReasonRecordStopMachineTableEditable = (props) => {
         load: type,
         id: values.id,
         reason_id: values.reason_id,
+        reason_detail_id: values.reason_detail_id,
         time_stopped: values.time_stopped,
         time_used: values.time_used,
         create_date: values.create_date,

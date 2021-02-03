@@ -142,13 +142,13 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
                         ],
                         [
                             {
-                                border: [false, false, false, false], text: `บริษัท สหไทย สตีลไพพ์ จำกัด (มหาชน)        ${workcenterHeader(dataNow)} ไม่พักพักเที่ยง  ไม่พักเยน `, fontSize: 14, colSpan: 3
+                                border: [false, false, false, false], text: `บริษัท สหไทย สตีลไพพ์ จำกัด (มหาชน)        ${workcenterHeader(dataNow)} `, fontSize: 14
                             },
                             {
                                 border: [false, false, false, false], text: ''
                             },
                             {
-                                border: [false, false, false, false], text: 'ไม่พักพักเที่ยง  ไม่พักเย็น'
+                                border: [false, false, false, false], text: `ไม่พักพักเที่ยง  ไม่พักเย็น`
                             },
                         ],
                         [
