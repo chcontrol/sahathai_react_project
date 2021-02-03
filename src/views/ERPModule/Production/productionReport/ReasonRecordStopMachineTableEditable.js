@@ -4,9 +4,7 @@ import tableIcons from '../../../components/table/tableIcons'
 import API from '../../../components/API';
 import moment from "moment";
 import { Chip } from '@material-ui/core';
-import SettingsIcon from '@material-ui/icons/Settings';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
 
 // import AssignmentIcon from '@material-ui/icons/Assignment';
 
@@ -54,6 +52,7 @@ const ReasonRecordStopMachineTableEditable = (props) => {
 
 
   const CRUDfn = async (type, values) => {
+    console.log(values)
     await API.get("RPT_JOBPACKING/data.php", {
       params: {
         load: type,
@@ -129,7 +128,8 @@ const ReasonRecordStopMachineTableEditable = (props) => {
           // ,type:'datetime'
           // ,dateSetting:{ locale: 'ko-KR'}
         },
-        { title: 'สาเหตุ', field: 'reason_id', initialEditValue: 1, lookup: props.selectFormingRecordReason, width: 100 },
+        { title: 'สาเหตุหลัก', field: 'reason_description',  width: 100 },
+        { title: 'รายละเอียด', field: 'description',  width: 100 },
         {
           title: 'รวมเวลา', field: 'time_used', type: 'numeric', width: 100,
           headerStyle: {
@@ -164,29 +164,29 @@ const ReasonRecordStopMachineTableEditable = (props) => {
       }}
 
       editable={{
-        onRowAdd: newData =>
-          new Promise((resolve, reject) => {
-            setTimeout(() => {
-              props.setDataFormingRecord([...props.dataFormingRecord, newData]);
-              CRUDfn("CreateForming", newData)
-              resolve();
-            }, 1000)
-          }),
-        onRowUpdate: (newData, oldData) =>
-          new Promise((resolve, reject) => {
-            setTimeout(() => {
-              const dataUpdate = [...props.dataFormingRecord];
-              const index = oldData.tableData.id;
-              dataUpdate[index] = newData;
-              props.setDataFormingRecord([...dataUpdate]);
-              console.log(dataUpdate)
-              console.log("oldData", oldData)
-              console.log("newData", newData)
+        // onRowAdd: newData =>
+        //   new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //       props.setDataFormingRecord([...props.dataFormingRecord, newData]);
+        //       CRUDfn("CreateForming", newData)
+        //       resolve();
+        //     }, 1000)
+        //   }),
+        // onRowUpdate: (newData, oldData) =>
+        //   new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //       const dataUpdate = [...props.dataFormingRecord];
+        //       const index = oldData.tableData.id;
+        //       dataUpdate[index] = newData;
+        //       props.setDataFormingRecord([...dataUpdate]);
+        //       console.log(dataUpdate)
+        //       console.log("oldData", oldData)
+        //       console.log("newData", newData)
 
-              CRUDfn("UpdateForming", newData)
-              resolve();
-            }, 1000)
-          }),
+        //       CRUDfn("UpdateForming", newData)
+        //       resolve();
+        //     }, 1000)
+        //   }),
         onRowDelete: oldData =>
           new Promise((resolve, reject) => {
             setTimeout(() => {

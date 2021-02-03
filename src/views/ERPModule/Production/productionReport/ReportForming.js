@@ -24,12 +24,15 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
         { text: "มัดที่ \n Bundle no", fontSize: 11, alignment: 'center' },
         { text: "เส้น/มัด\nPCS/Bundle", fontSize: 11, alignment: 'center' },
         { text: "จำนวนมัด\nBundle", fontSize: 11, alignment: 'center' },
-        { text: "จำนวน\n เกรด A", fontSize: 11, alignment: 'center' },
-        { text: "จำนวน\n เกรด B", fontSize: 11, alignment: 'center' },
-        { text: "จำนวน\n เกรด C", fontSize: 11, alignment: 'center' },
+        { text: "จำนวน\n เกรด A \n(เส้น)", fontSize: 11, alignment: 'center' },
+        { text: "จำนวน\n เกรด B \n(เส้น)", fontSize: 11, alignment: 'center' },
+        { text: "จำนวน\n เกรด C \n(เส้น)", fontSize: 11, alignment: 'center' },
         { text: "STS PO \nJob", fontSize: 11, alignment: 'center' },
         { text: "รายการเหล็กสลิต", fontSize: 11, alignment: 'center' },
-        { text: "จำนวนม้วน", fontSize: 11, alignment: 'center' },
+        { text: "จำนวน\nม้วน", fontSize: 11, alignment: 'center' },
+        { text: "เวลา\nทำงาน", fontSize: 11, alignment: 'center' },
+        { text: "ความเร็ว\nเมตร/ชม.", fontSize: 11, alignment: 'center' },
+        { text: "เป้าหมาย\nการผลิต\n(-10%) ", fontSize: 11, alignment: 'center' },
     ],
     )
 
@@ -51,6 +54,9 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
             { text: dataNow[i]["ref_num"], fontSize: 12, alignment: 'center' },
             { text: dataNow[i]["MatItem"], fontSize: 12, alignment: 'right' },
             { text: dataNow[i]["totalMatUsed"], fontSize: 12, alignment: 'right' },
+            { text: '8', fontSize: 12, alignment: 'right' },
+            { text: Number(dataNow[i]["pcs_per_mch_hr"]), fontSize: 12, alignment: 'right' },
+            { text: (Number(dataNow[i]["pcs_per_mch_hr"]) * 8) - (Number(dataNow[i]["pcs_per_mch_hr"]) * 8)*10/100 , fontSize: 12, alignment: 'right' },
         ],
         )
     }
@@ -95,6 +101,7 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
     let forming_reason_meter;
     let meters_minute_forming_reason
     let sum_time_used_forming_reason
+    let sum_time_used_forming_reason_stop
     let forming_reason_meter_start = 0
     let forming_reason_meter_end = 0
 
@@ -105,6 +112,7 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
         meters_minute_forming_reason = dataNow[0]["meters_minute_forming_reason"]
         // sum_time_used_forming_reason = fancyTimeFormat(dataNow[0]["sum_time_used_forming_reason"])
         sum_time_used_forming_reason = fancyTimeFormat( (forming_reason_meter_end - forming_reason_meter_start) * 60)
+        sum_time_used_forming_reason_stop = fancyTimeFormat(dataNow[0]["sum_time_used_forming_reason"])
 
     } else {
         forming_reason_meter = ['..................', '..................']
@@ -121,7 +129,7 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
         pageMargins: [5, 120, 5, 270],
         header: function (currentPage, pageCount, pageSize) {
             return {
-                margin: [20, 15, 50, 10],
+                margin: [20, 15, 20, 10],
                 table: {
                     widths: [310, 0, 350],
                     body: [
@@ -148,7 +156,7 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
                                 border: [false, false, false, false], text: ''
                             },
                             {
-                                border: [false, false, false, false], text: `ไม่พักพักเที่ยง  ไม่พักเย็น`
+                                border: [false, false, false, false], text: `ปกติ 8 ชั่วโมง ไม่พักพักเที่ยง(+1)  ไม่พักเย็น(0.5)`
                             },
                         ],
                         [
@@ -205,7 +213,8 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
                         [
                             {
 
-                                border: [false, false, false, false], text: `ความเร็วในการเดินเครื่อง.....${meters_minute_forming_reason}......เมตร/นาที     เลขมิตเตอร์เริ่มเดินเครื่อง.......${forming_reason_meter_start}...... เลขมิตเตอร์เลิกงาน.....${forming_reason_meter_end}.........  รวมเวลาเดินเครื่อง......${sum_time_used_forming_reason}.... `
+                                // border: [false, false, false, false], text: `ความเร็วในการเดินเครื่อง.....${meters_minute_forming_reason}......เมตร/นาที     เลขมิตเตอร์เริ่มเดินเครื่อง.......${forming_reason_meter_start}...... เลขมิตเตอร์เลิกงาน.....${forming_reason_meter_end}.........  รวมเวลาเดินเครื่อง......${sum_time_used_forming_reason}.... `
+                                border: [false, false, false, false], text: `  เลขมิตเตอร์เริ่มเดินเครื่อง.......${forming_reason_meter_start}...... เลขมิตเตอร์เลิกงาน.....${forming_reason_meter_end}.........  รวมเวลาเดินเครื่อง......${sum_time_used_forming_reason}.... รวมเวลาที่หยุดเครื่อง ......... ${sum_time_used_forming_reason_stop} ....... `
                                 , fontSize: 16, colSpan: 3
                             },
                             {
@@ -263,7 +272,7 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
         content: [
             {
                 table: {
-                    widths: [15, 50, 70, 20, 30, 40, 20, 40, 25, 30, 35, 30, 30, 50, 80, 35],
+                    widths: [15, 50, 50, 20, 30, 40, 20, 40, 25, 30, 35, 30, 30, 50, 80, 25,20, 27, 30],
                     headerRows: 1,
                     body: data,
                 },

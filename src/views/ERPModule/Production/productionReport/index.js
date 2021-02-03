@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Grid, IconButton, Modal, Paper, Snackbar } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { FormControl, FormControlLabel, FormLabel, Grid, IconButton, Modal, Paper, Radio, RadioGroup, Snackbar } from '@material-ui/core';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake-thai/build/vfs_fonts";
 import { ReportCheckPackingDiary } from './ReportCheckPackingDiary'
@@ -55,6 +55,9 @@ const ProductionDailyReport = () => {
   const [openAlert, setOpenAlert] = React.useState(false);
   const [SizeGridInModalLeft, setSizeGridInModalLeft] = useState(6)
   const [SizeGridInModalRight, setSizeGridInModalRight] = useState(6)
+  const [RadioOT, setRadioOT] = React.useState('0');
+  const [RadioOTRate, setRadioOTRate] = React.useState('8');
+
 
   const [itemModal, setitemModal] = useState(null)
 
@@ -205,6 +208,13 @@ const ProductionDailyReport = () => {
     setAnchorEl(null);
   };
 
+
+  const handleChangeRadioOT = (event) => {
+    setRadioOT(event.target.value);
+    setRadioOTRate(Number(8) + Number(event.target.value))
+  };
+
+  
   return (
     <Paper className={classes.paper}>
       <Snackbar
@@ -289,7 +299,29 @@ const ProductionDailyReport = () => {
                 <Modal open={openModal} onClose={handleCloseModal} >
                   {/* {JSON.stringify(values)} */}
                   <Grid container spacing={0} className={classes.paperModal}>
-                    <Grid item xs={SizeGridInModalLeft} onMouseOver={() => { HoverInModalLeft() }} hidden={false}>
+                    <Grid item xs={2} >
+                      {/* {values.startdate}
+                      {values.enddate} */}
+                      <FormLabel component="legend">ช่วงเวลางาน</FormLabel>
+                      <br></br>
+                      <FormLabel component="legend">{values.startdate}</FormLabel>
+                      <FormLabel component="legend">{values.enddate}</FormLabel>
+                      <br></br>
+
+
+
+                      <FormControl component="fieldset">
+                        <FormLabel component="legend">จำนวนชั่วโมงงาน ({RadioOTRate})</FormLabel>
+                        <RadioGroup aria-label="RadioOT" name="RadioOT" value={RadioOT} onChange={handleChangeRadioOT}>
+                          <FormControlLabel value="1" control={<Radio />} label="ไม่พักพักเที่ยง(+1)" />
+                          <FormControlLabel value="0.5" control={<Radio />} label="ไม่พักเย็น(+0.5)" />
+                          <FormControlLabel value="0" control={<Radio />} label="ตามเวลาปกติ" />
+                          {/* <FormControlLabel value="other" control={<Radio />} label="Other" />
+                          <FormControlLabel value="disabled" disabled control={<Radio />} label="(Disabled option)" /> */}
+                        </RadioGroup>
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={5} >
                       <ReasonRecordStopMachineTableEditable
                         dataFormingRecord={dataFormingRecord}
                         setDataFormingRecord={setDataFormingRecord}
@@ -303,7 +335,7 @@ const ProductionDailyReport = () => {
                         setOpenModalAddNewReason={setOpenModalAddNewReason}
                       />
                     </Grid>
-                    <Grid item xs={SizeGridInModalRight} onMouseOver={() => { HoverInModalRight() }}>
+                    <Grid item xs={5} >
                       <ReasonRecordStopMachineMetersTableEditable
                         w_c={values.w_c}
                         values={values}

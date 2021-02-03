@@ -71,7 +71,7 @@ const ReasonRecordStopMachineTableEditable = (props) => {
             title={`บันทึกเลขมิตเตอร์ : ${values.w_c}  `}
             columns={[
                 { title: 'id', field: 'id', editable: 'never' },
-                { title: 'เมตร/นาที', field: 'meters_minute', type: 'numeric', width: 120 },
+                // { title: 'เมตร/นาที', field: 'meters_minute', type: 'numeric', width: 120 },
                 { title: 'เริ่มต้น', field: 'meters_start', type: 'numeric', width: 100 },
                 { title: 'สิ้นสุด', field: 'meters_end', type: 'numeric', width: 100 },
                 {
