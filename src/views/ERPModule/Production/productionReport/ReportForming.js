@@ -31,7 +31,7 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
         { text: "รายการเหล็กสลิต", fontSize: 11, alignment: 'center' },
         { text: "จำนวน\nม้วน", fontSize: 11, alignment: 'center' },
         { text: "เวลา\nทำงาน", fontSize: 11, alignment: 'center' },
-        { text: "ความเร็ว\nเมตร/ชม.", fontSize: 11, alignment: 'center' },
+        { text: "เล้น/ชม.", fontSize: 11, alignment: 'center' },
         { text: "เป้าหมาย\nการผลิต\n(-10%) ", fontSize: 11, alignment: 'center' },
     ],
     )

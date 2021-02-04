@@ -2,29 +2,17 @@ import React, { useState } from 'react';
 import { Grid, IconButton, Modal, Paper, Snackbar } from '@material-ui/core';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake-thai/build/vfs_fonts";
-import { ReportCheckPackingDiary } from './ReportCheckPackingDiary'
-import { ReportCheckProductionDiary } from './ReportCheckProductionDiary'
-import { ReportMovingProductReport } from './ReportMovingProductReport'
-
-
-import { ReportPackingDiary } from './ReportPackingDiary';
-import { ReportProductionDaily } from './ReportProductionDaily';
-import { ReportForming } from './ReportForming';
-import { ReportStamping } from './ReportStamping';
 import moment from "moment";
 import DateTimePicker from '../../../components/Input/CDateTimePicker';
 import CButton from '../../../components/Input/CButton';
 import { Formik } from 'formik';
 import CTextField from '../../../components/Input/CTextField';
 import API from '../../../components/API';
-import { convertAllLotReport } from './function/GroupLot';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import CAutocomplete from '../../../components/Input/CAutocomplete ';
 
 import customStyles from "./customStyles.js";
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ProductionDailyReportTable from './ProductionDailyReportTable';
-import ShiftSelect from './ShiftSelect';
 
 
 

@@ -70,8 +70,6 @@ const ReasonRecordStopMachineTableEditable = (props) => {
             icons={tableIcons}
             title={`บันทึกเลขมิตเตอร์ : ${values.w_c}  `}
             columns={[
-                { title: 'id', field: 'id', editable: 'never' },
-                { title: 'เมตร/นาที', field: 'meters_minute', type: 'numeric', width: 120 },
                 { title: 'เริ่มต้น', field: 'meters_start', type: 'numeric', width: 100 },
                 { title: 'สิ้นสุด', field: 'meters_end', type: 'numeric', width: 100 },
                 {
@@ -105,33 +103,33 @@ const ReasonRecordStopMachineTableEditable = (props) => {
                             resolve();
                         }, 1000)
                     }),
-                onRowUpdate: (newData, oldData) =>
-                    new Promise((resolve, reject) => {
-                        setTimeout(() => {
-                            const dataUpdate = [...props.dataFormingRecord_reason_meter];
-                            const index = oldData.tableData.id;
-                            dataUpdate[index] = newData;
-                            props.setDataFormingRecord_reason_meter([...dataUpdate]);
-                            console.log(dataUpdate)
-                            console.log("oldData", oldData)
-                            console.log("newData", newData)
+                // onRowUpdate: (newData, oldData) =>
+                //     new Promise((resolve, reject) => {
+                //         setTimeout(() => {
+                //             const dataUpdate = [...props.dataFormingRecord_reason_meter];
+                //             const index = oldData.tableData.id;
+                //             dataUpdate[index] = newData;
+                //             props.setDataFormingRecord_reason_meter([...dataUpdate]);
+                //             console.log(dataUpdate)
+                //             console.log("oldData", oldData)
+                //             console.log("newData", newData)
 
-                            CRUDfn_reason_meter("UpdateForming_reason_meter", newData)
-                            resolve();
-                        }, 1000)
-                    }),
-                onRowDelete: oldData =>
-                    new Promise((resolve, reject) => {
-                        setTimeout(() => {
-                            const dataDelete = [...props.dataFormingRecord_reason_meter];
-                            const index = oldData.tableData.id;
-                            dataDelete.splice(index, 1);
-                            props.setDataFormingRecord_reason_meter([...dataDelete]);
-                            console.log(oldData)
-                            CRUDfn_reason_meter("DeleteForming_reason_meter", oldData)
-                            resolve()
-                        }, 1000)
-                    }),
+                //             CRUDfn_reason_meter("UpdateForming_reason_meter", newData)
+                //             resolve();
+                //         }, 1000)
+                //     }),
+                // onRowDelete: oldData =>
+                //     new Promise((resolve, reject) => {
+                //         setTimeout(() => {
+                //             const dataDelete = [...props.dataFormingRecord_reason_meter];
+                //             const index = oldData.tableData.id;
+                //             dataDelete.splice(index, 1);
+                //             props.setDataFormingRecord_reason_meter([...dataDelete]);
+                //             console.log(oldData)
+                //             CRUDfn_reason_meter("DeleteForming_reason_meter", oldData)
+                //             resolve()
+                //         }, 1000)
+                //     }),
             }}
 
             components={{
