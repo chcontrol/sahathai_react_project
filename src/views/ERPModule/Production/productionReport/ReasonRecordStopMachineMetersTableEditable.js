@@ -83,8 +83,8 @@ const ReasonRecordStopMachineTableEditable = (props) => {
             options={{
                 search: false,
                 paging: false,
-                maxBodyHeight: '65vh',
-                minBodyHeight: '65vh',
+                maxBodyHeight: '30vh',
+                minBodyHeight: '30vh',
                 exportButton: true,
                 filtering: false,
                 rowStyle: rowData => ({

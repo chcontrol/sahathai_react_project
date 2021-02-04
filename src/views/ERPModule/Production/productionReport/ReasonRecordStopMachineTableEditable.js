@@ -104,11 +104,7 @@ const ReasonRecordStopMachineTableEditable = (props) => {
     const response = await API.get("RPT_JOBPACKING/data.php", {
       params: param
     });
-    console.log('--------------------------------')
-    console.log(response.data)
     props.setDataFormingRecord(response.data)
-    console.log(values)
-    console.log(response.data)
   }
 
 
@@ -118,7 +114,6 @@ const ReasonRecordStopMachineTableEditable = (props) => {
       icons={tableIcons}
       title={`บันทึกสาเหตุการหยุดเครื่อง : ${props.w_c}`}
       columns={[
-        { title: 'id', field: 'id', editable: 'never' },
         {
           title: 'เวลาหยุดเครื่อง', field: 'time_stopped', editable: 'always',
           initialEditValue: moment().format('YYYY-MM-DD HH:mm:ss'), width: 200,
@@ -128,8 +123,8 @@ const ReasonRecordStopMachineTableEditable = (props) => {
           // ,type:'datetime'
           // ,dateSetting:{ locale: 'ko-KR'}
         },
-        { title: 'สาเหตุหลัก', field: 'reason_description',  width: 100 },
-        { title: 'รายละเอียด', field: 'description',  width: 100 },
+        { title: 'สาเหตุหลัก', field: 'reason_detail_id',  width: 100 },
+        { title: 'รายละเอียด', field: 'reason_id',  width: 100 },
         {
           title: 'รวมเวลา', field: 'time_used', type: 'numeric', width: 100,
           headerStyle: {
@@ -152,8 +147,8 @@ const ReasonRecordStopMachineTableEditable = (props) => {
       options={{
         search: false,
         paging: false,
-        maxBodyHeight: '65vh',
-        minBodyHeight: '65vh',
+        maxBodyHeight: '30vh',
+        minBodyHeight: '30vh',
         exportButton: true,
         filtering: false,
         rowStyle: rowData => ({

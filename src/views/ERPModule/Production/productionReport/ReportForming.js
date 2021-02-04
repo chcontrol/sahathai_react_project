@@ -36,7 +36,16 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
     ],
     )
 
+    let total_bundle = 0;
+    let total_pcs = 0;
+    let cal_bundel = []
+
     for (let i = 0; i < dataNow.length; i++) {
+
+        total_bundle = total_bundle + dataNow[i]["SUMLotBundle"]
+        total_pcs = total_pcs + dataNow[i]["SUMLotPCS"]
+        cal_bundel.push(dataNow[i]["SUMLotPCS"])
+
         data.push([
             { text: i + 1, alignment: 'center' },
             { text: dataNow[i]["Uf_NPS"], fontSize: 12, alignment: 'center' },
@@ -59,6 +68,31 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
             { text: (Number(dataNow[i]["pcs_per_mch_hr"]) * 8) - (Number(dataNow[i]["pcs_per_mch_hr"]) * 8)*10/100 , fontSize: 12, alignment: 'right' },
         ],
         )
+
+        if (i === dataNow.length - 1) {
+            data.push([
+                { text: ``, fontSize: 11, alignment: 'center', style: 'header', colSpan: 9 },
+                { text: "", fontSize: 11, alignment: 'center' },
+                { text: "", fontSize: 11, alignment: 'center' },
+                { text: "", fontSize: 11, alignment: 'center' },
+                { text: "", fontSize: 11, alignment: 'center' },
+                { text: "", fontSize: 11, alignment: 'center' },
+                { text: "", fontSize: 11, alignment: 'center' },
+                { text: "", fontSize: 11, alignment: 'center' },
+                { text: "", fontSize: 11, alignment: 'center' },
+                { text: total_bundle, fontSize: 11, alignment: 'right' },
+                { text: total_pcs, fontSize: 11, alignment: 'right' },
+                { text: "", fontSize: 11, alignment: 'center' },
+                { text: "", fontSize: 11, alignment: 'center' },
+                { text: "", fontSize: 11, alignment: 'center' },
+                { text: "", fontSize: 11, alignment: 'center' },
+                { text: "", fontSize: 11, alignment: 'center' },
+                { text: "", fontSize: 11, alignment: 'center' },
+                { text: "", fontSize: 11, alignment: 'center' },
+                { text: "", fontSize: 11, alignment: 'center' }
+            ],
+            )
+        }
     }
     
 

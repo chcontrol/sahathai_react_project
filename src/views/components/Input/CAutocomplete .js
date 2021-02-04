@@ -24,8 +24,13 @@ export default function CAutocomplete(props) {
         }
 
         (async () => {
+            let response;
+            if (window.location.host == '172.18.1.194:5000' || window.location.host == 'localhost:3000') {
+                response = await fetch('http://172.18.1.194/sts_web_center/module/RPT_JOBPACKING/data.php?load=workcenter');
+            } else {
+                response = await fetch('http://61.90.156.165/sts_web_center/module/RPT_JOBPACKING/data.php?load=workcenter');
+            }
             // const response = await fetch('https://country.register.gov.uk/records.json?page-size=5000');
-            const response = await fetch('http://172.18.1.194/sts_web_center/module/RPT_JOBPACKING/data.php?load=workcenter');
             // const response2 = await API_sts_web_center.get("RPT_JOBPACKING/data.php?load=workcenter");
             console.log("response", response)
             await sleep(1e3); // For demo purposes.
@@ -33,7 +38,7 @@ export default function CAutocomplete(props) {
 
 
             if (active) {
-                console.log("countries",countries)
+                console.log("countries", countries)
                 setOptions(countries)
             }
         })();
@@ -90,8 +95,8 @@ export default function CAutocomplete(props) {
                     <TextField
                         {...params}
                         label="Work center"
-                          variant="outlined"
-                          size="small"
+                        variant="outlined"
+                        size="small"
                         InputProps={{
                             ...params.InputProps,
 

@@ -134,7 +134,7 @@ const ReasonAddNewReason = (props) => {
                                     <Grid item lg={12}>
                                         <CAutocompleteReason
                                             onBlur={handleBlur}
-                                            name="reason_id"
+                                            name="reason_description"
                                             value={values.reason_id}
                                             setFieldValue={setFieldValue}
                                         />
@@ -143,7 +143,7 @@ const ReasonAddNewReason = (props) => {
                                         <CAutocompleteReasonDetail
                                             reason_id={values.reason_id}
                                             onBlur={handleBlur}
-                                            name="reason_detail_id"
+                                            name="description"
                                             value={values.reason_detail_id}
                                             setFieldValue={setFieldValue}
                                         />

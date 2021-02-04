@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, FormControl, FormControlLabel, FormLabel, Grid, IconButton, Modal, Paper, Radio, RadioGroup, Snackbar } from '@material-ui/core';
+import { Button, Card, CardActions, CardContent, FormControl, FormControlLabel, FormLabel, Grid, IconButton, Modal, Paper, Radio, RadioGroup, Snackbar, Typography } from '@material-ui/core';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake-thai/build/vfs_fonts";
 import { ReportCheckPackingDiary } from './ReportCheckPackingDiary'
@@ -17,7 +17,6 @@ import CButton from '../../../components/Input/CButton';
 import { Formik } from 'formik';
 import CTextField from '../../../components/Input/CTextField';
 import API from '../../../components/API';
-import { convertAllLotReport } from './function/GroupLot';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import CAutocomplete from '../../../components/Input/CAutocomplete ';
 import ReasonStopMachineTableEditable from './ReasonStopMachineTableEditable';
@@ -42,7 +41,7 @@ const ProductionDailyReport = () => {
   const classes = useStyles();
   const [data, setdata] = useState([])
   const [isLoadingData, setisLoadingData] = useState(false)
-  const [openModal, setOpenModal] = React.useState(true);
+  const [openModal, setOpenModal] = React.useState(false);
   const [openModalReasonMaster, setOpenModalReasonMaster] = React.useState(false);
   const [openModalReasonMasterDetail, setOpenModalReasonMasterDetail] = React.useState(false);
   const [openModalAddNewReason, setOpenModalAddNewReason] = React.useState(false);
@@ -53,10 +52,8 @@ const ProductionDailyReport = () => {
   const [dataFormingRecord_description_detail, setDataFormingRecord_description_detail] = useState([])
   const [selectFormingRecordReason, setselectFormingRecordReason] = useState()
   const [openAlert, setOpenAlert] = React.useState(false);
-  const [SizeGridInModalLeft, setSizeGridInModalLeft] = useState(6)
-  const [SizeGridInModalRight, setSizeGridInModalRight] = useState(6)
-  const [RadioOT, setRadioOT] = React.useState('0');
-  const [RadioOTRate, setRadioOTRate] = React.useState('8');
+  const [BreakTimeForming, setBreakTimeForming] = React.useState();
+  const [BreakTimeFormingRate, setBreakTimeFormingRate] = React.useState('8');
 
 
   const [itemModal, setitemModal] = useState(null)
@@ -142,9 +139,8 @@ const ProductionDailyReport = () => {
           wc_group_query: wc_group_query
         }
       });
-      let kotFromDataO = " 0057(14; 0058(14; 0059(14; 0060(14; 0061(14; 0062(14; 0063(14; 0064(14; 0065(14; 0066(14; 0067(14; 0068(14; 0070(14; 0071(14; 0072(14; 0073(14; 0074(14; 0075(14; 0076(14; 0077(14; 0078(14; 0079(14; 0080(14; 0081(14; 0082(14; 0083(14; 0084(14; 0085(14; 0086(14; 0087(14; 0088(14; 0089(14; 0090(14; 0091(14; 0092(14; 0093(14; 0094(14; 0095(14; 0096(14; 0097(13"
-      // console.log("------------------------------------")
-      console.log(convertAllLotReport("wordslot", kotFromDataO))
+      // let kotFromDataO = " 0057(14; 0058(14; 0059(14; 0060(14; 0061(14; 0062(14; 0063(14; 0064(14; 0065(14; 0066(14; 0067(14; 0068(14; 0070(14; 0071(14; 0072(14; 0073(14; 0074(14; 0075(14; 0076(14; 0077(14; 0078(14; 0079(14; 0080(14; 0081(14; 0082(14; 0083(14; 0084(14; 0085(14; 0086(14; 0087(14; 0088(14; 0089(14; 0090(14; 0091(14; 0092(14; 0093(14; 0094(14; 0095(14; 0096(14; 0097(13"
+      // console.log(convertAllLotReport("wordslot", kotFromDataO))
       if (doc_type === 'Packing') {
         ReportPackingDiary(response.data, values.startdate, values.enddate)
       } else if (doc_type === 'Production') {
@@ -177,16 +173,7 @@ const ProductionDailyReport = () => {
     targetElement.appendChild(iframe);
   });
 
-  const HoverInModalRight = async () => {
-    setSizeGridInModalLeft(6)
-    setSizeGridInModalRight(6)
-  }
-
-  const HoverInModalLeft = async () => {
-    setSizeGridInModalLeft(6)
-    setSizeGridInModalRight(6)
-  }
-
+  
   const handleClickAlert = () => {
     setOpenAlert(true);
   };
@@ -209,9 +196,24 @@ const ProductionDailyReport = () => {
   };
 
 
-  const handleChangeRadioOT = (event) => {
-    setRadioOT(event.target.value);
-    setRadioOTRate(Number(8) + Number(event.target.value))
+  const handleChangeBreakTimeForming = (w_c,startdate,enddate,event) => {
+
+    console.log(startdate)
+    console.log(enddate)
+    API.get("RPT_JOBPACKING/data.php", {
+      params: {
+        load: "CreateBreakTimeForming",
+        w_c: w_c,
+        startdate: startdate,
+        enddate: enddate,
+        rate: Number(8) + Number(event.target.value),
+      }
+    });
+
+
+
+    setBreakTimeForming(event.target.value);
+    setBreakTimeFormingRate(Number(8) + Number(event.target.value))
   };
 
 
@@ -235,10 +237,10 @@ const ProductionDailyReport = () => {
               {
                 // startdate: moment('2020-10-16 08:00:', 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm:ss'),
                 // enddate: moment('2020-10-16 17:00:', 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm:ss'),
-                startdate: moment('08:00:', 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
-                enddate: moment('17:00:', 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
-                // startdate: moment('08:00:', 'HH:mm').subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss'),
-                // enddate: moment('21:00', 'HH:mm').subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss'),
+                // startdate: moment('08:00:', 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
+                // enddate: moment('17:00:', 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
+                startdate: moment('08:00:', 'HH:mm').subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss'),
+                enddate: moment('21:00', 'HH:mm').subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss'),
                 item: '',
                 refnum: '',
                 w_c: localStorage.getItem("w_c")
@@ -293,14 +295,72 @@ const ProductionDailyReport = () => {
                     w_c={values.w_c}
                     dataFormingRecord={dataFormingRecord}
                     setDataFormingRecord={setDataFormingRecord}
-
                   />
                 </Modal>
-                <Modal open={openModal} onClose={handleCloseModal} >
+                <Modal open={openModal} onClose={handleCloseModal}  >
                   {/* {JSON.stringify(values)} */}
-                  <Grid container spacing={0} className={classes.paperModal}>
+                  <Grid container spacing={1} className={classes.paperModal} style={{  width: '80vw', height: '98vh', marginLeft: '10vw', marginTop: '1vh' }}>
+                    
+                    <Grid item xs={4} >
+                      {/* {values.startdate}
+                      {values.enddate} */}
+                      <Card variant="outlined">
+                        <CardContent>
+                          <Typography variant="h4" component="h4"> Work center : {values.w_c} </Typography>
+                          <Typography >ช่วงเวลางาน <br></br> {values.startdate} - {values.enddate}</Typography>
+                          <Typography className={classes.pos} color="textSecondary"></Typography>
+                        </CardContent>
+                        <CardActions>
+                          <FormControl component="fieldset">
+                            <FormLabel >จำนวนชั่วโมงงาน ({BreakTimeFormingRate})</FormLabel>
+                            <RadioGroup aria-label="BreakTimeForming" 
+                            name="BreakTimeForming" 
+                            value={BreakTimeForming} 
+                            onChange={(event)=>handleChangeBreakTimeForming(values.w_c,values.startdate,values.enddate,event)}
+                            >
+                              <FormControlLabel value="1" control={<Radio />} label="ไม่พักพักเที่ยง(+1)" />
+                              <FormControlLabel value="0.5" control={<Radio />} label="ไม่พักเย็น(+0.5)" />
+                              <FormControlLabel value="0" control={<Radio />} label="ตามเวลาปกติ" />
+                              {/* <FormControlLabel value="other" control={<Radio />} label="Other" />
+                          <FormControlLabel value="disabled" disabled control={<Radio />} label="(Disabled option)" /> */}
+                            </RadioGroup>
+                          </FormControl>
+                        </CardActions>
+                        <CardContent>
+                          <Button
+                            color="primary"
+                            variant="contained"
+                            style={{margin:2}}
+                            onClick={() => { SearchFn("ajax2", values, "Forming", "Forming") }} disabled={false} >
+                            
+                            พิพม์รายงาน Forming
+                          </Button>
+                          <Button
+                            color="primary"
+                            variant="contained"
+                            style={{margin:2}}
+                            onClick={() => { SearchFn("ajax2", values, "Forming", "Forming") }} disabled={false} >
+                            
+                            บันทึกรายงาน
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={8} >
+                      <Card variant="outlined">
+                        <ReasonRecordStopMachineMetersTableEditable
+                          w_c={values.w_c}
+                          values={values}
+                          setOpenModalReasonMaster={setOpenModalReasonMaster}
+                          dataFormingRecord_reason_meter={dataFormingRecord_reason_meter}
+                          setDataFormingRecord_reason_meter={setDataFormingRecord_reason_meter}
+                        />
+                      </Card>
 
-                    <Grid item xs={5} >
+                    </Grid>
+
+
+                    <Grid item xs={12} >
                       <ReasonRecordStopMachineTableEditable
                         dataFormingRecord={dataFormingRecord}
                         setDataFormingRecord={setDataFormingRecord}
@@ -314,38 +374,8 @@ const ProductionDailyReport = () => {
                         setOpenModalAddNewReason={setOpenModalAddNewReason}
                       />
                     </Grid>
-                    <Grid item xs={5} >
-                      <ReasonRecordStopMachineMetersTableEditable
-                        w_c={values.w_c}
-                        values={values}
-                        setOpenModalReasonMaster={setOpenModalReasonMaster}
-                        dataFormingRecord_reason_meter={dataFormingRecord_reason_meter}
-                        setDataFormingRecord_reason_meter={setDataFormingRecord_reason_meter}
-                      />
-                    </Grid>
-                    <Grid item xs={2} >
-                      {/* {values.startdate}
-                      {values.enddate} */}
-                      <FormLabel component="legend">ช่วงเวลางาน</FormLabel>
-                      <br></br>
-                      <FormLabel component="legend">{values.startdate}</FormLabel>
-                      <FormLabel component="legend">{values.enddate}</FormLabel>
-                      <br></br>
-                      <FormControl component="fieldset">
-                        <FormLabel component="legend">จำนวนชั่วโมงงาน ({RadioOTRate})</FormLabel>
-                        <RadioGroup aria-label="RadioOT" name="RadioOT" value={RadioOT} onChange={handleChangeRadioOT}>
-                          <FormControlLabel value="1" control={<Radio />} label="ไม่พักพักเที่ยง(+1)" />
-                          <FormControlLabel value="0.5" control={<Radio />} label="ไม่พักเย็น(+0.5)" />
-                          <FormControlLabel value="0" control={<Radio />} label="ตามเวลาปกติ" />
-                          {/* <FormControlLabel value="other" control={<Radio />} label="Other" />
-                          <FormControlLabel value="disabled" disabled control={<Radio />} label="(Disabled option)" /> */}
-                        </RadioGroup>
-                      </FormControl>
 
 
-                      <Button>ยืนยัน</Button>
-                      <Button>พิพม์</Button>
-                    </Grid>
                   </Grid>
                 </Modal>
                 <Grid container spacing={2}>
@@ -379,7 +409,6 @@ const ProductionDailyReport = () => {
                                   aria-controls="long-menu"
                                   aria-haspopup="true"
                                   onClick={handleClick}
-                                // onMouseOver={handleClick}
                                 >
                                   <MoreVertIcon />
                                 </IconButton>
