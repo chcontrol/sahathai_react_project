@@ -4,6 +4,7 @@ import tableIcons from '../../../components/table/tableIcons'
 import API from '../../../components/API';
 import moment from "moment";
 import { Chip } from '@material-ui/core';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 
 // import AssignmentIcon from '@material-ui/icons/Assignment';
@@ -28,6 +29,15 @@ const ReasonRecordStopMachineTableEditable = (props) => {
         });
         console.log(values)
       }
+
+      const handleOpenModalAddnewMeter = async () => {
+        props.setOpenModalAddNewMeter(true);
+        const response = await API.get("RPT_JOBPACKING/data.php", {
+          params: {
+            load: "getForming_last_meter",
+          }
+        });
+      };
 
 
 
@@ -68,13 +78,12 @@ const ReasonRecordStopMachineTableEditable = (props) => {
         <MaterialTable
             style={{ width: '98%', margin: '0%', overflowX: "scroll" }}
             icons={tableIcons}
-            title={`บันทึกเลขมิตเตอร์ : ${values.w_c}  `}
+            title={`บันทึกเลขมิตเตอร์ : ${props.w_c}  `}
             columns={[
                 { title: 'เริ่มต้น', field: 'meters_start', type: 'numeric', width: 100 },
                 { title: 'สิ้นสุด', field: 'meters_end', type: 'numeric', width: 100 },
                 {
-                    title: 'เวลาที่บันทึก', field: 'time_save', editable: 'never',
-                    initialEditValue: moment().format('YYYY-MM-DD HH:mm:ss'), width: 200,
+                    title: 'เวลาที่บันทึก', field: 'time_save',
                 },
                 { title: 'work center', field: 'w_c', initialEditValue: values.w_c, editable: 'never', width: 115 },
             ]}
@@ -140,6 +149,7 @@ const ReasonRecordStopMachineTableEditable = (props) => {
                             <Chip label="ทั้งหมด" color="primary" style={{ marginRight: 5 }} onClick={() => SearchModal_reason_meter("SelectFormingModal_reason_meter", values, "All")} />
                             <Chip label={`wc ทั้งหมด`} color="primary" style={{ marginRight: 5 }} onClick={() => SearchModal_reason_meter("SelectFormingModal_reason_meter", values, "AllWC")} />
                             <Chip label={`ตามที่กรอง`} color="primary" style={{ marginRight: 5 }} onClick={() => SearchModal_reason_meter("SelectFormingModal_reason_meter", values, "FollowWC")} />
+                            <Chip label={<AddCircleIcon />} color="default" style={{ marginRight: 5 }} onClick={() => handleOpenModalAddnewMeter()} />
                         </div>
                     </div>
                 ),

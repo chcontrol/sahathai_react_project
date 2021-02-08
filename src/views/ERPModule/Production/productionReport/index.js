@@ -5,8 +5,6 @@ import pdfFonts from "pdfmake-thai/build/vfs_fonts";
 import { ReportCheckPackingDiary } from './ReportCheckPackingDiary'
 import { ReportCheckProductionDiary } from './ReportCheckProductionDiary'
 import { ReportMovingProductReport } from './ReportMovingProductReport'
-
-
 import { ReportPackingDiary } from './ReportPackingDiary';
 import { ReportProductionDaily } from './ReportProductionDaily';
 import { ReportForming } from './ReportForming';
@@ -32,6 +30,7 @@ import ShiftSelect from './ShiftSelect';
 import ItemDetail from './ItemDetail';
 import ModalManagement from './ModalManagement';
 import ReasonAddNewReason from './ReasonAddNewReason';
+import ReasonAddNewMeter from './ReasonAddNewMeter';
 
 
 moment.locale("th");
@@ -41,10 +40,11 @@ const ProductionDailyReport = () => {
   const classes = useStyles();
   const [data, setdata] = useState([])
   const [isLoadingData, setisLoadingData] = useState(false)
-  const [openModal, setOpenModal] = React.useState(false);
+  const [openModal, setOpenModal] = React.useState(true);
   const [openModalReasonMaster, setOpenModalReasonMaster] = React.useState(false);
   const [openModalReasonMasterDetail, setOpenModalReasonMasterDetail] = React.useState(false);
   const [openModalAddNewReason, setOpenModalAddNewReason] = React.useState(false);
+  const [openModalAddNewMeter, setOpenModalAddNewMeter] = React.useState(false);
   const [openModalItem, setOpenModalItem] = React.useState(false);
   const [dataFormingRecord, setDataFormingRecord] = useState([])
   const [dataFormingRecord_reason_meter, setDataFormingRecord_reason_meter] = useState([])
@@ -110,6 +110,10 @@ const ProductionDailyReport = () => {
     setOpenModalAddNewReason(false);
   };
 
+  const handleCloseModalAddNewMeter = async () => {
+    setOpenModalAddNewMeter(false);
+  };
+
   const handleOpenModalItem = async (item) => {
     console.log(item)
     setitemModal(item)
@@ -173,7 +177,7 @@ const ProductionDailyReport = () => {
     targetElement.appendChild(iframe);
   });
 
-  
+
   const handleClickAlert = () => {
     setOpenAlert(true);
   };
@@ -196,7 +200,7 @@ const ProductionDailyReport = () => {
   };
 
 
-  const handleChangeBreakTimeForming = (w_c,startdate,enddate,event) => {
+  const handleChangeBreakTimeForming = (w_c, startdate, enddate, event) => {
 
     console.log(startdate)
     console.log(enddate)
@@ -237,10 +241,10 @@ const ProductionDailyReport = () => {
               {
                 // startdate: moment('2020-10-16 08:00:', 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm:ss'),
                 // enddate: moment('2020-10-16 17:00:', 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm:ss'),
-                // startdate: moment('08:00:', 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
-                // enddate: moment('17:00:', 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
-                startdate: moment('08:00:', 'HH:mm').subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss'),
-                enddate: moment('21:00', 'HH:mm').subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss'),
+                startdate: moment('08:00:', 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
+                enddate: moment('17:00:', 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
+                // startdate: moment('08:00:', 'HH:mm').subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss'),
+                // enddate: moment('21:00', 'HH:mm').subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss'),
                 item: '',
                 refnum: '',
                 w_c: localStorage.getItem("w_c")
@@ -295,12 +299,22 @@ const ProductionDailyReport = () => {
                     w_c={values.w_c}
                     dataFormingRecord={dataFormingRecord}
                     setDataFormingRecord={setDataFormingRecord}
+                    startdate={values.startdate}
+                  />
+                </Modal>
+                <Modal open={openModalAddNewMeter} onClose={handleCloseModalAddNewMeter} >
+                  <ReasonAddNewMeter
+                    handleCloseModalAddNewMeter={handleCloseModalAddNewMeter}
+                    w_c={values.w_c}
+                    dataFormingRecord_reason_meter={dataFormingRecord_reason_meter}
+                    setDataFormingRecord_reason_meter={setDataFormingRecord_reason_meter}
+                    startdate={values.startdate}
                   />
                 </Modal>
                 <Modal open={openModal} onClose={handleCloseModal}  >
                   {/* {JSON.stringify(values)} */}
-                  <Grid container spacing={1} className={classes.paperModal} style={{  width: '80vw', height: '98vh', marginLeft: '10vw', marginTop: '1vh' }}>
-                    
+                  <Grid container spacing={1} className={classes.paperModal} style={{ width: '80vw', height: '98vh', marginLeft: '10vw', marginTop: '1vh' }}>
+
                     <Grid item xs={4} >
                       {/* {values.startdate}
                       {values.enddate} */}
@@ -313,10 +327,10 @@ const ProductionDailyReport = () => {
                         <CardActions>
                           <FormControl component="fieldset">
                             <FormLabel >จำนวนชั่วโมงงาน ({BreakTimeFormingRate})</FormLabel>
-                            <RadioGroup aria-label="BreakTimeForming" 
-                            name="BreakTimeForming" 
-                            value={BreakTimeForming} 
-                            onChange={(event)=>handleChangeBreakTimeForming(values.w_c,values.startdate,values.enddate,event)}
+                            <RadioGroup aria-label="BreakTimeForming"
+                              name="BreakTimeForming"
+                              value={BreakTimeForming}
+                              onChange={(event) => handleChangeBreakTimeForming(values.w_c, values.startdate, values.enddate, event)}
                             >
                               <FormControlLabel value="1" control={<Radio />} label="ไม่พักพักเที่ยง(+1)" />
                               <FormControlLabel value="0.5" control={<Radio />} label="ไม่พักเย็น(+0.5)" />
@@ -330,17 +344,17 @@ const ProductionDailyReport = () => {
                           <Button
                             color="primary"
                             variant="contained"
-                            style={{margin:2}}
+                            style={{ margin: 2 }}
                             onClick={() => { SearchFn("ajax2", values, "Forming", "Forming") }} disabled={false} >
-                            
+
                             พิพม์รายงาน Forming
                           </Button>
                           <Button
                             color="primary"
                             variant="contained"
-                            style={{margin:2}}
-                            onClick={() => { SearchFn("ajax2", values, "Forming", "Forming") }} disabled={false} >
-                            
+                            style={{ margin: 2 }}
+                            onClick={() => alert()} disabled={true} >
+
                             บันทึกรายงาน
                           </Button>
                         </CardContent>
@@ -354,6 +368,8 @@ const ProductionDailyReport = () => {
                           setOpenModalReasonMaster={setOpenModalReasonMaster}
                           dataFormingRecord_reason_meter={dataFormingRecord_reason_meter}
                           setDataFormingRecord_reason_meter={setDataFormingRecord_reason_meter}
+                          setOpenModalAddNewMeter={setOpenModalAddNewMeter}
+
                         />
                       </Card>
 

@@ -64,7 +64,7 @@ const ReasonAddNewReason = (props) => {
                             {
                                 reason_id: '',
                                 reason_detail_id: '',
-                                time_stopped: moment('08:00:', 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
+                                time_stopped: props.startdate,
                                 time_used: '',
                                 w_c: props.w_c,
                                 remark: '',

@@ -1,5 +1,5 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import { convertAllLotReport, workcenterHeader, dateFormatReport, fancyTimeFormat,fontsReport } from './function/GroupLot';
+import { convertAllLotReport, workcenterHeader, dateFormatReport, fancyTimeFormat, fontsReport } from './function/GroupLot';
 import { logo } from './function/logo'
 
 
@@ -39,12 +39,15 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
     let total_bundle = 0;
     let total_pcs = 0;
     let cal_bundel = []
+    let BreakTimeFormingRate = 8;
 
     for (let i = 0; i < dataNow.length; i++) {
 
         total_bundle = total_bundle + dataNow[i]["SUMLotBundle"]
         total_pcs = total_pcs + dataNow[i]["SUMLotPCS"]
         cal_bundel.push(dataNow[i]["SUMLotPCS"])
+
+        BreakTimeFormingRate = (dataNow[i]["BreakTimeFormingRate"]) ? dataNow[i]["BreakTimeFormingRate"] : 8
 
         data.push([
             { text: i + 1, alignment: 'center' },
@@ -57,15 +60,15 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
             { text: `${convertAllLotReport("wordslot", dataNow[i]["AllLot"])}`, fontSize: 12, alignment: 'center' },
             { text: `${convertAllLotReport("wordsqty", dataNow[i]["AllLot"])}`, fontSize: 12, alignment: 'center' },
             { text: `${convertAllLotReport("wordsqtybundle", dataNow[i]["AllLot"])}`, fontSize: 12, alignment: 'center' },
-            { text: `${convertAllLotReport("wordsqtybundletotal", dataNow[i]["AllLot"])}`, fontSize: 12, alignment: 'right' }, //resuult_qty
+            { text: `${convertAllLotReport("wordsqtybundletotal", dataNow[i]["AllLot"])}`, fontSize: 12, alignment: 'right' }, 
             { text: dataNow[i]["sumBBundle"], fontSize: 11, alignment: 'center' },
             { text: dataNow[i]["sumRBundle"], fontSize: 11, alignment: 'center' },
             { text: dataNow[i]["ref_num"], fontSize: 12, alignment: 'center' },
             { text: dataNow[i]["MatItem"], fontSize: 12, alignment: 'right' },
             { text: dataNow[i]["totalMatUsed"], fontSize: 12, alignment: 'right' },
-            { text: '8', fontSize: 12, alignment: 'right' },
+            { text: BreakTimeFormingRate, fontSize: 12, alignment: 'right' },
             { text: Number(dataNow[i]["pcs_per_mch_hr"]), fontSize: 12, alignment: 'right' },
-            { text: (Number(dataNow[i]["pcs_per_mch_hr"]) * 8) - (Number(dataNow[i]["pcs_per_mch_hr"]) * 8)*10/100 , fontSize: 12, alignment: 'right' },
+            { text: (Number(dataNow[i]["pcs_per_mch_hr"]) * BreakTimeFormingRate) - (Number(dataNow[i]["pcs_per_mch_hr"]) * BreakTimeFormingRate) * 10 / 100, fontSize: 12, alignment: 'right' },
         ],
         )
 
@@ -94,7 +97,7 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
             )
         }
     }
-    
+
 
     let dataReason = [];
     dataReason.push([
@@ -145,7 +148,7 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
         forming_reason_meter_end = forming_reason_meter[1]
         meters_minute_forming_reason = dataNow[0]["meters_minute_forming_reason"]
         // sum_time_used_forming_reason = fancyTimeFormat(dataNow[0]["sum_time_used_forming_reason"])
-        sum_time_used_forming_reason = fancyTimeFormat( (forming_reason_meter_end - forming_reason_meter_start) * 60)
+        sum_time_used_forming_reason = fancyTimeFormat((forming_reason_meter_end - forming_reason_meter_start) * 60)
         sum_time_used_forming_reason_stop = fancyTimeFormat(dataNow[0]["sum_time_used_forming_reason"])
 
     } else {
@@ -306,7 +309,7 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
         content: [
             {
                 table: {
-                    widths: [15, 50, 50, 20, 30, 40, 20, 40, 25, 30, 35, 30, 30, 50, 80, 25,20, 27, 30],
+                    widths: [15, 50, 50, 20, 30, 40, 20, 40, 25, 30, 35, 30, 30, 50, 80, 25, 20, 27, 30],
                     headerRows: 1,
                     body: data,
                 },
