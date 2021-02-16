@@ -233,6 +233,11 @@ const ListItems2 = [
                 icon: LocalShippingIcon,
                 title: 'Move Item'
             },
+            {
+                href: '/app/productionDashboard',
+                Icon: AssignmentIcon,
+                title: 'Production Dashboard'
+            },
         ]
     },
     {
