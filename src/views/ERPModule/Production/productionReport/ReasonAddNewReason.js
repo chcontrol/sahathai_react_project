@@ -26,19 +26,20 @@ const ReasonAddNewReason = (props) => {
         console.log(values)
 
         await API.get("RPT_JOBPACKING/data.php", {
-          params: {
-            load: type,
-            reason_id: values.reason_id,
-            reason_detail_id: values.reason_detail_id,
-            time_stopped: values.time_stopped,
-            time_used: values.time_used,
-            create_date: values.create_date,
-            w_c: values.w_c
-          }
+            params: {
+                load: type,
+                reason_id: values.reason_id,
+                reason_detail_id: values.reason_detail_id,
+                time_stopped: values.time_stopped,
+                time_used: values.time_used,
+                create_date: values.create_date,
+                w_c: values.w_c,
+                remark: values.remark
+            }
         });
         props.handleCloseModalAddNewReason()
-        props.setDataFormingRecord([...props.dataFormingRecord,values])
-      }
+        props.setDataFormingRecord([...props.dataFormingRecord, values])
+    }
 
 
     return (
@@ -149,7 +150,7 @@ const ReasonAddNewReason = (props) => {
                                         />
                                     </Grid>
                                     <Grid item lg={12}>
-                                        <CButton label={"บันทึกสาเหตุการหยุดเครื่อง"} onClick={() => AddNewReason("CreateForming",values)} disabled={false} />
+                                        <CButton label={"บันทึกสาเหตุการหยุดเครื่อง"} onClick={() => AddNewReason("CreateForming", values)} disabled={false} />
                                     </Grid>
                                 </Grid>
 

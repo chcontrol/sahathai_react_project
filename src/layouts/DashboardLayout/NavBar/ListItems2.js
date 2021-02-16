@@ -221,12 +221,17 @@ const ListItems2 = [
             {
                 href: '/app/productionMatlTrans',
                 Icon: AssignmentIcon,
-                title: 'Production MatlTrans'
+                title: 'Material Transaction'
+            },
+            {
+                href: '/app/Stock_mthly',
+                Icon: AssignmentIcon,
+                title: 'Stock monthly '
             },
             {
                 href: '/app/moveItem',
                 icon: LocalShippingIcon,
-                title: 'move Item'
+                title: 'Move Item'
             },
         ]
     },

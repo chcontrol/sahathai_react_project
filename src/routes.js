@@ -13,6 +13,7 @@ import NotFoundView from 'src/views/errors/NotFoundView';
 import ProductListView from 'src/views/ERPModule/Production/ProductListView';
 import ProductionReportView from 'src/views/ERPModule/Production/productionReport';
 import ProductionMatlTransView from 'src/views/ERPModule/Production/productionMatlTrans';
+import Stock_mthlyView from 'src/views/ERPModule/Production/Stock_mthly';
 import DomesticBacklogView from 'src/views/ERPModule/SaleDomestic/DomesticBacklog/DomesticBacklog';
 
 import RegisterView from 'src/views/auth/RegisterView';
@@ -40,6 +41,7 @@ const routes = [
       { path: 'ERPStep', element: <ERPStep /> },
       { path: 'productionReport', element: <ProductionReportView /> },
       { path: 'productionMatlTrans', element: <ProductionMatlTransView /> },
+      { path: 'Stock_mthly', element: <Stock_mthlyView /> },
       { path: 'DomesticBacklog', element: <DomesticBacklogView /> },
       { path: 'moveItem', element: <MoveItemView /> },
       { path: 'FreeZoneApp', element: <FreeZoneApp /> },
