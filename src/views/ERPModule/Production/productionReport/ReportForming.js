@@ -1,5 +1,5 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import { convertAllLotReport, workcenterHeader, dateFormatReport, fancyTimeFormat, fontsReport } from './function/GroupLot';
+import { convertAllLotReport, workcenterHeader, dateFormatReport, fancyTimeFormat,fancyTimeFormatHr, fontsReport,diff_hours } from './function/GroupLot';
 import { logo } from './function/logo'
 
 
@@ -139,6 +139,18 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
     let meters_minute_forming_reason
     let sum_time_used_forming_reason
     let sum_time_used_forming_reason_stop
+    let time_diff = diff_hours(selectedDateStart,selectedDateEnd)
+    let breakTimeWords = ''
+    console.log(11111)
+    console.log(time_diff - dataNow[0]["BreakTimeFormingRate"]);
+    if(time_diff - dataNow[0]["BreakTimeFormingRate"] == 0.5){
+        breakTimeWords = '(พักเย็น)'
+        console.log(breakTimeWords)
+    } else if (time_diff - dataNow[0]["BreakTimeFormingRate"]  == 1){
+        breakTimeWords = '(พักเที่ยง)'
+    } else if (time_diff - dataNow[0]["BreakTimeFormingRate"]  == 1.5){
+        breakTimeWords = '(พักเที่ยง,พักเย็น)'
+    }
     let forming_reason_meter_start = 0
     let forming_reason_meter_end = 0
 
@@ -148,8 +160,13 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
         forming_reason_meter_end = forming_reason_meter[1]
         meters_minute_forming_reason = dataNow[0]["meters_minute_forming_reason"]
         // sum_time_used_forming_reason = fancyTimeFormat(dataNow[0]["sum_time_used_forming_reason"])
-        sum_time_used_forming_reason = fancyTimeFormat((forming_reason_meter_end - forming_reason_meter_start) * 60)
+        sum_time_used_forming_reason = fancyTimeFormatHr((forming_reason_meter_end - forming_reason_meter_start))
         sum_time_used_forming_reason_stop = fancyTimeFormat(dataNow[0]["sum_time_used_forming_reason"])
+
+
+
+        
+
 
     } else {
         forming_reason_meter = ['..................', '..................']
@@ -193,7 +210,7 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
                                 border: [false, false, false, false], text: ''
                             },
                             {
-                                border: [false, false, false, false], text: `ปกติ 8 ชั่วโมง ไม่พักพักเที่ยง(+1)  ไม่พักเย็น(0.5)`
+                                border: [false, false, false, false], text: `  หมายเหตุ: รวมเวลาทำงาน ${time_diff} ชั่วโมง ${breakTimeWords} `
                             },
                         ],
                         [

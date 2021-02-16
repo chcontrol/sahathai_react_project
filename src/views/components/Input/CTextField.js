@@ -21,6 +21,7 @@ const CTextField = (props) => {
                 type="text"
                 InputLabelProps={{
                     shrink: true,
+                    readOnly: props.readOnly,
                 }}
                 autoComplete='off'
             />

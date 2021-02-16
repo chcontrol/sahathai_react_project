@@ -379,9 +379,35 @@ function fancyTimeFormat(duration) {
     }
 
     ret += "" + mins + " ชั่วโมง " + (secs < 10 ? "0" : "");
-    ret += "" + secs + "นาที";
+    ret += "" + secs + " นาที";
     return ret;
 }
+
+function fancyTimeFormatHr(duration) {
+    duration = duration * 3600
+    var hrs = ~~(duration / 3600);
+    var mins = ~~((duration % 3599) / 60);
+    var ret = "";
+
+    if (hrs > 0) {
+        ret += "" ;
+    }
+
+    ret += "" + hrs + " ชั่วโมง " ;
+    ret += "" + mins + " นาที";
+    return ret;
+}
+
+
+const diff_hours = (dt2, dt1)=> {
+    dt1 = new Date(dt1);
+    dt2 = new Date(dt2);
+    var diff = (dt2.getTime() - dt1.getTime()) / 1000;
+    diff /= (60 * 60);
+    console.log(dt2)
+    console.log('00000000000000000000000000000000000')
+    return Math.abs(diff);
+  }
 
 const fontsReport = {
     THSarabunNew: {
@@ -399,4 +425,4 @@ const fontsReport = {
 }
 
 
-export { splitLotToObj, GroupLot, showLotNo, showLotQty, showCountLotQty, showMatlUsed, convertAllLotReport, workcenterHeader, checkingByLot, dateFormatReport, fancyTimeFormat, fontsReport };
+export { splitLotToObj, GroupLot, showLotNo, showLotQty, showCountLotQty, showMatlUsed, convertAllLotReport, workcenterHeader, checkingByLot, dateFormatReport, fancyTimeFormat,fancyTimeFormatHr, fontsReport ,diff_hours};

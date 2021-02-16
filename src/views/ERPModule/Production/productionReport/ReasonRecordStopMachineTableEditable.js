@@ -42,11 +42,6 @@ const ReasonRecordStopMachineTableEditable = (props) => {
 
   const handleOpenModalAddnewReason = async () => {
     props.setOpenModalAddNewReason(true);
-    const response = await API.get("RPT_JOBPACKING/data.php", {
-      params: {
-        load: "SelectForming_reason_description",
-      }
-    });
   };
 
 

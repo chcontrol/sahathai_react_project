@@ -32,11 +32,6 @@ const ReasonRecordStopMachineTableEditable = (props) => {
 
       const handleOpenModalAddnewMeter = async () => {
         props.setOpenModalAddNewMeter(true);
-        const response = await API.get("RPT_JOBPACKING/data.php", {
-          params: {
-            load: "getForming_last_meter",
-          }
-        });
       };
 
 
@@ -80,12 +75,12 @@ const ReasonRecordStopMachineTableEditable = (props) => {
             icons={tableIcons}
             title={`บันทึกเลขมิตเตอร์ : ${props.w_c}  `}
             columns={[
-                { title: 'เริ่มต้น', field: 'meters_start', type: 'numeric', width: 100 },
-                { title: 'สิ้นสุด', field: 'meters_end', type: 'numeric', width: 100 },
+                { title: 'เริ่มต้น', field: 'meters_start', type: 'numeric' },
+                { title: 'สิ้นสุด', field: 'meters_end', type: 'numeric'},
                 {
                     title: 'เวลาที่บันทึก', field: 'time_save',
                 },
-                { title: 'work center', field: 'w_c', initialEditValue: values.w_c, editable: 'never', width: 115 },
+                { title: 'work center', field: 'w_c', initialEditValue: values.w_c, editable: 'never' },
             ]}
             data={props.dataFormingRecord_reason_meter}
 
@@ -104,14 +99,14 @@ const ReasonRecordStopMachineTableEditable = (props) => {
             }}
 
             editable={{
-                onRowAdd: newData =>
-                    new Promise((resolve, reject) => {
-                        setTimeout(() => {
-                            props.setDataFormingRecord_reason_meter([...props.dataFormingRecord_reason_meter, newData]);
-                            CRUDfn_reason_meter("CreateForming_reason_meter", newData)
-                            resolve();
-                        }, 1000)
-                    }),
+                // onRowAdd: newData =>
+                //     new Promise((resolve, reject) => {
+                //         setTimeout(() => {
+                //             props.setDataFormingRecord_reason_meter([...props.dataFormingRecord_reason_meter, newData]);
+                //             CRUDfn_reason_meter("CreateForming_reason_meter", newData)
+                //             resolve();
+                //         }, 1000)
+                //     }),
                 // onRowUpdate: (newData, oldData) =>
                 //     new Promise((resolve, reject) => {
                 //         setTimeout(() => {
@@ -127,18 +122,18 @@ const ReasonRecordStopMachineTableEditable = (props) => {
                 //             resolve();
                 //         }, 1000)
                 //     }),
-                // onRowDelete: oldData =>
-                //     new Promise((resolve, reject) => {
-                //         setTimeout(() => {
-                //             const dataDelete = [...props.dataFormingRecord_reason_meter];
-                //             const index = oldData.tableData.id;
-                //             dataDelete.splice(index, 1);
-                //             props.setDataFormingRecord_reason_meter([...dataDelete]);
-                //             console.log(oldData)
-                //             CRUDfn_reason_meter("DeleteForming_reason_meter", oldData)
-                //             resolve()
-                //         }, 1000)
-                //     }),
+                onRowDelete: oldData =>
+                    new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            const dataDelete = [...props.dataFormingRecord_reason_meter];
+                            const index = oldData.tableData.id;
+                            dataDelete.splice(index, 1);
+                            props.setDataFormingRecord_reason_meter([...dataDelete]);
+                            console.log(oldData)
+                            CRUDfn_reason_meter("DeleteForming_reason_meter", oldData)
+                            resolve()
+                        }, 1000)
+                    }),
             }}
 
             components={{

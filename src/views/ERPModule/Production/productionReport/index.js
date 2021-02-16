@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, CardActions, CardContent, FormControl, FormControlLabel, FormLabel, Grid, IconButton, Modal, Paper, Radio, RadioGroup, Snackbar, Typography } from '@material-ui/core';
+import { Button, Card, CardActions, CardContent, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, Grid, IconButton, Modal, Paper, Radio, RadioGroup, Snackbar, Typography } from '@material-ui/core';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake-thai/build/vfs_fonts";
 import { ReportCheckPackingDiary } from './ReportCheckPackingDiary'
@@ -40,7 +40,7 @@ const ProductionDailyReport = () => {
   const classes = useStyles();
   const [data, setdata] = useState([])
   const [isLoadingData, setisLoadingData] = useState(false)
-  const [openModal, setOpenModal] = React.useState(true);
+  const [openModal, setOpenModal] = React.useState(false);
   const [openModalReasonMaster, setOpenModalReasonMaster] = React.useState(false);
   const [openModalReasonMasterDetail, setOpenModalReasonMasterDetail] = React.useState(false);
   const [openModalAddNewReason, setOpenModalAddNewReason] = React.useState(false);
@@ -52,8 +52,7 @@ const ProductionDailyReport = () => {
   const [dataFormingRecord_description_detail, setDataFormingRecord_description_detail] = useState([])
   const [selectFormingRecordReason, setselectFormingRecordReason] = useState()
   const [openAlert, setOpenAlert] = React.useState(false);
-  const [BreakTimeForming, setBreakTimeForming] = React.useState();
-  const [BreakTimeFormingRate, setBreakTimeFormingRate] = React.useState('8');
+  const [BreakTimeForming, setBreakTimeForming] = React.useState(9);
 
 
   const [itemModal, setitemModal] = useState(null)
@@ -74,6 +73,49 @@ const ProductionDailyReport = () => {
       });
       if (response.data !== null) {
         setDataFormingRecord(response.data)
+      }
+
+      const response2 = await API.get("RPT_JOBPACKING/data.php", {
+        params: {
+          load: "SelectFormingModal_reason_meter",
+          meters_start: values.startdate,
+          meters_end: values.enddate,
+          w_c: values.w_c,
+        }
+      });
+      if (response2.data !== null) {
+        setDataFormingRecord_reason_meter(response2.data)
+      }
+
+      const response3 = await API.get("RPT_JOBPACKING/data.php", {
+        params: {
+          load: "SelectBreakTimeForming",
+          meters_start: values.startdate,
+          meters_end: values.enddate,
+          w_c: values.w_c,
+        }
+      });
+      if (response3.data.length > 0) {
+        // setBreakTimeForming(diff_hours(values.startdate, values.enddate))
+        // if(response3.data[0].rate < diff_hours(values.startdate, values.enddate)){
+        //   setBreakTimeForming(response3.data[0].rate)
+        // }else{
+        //   setBreakTimeForming(response3.data[0].rate)
+        // }
+        setBreakTimeForming(response3.data[0].rate)
+
+        
+      } else {
+        API.get("RPT_JOBPACKING/data.php", {
+          params: {
+            load: "CreateBreakTimeForming",
+            w_c: values.w_c,
+            startdate: values.startdate,
+            enddate: values.enddate,
+            rate: diff_hours(values.startdate, values.enddate),
+          }
+        });
+        setBreakTimeForming(diff_hours(values.startdate, values.enddate))
       }
       setOpenModal(true);
     }
@@ -128,6 +170,8 @@ const ProductionDailyReport = () => {
     localStorage.setItem("w_c", w_c);
   }
 
+
+
   const SearchFn = async (load, values, wc_group_query, doc_type) => {
     setLocalStorageW_c(values.w_c)
     setisLoadingData(true)
@@ -143,6 +187,11 @@ const ProductionDailyReport = () => {
           wc_group_query: wc_group_query
         }
       });
+
+
+
+
+
       // let kotFromDataO = " 0057(14; 0058(14; 0059(14; 0060(14; 0061(14; 0062(14; 0063(14; 0064(14; 0065(14; 0066(14; 0067(14; 0068(14; 0070(14; 0071(14; 0072(14; 0073(14; 0074(14; 0075(14; 0076(14; 0077(14; 0078(14; 0079(14; 0080(14; 0081(14; 0082(14; 0083(14; 0084(14; 0085(14; 0086(14; 0087(14; 0088(14; 0089(14; 0090(14; 0091(14; 0092(14; 0093(14; 0094(14; 0095(14; 0096(14; 0097(13"
       // console.log(convertAllLotReport("wordslot", kotFromDataO))
       if (doc_type === 'Packing') {
@@ -150,7 +199,15 @@ const ProductionDailyReport = () => {
       } else if (doc_type === 'Production') {
         ReportProductionDaily(response.data, values.startdate, values.enddate)
       } else if (doc_type === 'Forming') {
-        ReportForming(response.data, values.startdate, values.enddate)
+
+        if (response.data.length > 0) {
+          if (response.data[0].forming_reason_meter.length > 3) {
+            ReportForming(response.data, values.startdate, values.enddate)
+          } else {
+            alert("กรุณากรอกเลขมิตเตอร์")
+          }
+        }
+
       } else if (doc_type === 'CheckPacking') {
         ReportCheckPackingDiary(response.data, values.startdate, values.enddate)
       } else if (doc_type === 'CheckProduction') {
@@ -200,26 +257,78 @@ const ProductionDailyReport = () => {
   };
 
 
-  const handleChangeBreakTimeForming = (w_c, startdate, enddate, event) => {
 
-    console.log(startdate)
-    console.log(enddate)
+
+  const [CheckBoxState, setCheckBoxState] = React.useState({
+    BreakTimeOne: false,
+    BreakTimeTwo: false,
+    BreakTimeThree: false,
+  });
+
+  const handleCheckboxChange = (w_c, startdate, enddate, event) => {
+    console.log(event.target.value)
+
+    let rate = BreakTimeForming;
+    setCheckBoxState({ ...CheckBoxState, [event.target.name]: event.target.checked });
+    if (event.target.name == 'BreakTimeOne' && event.target.checked == true) {
+      setBreakTimeForming(Number(BreakTimeForming) - Number(event.target.value))
+      rate = Number(BreakTimeForming) - Number(event.target.value)
+    }
+    if (event.target.name == 'BreakTimeOne' && event.target.checked == false) {
+      setBreakTimeForming(Number(BreakTimeForming) + Number(event.target.value))
+      rate = Number(BreakTimeForming) + Number(event.target.value)
+    }
+
+    if (event.target.name == 'BreakTimeTwo' && event.target.checked == true) {
+      setBreakTimeForming(Number(BreakTimeForming) - Number(event.target.value))
+      rate = Number(BreakTimeForming) - Number(event.target.value)
+    }
+    if (event.target.name == 'BreakTimeTwo' && event.target.checked == false) {
+      setBreakTimeForming(Number(BreakTimeForming) + Number(event.target.value))
+      rate = Number(BreakTimeForming) + Number(event.target.value)
+    }
+
+    if (event.target.name == 'BreakTimeThree' && event.target.checked == true) {
+      setCheckBoxState({
+        BreakTimeOne: false,
+        BreakTimeTwo: false,
+        BreakTimeThree: true,
+      });
+      setBreakTimeForming(diff_hours(startdate,enddate))
+      rate = diff_hours(startdate,enddate)
+    }
+
     API.get("RPT_JOBPACKING/data.php", {
       params: {
         load: "CreateBreakTimeForming",
         w_c: w_c,
         startdate: startdate,
         enddate: enddate,
-        rate: Number(8) + Number(event.target.value),
+        rate: Number(rate),
       }
     });
 
-
-
-    setBreakTimeForming(event.target.value);
-    setBreakTimeFormingRate(Number(8) + Number(event.target.value))
+    console.log()
   };
 
+  const { BreakTimeOne, BreakTimeTwo, BreakTimeThree } = CheckBoxState;
+  const error = [BreakTimeOne, BreakTimeTwo, BreakTimeThree].filter((v) => v).length !== 2;
+
+  function diff_hours(dt2, dt1) {
+    dt1 = new Date(dt1);
+    dt2 = new Date(dt2);
+    var diff = (dt2.getTime() - dt1.getTime()) / 1000;
+    diff /= (60 * 60);
+    console.log('------------')
+    console.log('dt1',(dt1.getTime()) /1000)
+    console.log('dt2',(dt2.getTime()) /1000)
+    console.log('diff',diff)
+
+    console.log((dt1.getTime()-dt2.getTime()) /1000)
+    console.log('------------')
+    // setBreakTimeFormingRate(Math.abs(Math.round(diff)))
+    return Math.abs(diff);
+  }
 
   return (
     <Paper className={classes.paper}>
@@ -315,29 +424,53 @@ const ProductionDailyReport = () => {
                   {/* {JSON.stringify(values)} */}
                   <Grid container spacing={1} className={classes.paperModal} style={{ width: '80vw', height: '98vh', marginLeft: '10vw', marginTop: '1vh' }}>
 
-                    <Grid item xs={4} >
+                    <Grid item xs={6} >
                       {/* {values.startdate}
                       {values.enddate} */}
                       <Card variant="outlined">
                         <CardContent>
                           <Typography variant="h4" component="h4"> Work center : {values.w_c} </Typography>
-                          <Typography >ช่วงเวลางาน <br></br> {values.startdate} - {values.enddate}</Typography>
+                          <Typography >ช่วงเวลางาน <br></br> {values.startdate} - {values.enddate} </Typography>
                           <Typography className={classes.pos} color="textSecondary"></Typography>
                         </CardContent>
                         <CardActions>
                           <FormControl component="fieldset">
-                            <FormLabel >จำนวนชั่วโมงงาน ({BreakTimeFormingRate})</FormLabel>
+                          {/* <FormLabel >จำนวนชั่วโมงในช่วงเวลาที่เลือก ({diff_hours(values.startdate,values.enddate)})</FormLabel> */}
+                          <FormLabel >จำนวนชั่วโมงงานที่บันทึก ({BreakTimeForming})</FormLabel>
+                            <FormControl required error={error} component="fieldset" className={classes.formControl}>
+                              <FormGroup>
+                                <FormControlLabel
+                                  control={<Checkbox checked={BreakTimeOne} value="1" onChange={(event) => handleCheckboxChange(values.w_c, values.startdate, values.enddate, event)} name="BreakTimeOne" />}
+                                  label="พักเที่ยง(-1)"
+                                />
+                                <FormControlLabel
+                                  control={<Checkbox checked={BreakTimeTwo} value="0.5" onChange={(event) => handleCheckboxChange(values.w_c, values.startdate, values.enddate, event)} name="BreakTimeTwo" />}
+                                  label="พักเย็น(-0.5)"
+                                />
+                                <FormControlLabel
+                                  control={<Checkbox checked={BreakTimeThree} value="0" onChange={(event) => handleCheckboxChange(values.w_c, values.startdate, values.enddate, event)} name="BreakTimeThree" />}
+                                  label={`เต็มเวลา (${diff_hours(values.startdate,values.enddate)})` }
+                                />
+                               
+                              </FormGroup>
+                              {/* <FormHelperText>You can display an error</FormHelperText> */}
+                            </FormControl>
+
+
+
+
+
+
+{/* 
                             <RadioGroup aria-label="BreakTimeForming"
                               name="BreakTimeForming"
                               value={BreakTimeForming}
                               onChange={(event) => handleChangeBreakTimeForming(values.w_c, values.startdate, values.enddate, event)}
                             >
-                              <FormControlLabel value="1" control={<Radio />} label="ไม่พักพักเที่ยง(+1)" />
-                              <FormControlLabel value="0.5" control={<Radio />} label="ไม่พักเย็น(+0.5)" />
-                              <FormControlLabel value="0" control={<Radio />} label="ตามเวลาปกติ" />
-                              {/* <FormControlLabel value="other" control={<Radio />} label="Other" />
-                          <FormControlLabel value="disabled" disabled control={<Radio />} label="(Disabled option)" /> */}
-                            </RadioGroup>
+                              <FormControlLabel value="9" control={<Radio />} label="ไม่พักพักเที่ยง(+1)" />
+                              <FormControlLabel value="8.5" control={<Radio />} label="ไม่พักเย็น(+0.5)" />
+                              <FormControlLabel value="8" control={<Radio />} label="ตามเวลาปกติ" />
+                            </RadioGroup> */}
                           </FormControl>
                         </CardActions>
                         <CardContent>
@@ -360,7 +493,7 @@ const ProductionDailyReport = () => {
                         </CardContent>
                       </Card>
                     </Grid>
-                    <Grid item xs={8} >
+                    <Grid item xs={6} >
                       <Card variant="outlined">
                         <ReasonRecordStopMachineMetersTableEditable
                           w_c={values.w_c}
@@ -491,7 +624,7 @@ const ProductionDailyReport = () => {
                     <CButton label={"ใบตรวจสอบการผลิต"} onClick={() => { SearchFn("ajax2", values, "Production", "CheckProduction") }} disabled={false} />
                   </Grid>
                   <Grid item lg={2}>
-                    <CButton label={"รายงาน Forming"} onClick={() => { SearchFn("ajax2", values, "Forming", "Forming") }} disabled={false} />
+                    {/* <CButton label={"รายงาน Forming"} onClick={() => { SearchFn("ajax2", values, "Forming", "Forming") }} disabled={false} /> */}
                     <CButton label={"บันทึกผลิต Forming"} onClick={() => { handleOpenModal(values) }} disabled={false} />
                   </Grid>
                   <Grid item lg={2}>

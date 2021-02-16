@@ -100,6 +100,8 @@ const V_STS_execRpt_F_byMKTType_Live = (props) => {
                   { title: '91-180 วัน นน.ตัน', field: '91-180 วัน นน.ตัน', type: 'numeric' },
                   { title: '181-365 วัน จำนวนเส้น', field: '181-365 วัน จำนวนเส้น', type: 'numeric' },
                   { title: '181-365 วัน นน.ตัน', field: '181-365 วัน นน.ตัน', type: 'numeric' },
+                  { title: '1-2 ปี จำนวนเส้น', field: '1-2 ปี จำนวนเส้น', type: 'numeric' },
+                  { title: '1-2 ปี วัน นน.ตัน', field: '1-2 ปี วัน นน.ตัน', type: 'numeric' },
                   { title: '>2 ปี จำนวนเส้น', field: '>2 ปี จำนวนเส้น', type: 'numeric' },
                   { title: '>2 ปี นน.ตัน', field: '>2 ปี วัน นน.ตัน', type: 'numeric' },
                   { title: 'รวม เส้น', field: 'รวม จำนวนเส้น', type: 'numeric' },
