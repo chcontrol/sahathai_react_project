@@ -138,7 +138,7 @@ const LatestProducts = ({ className, ...rest }) => {
             <Divider />
             {V_STS_execSUM_Outs_Strip.map((value) =>
               <>
-                <ListItem button>
+                <ListItem button key={value.sumQTY}>
                   <ListItemText primary={`${value.aged} = ${value.TotalStrip} strips (${value.sumQTY} MT)`} />
                 </ListItem>
               </>

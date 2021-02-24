@@ -52,9 +52,11 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
 
       API.get(`API_ExecutiveReport/data.php?load=STS_execRpt_SUM_mthly_all`)
         .then(res => {
+
+          
           (res.data) ? setGarphLineDataAll(res.data) : setGarphLineDataAll([])
+          // (res.data) ? setGarphLineDataAll(res.data) : setGarphLineDataAll([])
           setLoadingData(true)
-          console.log(res.data)
         })
     }
     else {
@@ -88,6 +90,18 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
   }
 
   const showLineDataSetByItemGroupAll = (Item_Group, data) => {
+
+    /*
+    data = [
+      { Year: 2019, Month: 1, Item_Group: "Strip", sumQTY: 20000 },
+      { Year: 2019, Month: 2, Item_Group: "Strip", sumQTY: 30000 },
+      { Year: 2019, Month: 3, Item_Group: "Strip", sumQTY: 40000 },
+      { Year: 2019, Month: 4, Item_Group: "Strip", sumQTY: 50000 },
+      { Year: 2019, Month: 5, Item_Group: "Strip", sumQTY: 60000 },
+      { Year: 2019, Month: 6, Item_Group: "Strip", sumQTY: 70000 },
+      { Year: 2019, Month: 7, Item_Group: "Strip", sumQTY: 80000 },
+      ...data]
+      */
     var dataset = data.filter(function (data) {
       return data.Item_Group == Item_Group;
     });
@@ -268,8 +282,6 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
   const handleClose = (value) => {
     setAnchorEl(null);
     setItem_Group(value)
-    console.log(value)
-
   };
 
 

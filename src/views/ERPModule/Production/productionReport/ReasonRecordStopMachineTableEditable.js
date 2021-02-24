@@ -120,6 +120,7 @@ const ReasonRecordStopMachineTableEditable = (props) => {
         },
         { title: 'สาเหตุหลัก', field: 'reason_id',  width: 100 },
         { title: 'รายละเอียด', field: 'reason_detail_id',  width: 100 },
+        { title: 'หมายเหตุ', field: 'remark',  width: 100 },
         {
           title: 'รวมเวลา', field: 'time_used', type: 'numeric', width: 100,
           headerStyle: {

@@ -9,7 +9,9 @@ import {
   Grid,
   Typography,
   colors,
-  makeStyles
+  makeStyles,
+  Paper,
+  Chip
 } from '@material-ui/core';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import MoneyIcon from '@material-ui/icons/Money';
@@ -113,37 +115,50 @@ const WorkCenterGroup = (props, { className, ...rest }) => {
           mt={0}
           display="flex"
           alignItems="center"
+          style={{ overflowY: 'auto', height: '20vh' }}
         >
+
           <div className={classes.root}>
             {/* {JSON.stringify(props.data)} */}
             {
+              props.data.map((x) =>
+                <>
+                  <Accordion expanded={expanded === x.wc} onChange={handleChange(x.wc)}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1bh-content"
+                      id="panel1bh-header"
+                    >
+                      <div className={classes.heading}>
+                        <Typography className={classes.heading}>{x.wc}</Typography>
 
-            props.data.map((x) => 
-              <>
-              <Accordion expanded={expanded === x.wc} onChange={handleChange(x.wc)}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1bh-content"
-                id="panel1bh-header"
-              >
-                <div className={classes.heading}>
-                  <Typography className={classes.heading}>{x.wc}</Typography>
+                      </div>
+                      <div className={classes.secondaryHeading} >
+                        <Typography className={classes.secondaryHeading}>{x.qty}</Typography>
 
-                </div>
-                <div className={classes.secondaryHeading} >
-                  <Typography className={classes.secondaryHeading}>{x.qty}</Typography>
+                      </div>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <div className={classes.column} />
+                      <div className={classes.column}>
+                        <Chip label="Barbados" onDelete={() => { }} />
+                      </div>
+                      <div className={clsx(classes.column, classes.helper)}>
+                        <Typography variant="caption">
+                          Select your destination of choice
+              <br />
+                          <a href="#secondary-heading-and-columns" className={classes.link}>
+                            Learn more
+              </a>
+                        </Typography>
+                      </div>
+                    </AccordionDetails>
+                  </Accordion>
 
-                </div>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography> 123</Typography>
-              </AccordionDetails>
-            </Accordion>
-                
-              </>
-            )
+                </>
+              )
             }
-        
+
           </div>
         </Box>
       </CardContent>

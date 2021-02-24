@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Button,
   Card,
   CardContent,
   Container,
@@ -23,12 +24,104 @@ const useStyles = makeStyles((theme) => ({
 const ProductionDashboard = () => {
   const classes = useStyles();
 
+  const datafromapi =
+    [
+      {
+        title: 'สถานี Slit',
+        wc: 'สถานี Slit 01',
+        qty: 1,
+        wc_group_num: '10'
+      },
+      {
+        title: 'สถานี Slit',
+        wc: 'สถานี Slit 02',
+        qty: 2,
+        wc_group_num: '10'
+      },
+      {
+        title: 'สถานี Forming',
+        wc: 'สถานี Forming 01',
+        qty: 3,
+        wc_group_num: '20'
+      },
+      {
+        title: 'สถานี Forming',
+        wc: 'สถานี Forming 02',
+        qty: 4,
+        wc_group_num: '20'
+      },
+      {
+        title: 'สถานี ดัดทรง',
+        wc: 'สถานี ดัดทรง 01',
+        qty: 5,
+        wc_group_num: '30'
+      },
+      {
+        title: 'สถานี ดัดทรง',
+        wc: 'สถานี ดัดทรง 02',
+        qty: 6,
+        wc_group_num: '30'
+      }
+    ]
+
+  const convertToJsonFormat = (datafromapi) => {
+    let a = []
+    for (let i = 0; i < datafromapi.length; i++) {
+      if (i + 1 < datafromapi.length) {
+
+
+        if (datafromapi[i].wc_group_num == datafromapi[i + 1].wc_group_num) {
+          a.push({ title: datafromapi[i].title, detail: [] })
+
+          
+          if(a[i]){
+            for (let j = 0; j < datafromapi.length; j++) {
+              a[i].detail.push({ wc: datafromapi[j].wc })
+            }
+          }
+
+        }
+      }
+
+
+
+    }
+    console.log(a)
+  }
+
+  const data = [
+    {
+      title: 'สถานี Slit',
+      detail:
+        [
+          { wc: 'สถานี Slit 01', qty: 1, wc_group_num: '10' },
+          { wc: 'สถานี Slit 02', qty: 2, wc_group_num: '10' },
+          { wc: 'สถานี Slit 03', qty: 3, wc_group_num: '10' },
+          { wc: 'สถานี Slit 03', qty: 4, wc_group_num: '10' },
+          { wc: 'สถานี Slit 03', qty: 5, wc_group_num: '10' },
+          { wc: 'สถานี Slit 03', qty: 6, wc_group_num: '10' },
+          { wc: 'สถานี Slit 03', qty: 7, wc_group_num: '10' },
+        ]
+    },
+    {
+      title: 'สถานี Forming',
+      detail:
+        [
+          { wc: 'สถานี Forming 01', qty: 8, wc_group_num: '20' },
+          { wc: 'สถานี Forming 02', qty: 9, wc_group_num: '20' },
+          { wc: 'สถานี Forming 03', qty: 10, wc_group_num: '20' },
+        ]
+    }
+
+  ]
+
 
   return (
     <Page
       className={classes.root}
       title="Dashboard"
     >
+      <Button onClick={() => convertToJsonFormat(datafromapi)}>123</Button>
 
       <Container maxWidth={false}>
         <Grid
@@ -57,12 +150,27 @@ const ProductionDashboard = () => {
 
             </Card>
           </Grid>
+
+          {
+            data.map((x) =>
+              <Grid item lg={3} sm={6} xl={3} xs={12}>
+                <WorkCenterGroup
+                  workcenter_name={x.title}
+                  data={x.detail}
+                />
+              </Grid>
+            )
+          }
           <Grid item lg={3} sm={6} xl={3} xs={12}>
             <WorkCenterGroup
               workcenter_name='Slit'
               data={[
                 { wc: 'สถานี Slit 01', qty: 100 },
                 { wc: 'สถานี Slit 02', qty: 200 },
+                { wc: 'สถานี Slit 03', qty: 300 },
+                { wc: 'สถานี Slit 03', qty: 300 },
+                { wc: 'สถานี Slit 03', qty: 300 },
+                { wc: 'สถานี Slit 03', qty: 300 },
                 { wc: 'สถานี Slit 03', qty: 300 },
               ]}
             />
@@ -149,7 +257,7 @@ const ProductionDashboard = () => {
               ]}
             />
           </Grid>
-         
+
 
           <Grid item lg={3} sm={6} xl={3} xs={12}>
             <WorkCenterGroup
