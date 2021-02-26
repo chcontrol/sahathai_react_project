@@ -42,7 +42,9 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
   const [selectedDateStart, setSelectedDateStart] = useState(moment().subtract(1, 'months').format("YYYY-MM-DD"));
   const [selectedDateEnd, setSelectedDateEnd] = useState(moment().format("YYYY-MM-DD"));
   const [CoilRecive, setCoilRecive] = useState([]);
+  const [CoilReciveNow, setCoilReciveNow] = useState([]);
   const [PipeSale, setPipeSale] = useState([]);
+  const [PipeSaleNow, setPipeSaleNow] = useState([]);
 
 
 
@@ -86,10 +88,42 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
     labels: ['Domestic', 'International']
   };
 
+  const dataCoilNow = {
+    datasets: [
+      {
+        data: [showLineDataSetByItemGroup('Domestic', CoilReciveNow), showLineDataSetByItemGroup('International', CoilReciveNow)],
+        backgroundColor: [
+          colors.indigo[500],
+          colors.red[600],
+        ],
+        borderWidth: 8,
+        borderColor: colors.common.white,
+        hoverBorderColor: colors.common.white
+      }
+    ],
+    labels: ['Domestic', 'International']
+  };
+
   const dataPipe = {
     datasets: [
       {
         data: [showLineDataSetByItemGroup('Domestic', PipeSale), showLineDataSetByItemGroup('International', PipeSale)],
+        backgroundColor: [
+          colors.indigo[500],
+          colors.red[600],
+        ],
+        borderWidth: 8,
+        borderColor: colors.common.white,
+        hoverBorderColor: colors.common.white
+      }
+    ],
+    labels: ['Domestic', 'International']
+  };
+
+  const dataPipeNow = {
+    datasets: [
+      {
+        data: [showLineDataSetByItemGroup('Domestic', PipeSaleNow), showLineDataSetByItemGroup('International', PipeSaleNow)],
         backgroundColor: [
           colors.indigo[500],
           colors.red[600],
@@ -138,9 +172,22 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
         console.log(res.data)
       })
 
+      API.get(`API_ExecutiveReport/data.php?load=STS_execSUM_Coil_Rec&startDate=${(moment().subtract(1, 'months').format("YYYY-MM-DD"))}&endDate=${(moment().format("YYYY-MM-DD"))}`)
+      .then(res => {
+        (res.data) ? setCoilReciveNow(res.data) : setCoilReciveNow([])
+        console.log(res.data)
+      })
+
     API.get(`API_ExecutiveReport/data.php?load=STS_execSUM_Pipe_Sale&startDate=${selectedDateStart}&endDate=${selectedDateEnd}`)
       .then(res => {
         (res.data) ? setPipeSale(res.data) : setPipeSale([])
+        console.log(res.data)
+      })
+
+
+      API.get(`API_ExecutiveReport/data.php?load=STS_execSUM_Pipe_Sale&startDate=${(moment().subtract(1, 'months').format("YYYY-MM-DD"))}&endDate=${(moment().format("YYYY-MM-DD"))}`)
+      .then(res => {
+        (res.data) ? setPipeSaleNow(res.data) : setPipeSaleNow([])
         console.log(res.data)
       })
   }
@@ -166,6 +213,21 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
     }
   ];
 
+  const CoilReciveDataSetNow = [
+    {
+      title: 'Domestic',
+      value: showLineDataSetByItemGroup('Domestic', CoilReciveNow),
+      icon: ArrowDownwardIcon,
+      color: colors.indigo[600]
+    },
+    {
+      title: 'International',
+      value: showLineDataSetByItemGroup('International', CoilReciveNow),
+      icon: ArrowUpwardIcon,
+      color: colors.red[600]
+    }
+  ];
+
   const PipeSaleDataSet = [
     {
       title: 'Domestic',
@@ -181,6 +243,20 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
     }
   ];
 
+  const PipeSaleDataSetNow = [
+    {
+      title: 'Domestic',
+      value: showLineDataSetByItemGroup('Domestic', PipeSaleNow),
+      icon: ArrowDownwardIcon,
+      color: colors.indigo[600]
+    },
+    {
+      title: 'International',
+      value: showLineDataSetByItemGroup('International', PipeSaleNow),
+      icon: ArrowUpwardIcon,
+      color: colors.red[600]
+    }
+  ];
 
   const dateFormatter = str => {
     return str;
@@ -305,7 +381,7 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
               display="flex"
               justifyContent="center"
               mt={2}
-            > STEEL PIPE DELIVERY(MT)
+            > Coil Received(MT)
             </Box>
             <Box
               display="flex"
@@ -341,6 +417,120 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
               ))}
             </Box>
           </Grid>
+
+
+
+
+
+          <Grid item xs={6}>
+            <Box
+              height={200}
+              position="relative"
+            >
+
+              <Pie
+                data={dataCoilNow}
+                options={options}
+              />
+            </Box>
+            <Box
+              display="flex"
+              justifyContent="center"
+              mt={2}
+            > STEEL PIPE DELIVERY(MT) Now!!
+            </Box>
+            <Box
+              display="flex"
+              justifyContent="center"
+              mt={2}
+            >
+              {CoilReciveDataSetNow.map(({
+                color,
+                icon: Icon,
+                title,
+                value
+              }) => (
+                <Box
+                  key={title}
+                  p={1}
+                  textAlign="center"
+                >
+                  <Icon color="action" />
+                  <Typography
+                    color="textPrimary"
+                    variant="body2"
+                  >
+                    {title}
+                  </Typography>
+                  <Typography
+                    style={{ color }}
+                    variant="h4"
+                  >
+                    {value}
+
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+          </Grid>
+
+
+
+
+          <Grid item xs={6}>
+            <Box
+              height={200}
+              position="relative"
+            >
+
+              <Pie
+                data={dataPipeNow}
+                options={options}
+              />
+            </Box>
+            <Box
+              display="flex"
+              justifyContent="center"
+              mt={2}
+            > STEEL PIPE DELIVERY(MT) Now!!
+            </Box>
+            <Box
+              display="flex"
+              justifyContent="center"
+              mt={2}
+            >
+              {PipeSaleDataSetNow.map(({
+                color,
+                icon: Icon,
+                title,
+                value
+              }) => (
+                <Box
+                  key={title}
+                  p={1}
+                  textAlign="center"
+                >
+                  <Icon color="action" />
+                  <Typography
+                    color="textPrimary"
+                    variant="body2"
+                  >
+                    {title}
+                  </Typography>
+                  <Typography
+                    style={{ color }}
+                    variant="h4"
+                  >
+                    {value}
+
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+          </Grid>
+
+
+
         </Grid>
 
 

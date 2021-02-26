@@ -10,6 +10,12 @@ import {
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import WorkCenterGroup from './WorkCenterGroup';
+import API from 'src/views/components/API';
+
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,96 +30,39 @@ const useStyles = makeStyles((theme) => ({
 const ProductionDashboard = () => {
   const classes = useStyles();
 
-  const datafromapi =
-    [
-      {
-        title: 'สถานี Slit',
-        wc: 'สถานี Slit 01',
-        qty: 1,
-        wc_group_num: '10'
-      },
-      {
-        title: 'สถานี Slit',
-        wc: 'สถานี Slit 02',
-        qty: 2,
-        wc_group_num: '10'
-      },
-      {
-        title: 'สถานี Forming',
-        wc: 'สถานี Forming 01',
-        qty: 3,
-        wc_group_num: '20'
-      },
-      {
-        title: 'สถานี Forming',
-        wc: 'สถานี Forming 02',
-        qty: 4,
-        wc_group_num: '20'
-      },
-      {
-        title: 'สถานี ดัดทรง',
-        wc: 'สถานี ดัดทรง 01',
-        qty: 5,
-        wc_group_num: '30'
-      },
-      {
-        title: 'สถานี ดัดทรง',
-        wc: 'สถานี ดัดทรง 02',
-        qty: 6,
-        wc_group_num: '30'
-      }
-    ]
-
-  const convertToJsonFormat = (datafromapi) => {
-    let a = []
-    for (let i = 0; i < datafromapi.length; i++) {
-      if (i + 1 < datafromapi.length) {
-
-
-        if (datafromapi[i].wc_group_num == datafromapi[i + 1].wc_group_num) {
-          a.push({ title: datafromapi[i].title, detail: [] })
-
-          
-          if(a[i]){
-            for (let j = 0; j < datafromapi.length; j++) {
-              a[i].detail.push({ wc: datafromapi[j].wc })
-            }
-          }
-
-        }
-      }
+  const min = 1;
+  const max = 100;
+  const rand = min + Math.random() * (max - min);
 
 
 
-    }
-    console.log(a)
+  const [date, setDate] = React.useState(new Date());
+  const [data1, setData1] = React.useState(0);
+
+
+  React.useEffect(() => {
+    var timerID = setInterval(() => tick(), 5000);
+
+
+    return function cleanup() {
+      clearInterval(timerID);
+    };
+  });
+
+  function tick() {
+    
+    API.get(`API_ExecutiveReport/data.php?load=matltran_mst_count_intreval&startDate='2021-02-26 08:00:00.000'&endDate='2021-02-26 23:00:00.000'`)
+      .then(res => {
+        setData1(res.data[0].count_trans)
+      })
+    setDate(new Date());
   }
 
-  const data = [
-    {
-      title: 'สถานี Slit',
-      detail:
-        [
-          { wc: 'สถานี Slit 01', qty: 1, wc_group_num: '10' },
-          { wc: 'สถานี Slit 02', qty: 2, wc_group_num: '10' },
-          { wc: 'สถานี Slit 03', qty: 3, wc_group_num: '10' },
-          { wc: 'สถานี Slit 03', qty: 4, wc_group_num: '10' },
-          { wc: 'สถานี Slit 03', qty: 5, wc_group_num: '10' },
-          { wc: 'สถานี Slit 03', qty: 6, wc_group_num: '10' },
-          { wc: 'สถานี Slit 03', qty: 7, wc_group_num: '10' },
-        ]
-    },
-    {
-      title: 'สถานี Forming',
-      detail:
-        [
-          { wc: 'สถานี Forming 01', qty: 8, wc_group_num: '20' },
-          { wc: 'สถานี Forming 02', qty: 9, wc_group_num: '20' },
-          { wc: 'สถานี Forming 03', qty: 10, wc_group_num: '20' },
-        ]
-    }
+  // function callAPI() {
 
-  ]
+
+
+  // }
 
 
   return (
@@ -121,7 +70,6 @@ const ProductionDashboard = () => {
       className={classes.root}
       title="Dashboard"
     >
-      <Button onClick={() => convertToJsonFormat(datafromapi)}>123</Button>
 
       <Container maxWidth={false}>
         <Grid
@@ -139,135 +87,54 @@ const ProductionDashboard = () => {
               >
                 <Grid item lg={3} sm={6} xl={3} xs={12}>
                   <Typography color="textPrimary" gutterBottom variant="h4" >
-                    ภาพรวมการผลิต
-                </Typography>
+                    ภาพรวมการผลิต {data1}
+                  </Typography>
                   <Typography color="textPrimary" gutterBottom variant="h5" >
-                    วันที่ 16/02/2021 เวลา 08:00 น.
-                </Typography>
+                    วันที่ 16/02/2021 เวลา {date.toLocaleTimeString()}
+                  </Typography>
                 </Grid>
-
               </Grid>
-
             </Card>
           </Grid>
-
-          {
-            data.map((x) =>
-              <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <WorkCenterGroup
-                  workcenter_name={x.title}
-                  data={x.detail}
-                />
-              </Grid>
-            )
-          }
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <WorkCenterGroup
-              workcenter_name='Slit'
-              data={[
-                { wc: 'สถานี Slit 01', qty: 100 },
-                { wc: 'สถานี Slit 02', qty: 200 },
-                { wc: 'สถานี Slit 03', qty: 300 },
-                { wc: 'สถานี Slit 03', qty: 300 },
-                { wc: 'สถานี Slit 03', qty: 300 },
-                { wc: 'สถานี Slit 03', qty: 300 },
-                { wc: 'สถานี Slit 03', qty: 300 },
-              ]}
-            />
-          </Grid>
-
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <WorkCenterGroup
-              workcenter_name='Forming'
-              data={[
-                { wc: 'สถานี Forming 01', qty: 100 },
-                { wc: 'สถานี Forming 02', qty: 200 },
-                { wc: 'สถานี Forming 03', qty: 300 },
-              ]}
-            />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <WorkCenterGroup
-              workcenter_name='ดัดทรง'
-              data={[
-                { wc: 'สถานี ดัดทรง 01', qty: 100 },
-                { wc: 'สถานี ดัดทรง 02', qty: 200 },
-                { wc: 'สถานี ดัดทรง 03', qty: 300 },
-              ]}
-            />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <WorkCenterGroup
-              workcenter_name='คว้านหัว'
-              data={[
-                { wc: 'สถานี คว้านหัว 01', qty: 100 },
-                { wc: 'สถานี คว้านหัว 02', qty: 200 },
-                { wc: 'สถานี คว้านหัว 03', qty: 300 },
-              ]}
-            />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <WorkCenterGroup
-              workcenter_name='เทสน้ำ'
-              data={[
-                { wc: 'สถานี เทสน้ำ 01', qty: 100 },
-                { wc: 'สถานี เทสน้ำ 02', qty: 200 },
-                { wc: 'สถานี เทสน้ำ 03', qty: 300 },
-              ]}
-            />
-          </Grid>
-
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <WorkCenterGroup
-              workcenter_name='เคลือบสี'
-              data={[
-                { wc: 'สถานี เคลือบสี 01', qty: 100 },
-                { wc: 'สถานี เคลือบสี 02', qty: 200 },
-                { wc: 'สถานี เคลือบสี 03', qty: 300 },
-              ]}
-            />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <WorkCenterGroup
-              workcenter_name='Groove'
-              data={[
-                { wc: 'สถานี Groove 01', qty: 100 },
-                { wc: 'สถานี Groove 02', qty: 200 },
-                { wc: 'สถานี Groove 03', qty: 300 },
-              ]}
-            />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <WorkCenterGroup
-              workcenter_name='ชุบ'
-              data={[
-                { wc: 'สถานี ชุบ 01', qty: 100 },
-                { wc: 'สถานี ชุบ 02', qty: 200 },
-                { wc: 'สถานี ชุบ 03', qty: 300 },
-              ]}
-            />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <WorkCenterGroup
-              workcenter_name='ตัดแบ่ง'
-              data={[
-                { wc: 'สถานี ตัดแบ่ง 01', qty: 100 },
-                { wc: 'สถานี ตัดแบ่ง 02', qty: 200 },
-                { wc: 'สถานี ตัดแบ่ง 03', qty: 300 },
-              ]}
-            />
-          </Grid>
+          <Grid item lg={6} sm={6} xl={6} xs={6}>
+            <Card spacing={1} >
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Grid justify="space-between" container spacing={24}  >
+                    <Grid item>
+                      <Typography type="title" color="inherit"> ฟอร์มมิ่ง  </Typography>
+                    </Grid>
+                    <Grid item>
+                      12
+                    </Grid>
+                  </Grid>
 
 
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <WorkCenterGroup
-              workcenter_name='Packing'
-              data={[
-                { wc: 'สถานี Packing 01', qty: 100 },
-                { wc: 'สถานี Packing 02', qty: 200 },
-                { wc: 'สถานี Packing 03', qty: 300 },
-              ]}
-            />
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography> รายละเอียดแต่ละเครื่อง </Typography>
+                </AccordionDetails>
+              </Accordion>
+
+              <Accordion disabled>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel3a-content"
+                  id="panel3a-header"
+                >
+                  <Typography className={classes.heading}>Disabled Accordion</Typography>
+                </AccordionSummary>
+              </Accordion>
+            </Card>
+          </Grid>
+          <Grid item lg={6} sm={6} xl={6} xs={6}>
+            <Card spacing={1} >
+              sdfg
+            </Card>
           </Grid>
         </Grid>
       </Container>

@@ -108,7 +108,7 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
     let datasetGroup = dataset.map((i) => {
       return i.sumQTY
     })
-    let dataReturn = [0,0,0,0,0,0,0,0,0,0,0,...datasetGroup]
+    let dataReturn = [...datasetGroup]
     return dataReturn
   }
 
@@ -198,6 +198,7 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
     ],
     labels:
       [
+        [moment().subtract(13, 'months').format("MMM-YYYY")],
         [moment().subtract(12, 'months').format("MMM-YYYY")],
         [moment().subtract(11, 'months').format("MMM-YYYY")],
         [moment().subtract(10, 'months').format("MMM-YYYY")],

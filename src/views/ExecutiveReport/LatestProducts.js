@@ -90,7 +90,7 @@ const LatestProducts = ({ className, ...rest }) => {
       className={clsx(classes.root, className)}
       {...rest}
       style={{
-        maxHeight: '70vh',
+        maxHeight: '100%',
         overflowY: 'scroll',
       }}
     >
@@ -116,7 +116,7 @@ const LatestProducts = ({ className, ...rest }) => {
             {V_STS_execSUM_Outs_Coil.map((value) =>
               <>
                 <ListItem button>
-                  <ListItemText primary={`${value.aged} = ${value.TotalCoil} coils (${value.sumQTY} MT)`} />
+                  <ListItemText primary={`${value.Item_Group} ${value.aged} = ${value.TotalCoil} coils (${value.sumQTY} MT)`} />
                 </ListItem>
               </>
             )}
@@ -139,7 +139,7 @@ const LatestProducts = ({ className, ...rest }) => {
             {V_STS_execSUM_Outs_Strip.map((value) =>
               <>
                 <ListItem button key={value.sumQTY}>
-                  <ListItemText primary={`${value.aged} = ${value.TotalStrip} strips (${value.sumQTY} MT)`} />
+                  <ListItemText primary={`${value.Item_Group} ${value.aged} = ${value.TotalStrip} strips (${value.sumQTY} MT)`} />
                 </ListItem>
               </>
             )}
@@ -162,7 +162,7 @@ const LatestProducts = ({ className, ...rest }) => {
             {V_STS_execSUM_Outs_ProcessingPipe.map((value) =>
               <>
                 <ListItem button>
-                  <ListItemText primary={`${value.aged} = ${value.TotalPipe} pcs (${value.sumQTY} MT)`} />
+                  <ListItemText primary={`${value.Item_Group} ${value.aged} = ${value.TotalPipe} pcs (${value.sumQTY} MT)`} />
                 </ListItem>
               </>
             )}
@@ -185,7 +185,7 @@ const LatestProducts = ({ className, ...rest }) => {
             {V_STS_execSUM_Outs_FinishedPipe.map((value) =>
               <>
                 <ListItem button>
-                  <ListItemText primary={`${value.aged} = ${value.TotalPipe} pcs (${value.sumQTY} MT)`} />
+                  <ListItemText primary={`${value.Item_Group} ${value.aged} = ${value.TotalPipe} pcs (${value.sumQTY} MT)`} />
                 </ListItem>
               </>
             )}
@@ -195,7 +195,7 @@ const LatestProducts = ({ className, ...rest }) => {
       </List>
       <Divider />
 
-      <List>
+      {/* <List>
         <ListItem>
           <ListItemAvatar>
             <img alt="Product" className={classes.image} src={'/static/images/products/packing2.jpg'} />
@@ -236,7 +236,7 @@ const LatestProducts = ({ className, ...rest }) => {
             )}
           </List>
         </ListItem>
-      </List>
+      </List> */}
 
       <Divider />
       <Box
