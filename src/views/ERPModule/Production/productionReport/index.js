@@ -348,8 +348,8 @@ const ProductionDailyReport = () => {
           <Formik
             initialValues={
               {
-                startdate: moment('2020-02-27 08:00:', 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm:ss'),
-                enddate: moment('2020-02-27 09:00:', 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm:ss'),
+                startdate: moment('2021-02-27 08:00:', 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm:ss'),
+                enddate: moment('2021-03-01 17:00:', 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm:ss'),
                 // startdate: moment('2020-02-27 08:00:', 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
                 // enddate: moment('17:00:', 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
                 // startdate: moment('08:00:', 'HH:mm').subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss'),

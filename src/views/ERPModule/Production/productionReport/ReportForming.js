@@ -101,9 +101,12 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
 
     let dataReason = [];
     dataReason.push([
-        { text: `เวลาหยุดเครื่อง`, fontSize: 14, alignment: 'center', style: 'header' },
-        { text: "สาเหตุ", fontSize: 14, alignment: 'center' },
-        { text: "รวมเวลา", fontSize: 14, alignment: 'center' },
+        { text: `สาเหตุ`, fontSize: 14, alignment: 'center', style: 'header' },
+        { text: "รายละเอียด", fontSize: 14, alignment: 'center' },
+        { text: "หมายเหตุ", fontSize: 14, alignment: 'center' },
+        { text: "จำนวนครั้ง", fontSize: 14, alignment: 'center' },
+        { text: "รวมเวลาหยุดเครื่อง", fontSize: 14, alignment: 'center' },
+        
     ],
     )
     // let forming_reasonsplit = dataNow[i]["forming_reason"]
@@ -115,9 +118,13 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
 
     for (let i = 0; i < forming_reasonselectone.length; i++) {
         let forming_reasonselectone2 = forming_reasonselectone[i].split(")")
+        let splitWords = forming_reasonselectone2[1].split(':')
         dataReason.push([
-            { text: ` ${forming_reasonselectone2[0]}`, fontSize: 13, alignment: 'center' },
-            { text: forming_reasonselectone2[1], fontSize: 13, alignment: 'center' },
+            
+            { text: splitWords[0], fontSize: 13, alignment: 'center' },
+            { text: splitWords[1], fontSize: 13, alignment: 'center' },
+            { text: splitWords[2], fontSize: 13, alignment: 'center' },
+            { text: splitWords[3], fontSize: 13, alignment: 'center' },
             { text: forming_reasonselectone2[2], fontSize: 13, alignment: 'center' },
         ],
         )
@@ -126,6 +133,8 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
     if (forming_reasonselectone.length < 4) {
         for (let i = 0; i < 4 - forming_reasonselectone.length; i++) {
             dataReason.push([
+                { text: ' ', fontSize: 13, alignment: 'center' },
+                { text: ' ', fontSize: 13, alignment: 'center' },
                 { text: ' ', fontSize: 13, alignment: 'center' },
                 { text: ' ', fontSize: 13, alignment: 'center' },
                 { text: ' ', fontSize: 13, alignment: 'center' },
@@ -249,7 +258,7 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
                             {
 
                                 table: {
-                                    widths: [150, '*', 150],
+                                    widths: [150, 150,'*', 60, 100],
                                     headerRows: 1,
                                     body: dataReason,
                                 }, fontSize: 16, colSpan: 3, border: [false, false, false, false]

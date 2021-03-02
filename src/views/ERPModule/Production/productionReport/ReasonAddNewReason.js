@@ -34,7 +34,9 @@ const ReasonAddNewReason = (props) => {
                 time_used: values.time_used,
                 create_date: values.create_date,
                 w_c: values.w_c,
-                remark: values.remark
+                remark: values.remark,
+                times_count: values.times_count,
+                
             }
         });
         props.handleCloseModalAddNewReason()
@@ -57,6 +59,7 @@ const ReasonAddNewReason = (props) => {
                                 time_used: '',
                                 w_c: props.w_c,
                                 remark: '',
+                                times_count: '1'
                             }
                         }
                         validate={values => {
@@ -86,7 +89,7 @@ const ReasonAddNewReason = (props) => {
                                 {/* {JSON.stringify(values)} */}
                                 <Grid container spacing={2}>
                                     <Grid item lg={12}>บันทึกสาเหตุการหยุดเครื่อง </Grid>
-                                    <Grid item lg={12}>
+                                    <Grid item lg={6}>
                                         <CTextField
                                             error={Boolean(touched.time_used && errors.time_used)}
                                             helperText={touched.time_used && errors.time_used}
@@ -119,7 +122,18 @@ const ReasonAddNewReason = (props) => {
                                             Autocomplete={false}
                                         />
                                     </Grid>
-
+                                    <Grid item lg={6}>
+                                        <CTextField
+                                            error={Boolean(touched.times_count && errors.times_count)}
+                                            helperText={touched.times_count && errors.times_count}
+                                            label="จำนวนครั้ง"
+                                            name="times_count"
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            value={values.times_count}
+                                            Autocomplete={false}
+                                        />
+                                    </Grid>
                                     <Grid item lg={12}>
                                         <CAutocompleteReason
                                             onBlur={handleBlur}
