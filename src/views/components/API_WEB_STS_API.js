@@ -20,10 +20,8 @@ const UserLoginGetNewToken = async (values) => {
     token = Axios.post(`http://172.18.1.194:99/STS_Web_API/api/account/login`, values)
         .then(res => {
             token = res.data;
-            console.log(1)
             console.log('token', token)
             localStorage.setItem('token', token.accessToken);
-            console.log(1.5)
             return token
         }).catch(function (error) {
             localStorage.setItem('username', 'guest');

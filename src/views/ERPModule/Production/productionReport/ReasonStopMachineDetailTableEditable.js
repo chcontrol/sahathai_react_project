@@ -8,7 +8,6 @@ const ReasonStopMachineDetailTableEditable = (props) => {
     // const [selectedRow, setSelectedRow] = useState(null);
 
     const CRUDfn_reason_description = async (type, values) => {
-        console.log("function", values)
         await API.get("RPT_JOBPACKING/data.php", {
           params: {
             load: type,
@@ -17,7 +16,6 @@ const ReasonStopMachineDetailTableEditable = (props) => {
     
           }
         });
-        console.log(values)
       }
       
 

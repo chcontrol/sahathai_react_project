@@ -26,56 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function SelectItemsPage(props) {
-    // const classes = useStyles();
-    // // getModalStyle is not a pure function, we roll the style only on the first render
-    // const [open, setOpen] = React.useState(false);
-    // const [itemsLists, setItemsLists] = useState([]) // Item
-    // const [page, setPage] = useState("")
-
-    // const handleOpen = () => {
-    //     setOpen(true);
-    // };
-
-    // const handleClose = (value) => {
-    //     setOpen(false);
-    // };
-
-    // const handleSeltedItem = (value) => {
-    //     props.ItemSelected(value)
-    //     setOpen(false);
-    // }
-
-    // const handleKeyPress = (event) => {
-    //     if (event.key === 'Enter') {
-    //         console.log(event.target.value)
-    //         props.ItemSelected(event.target.value)
-    //         setOpen(false);
-    //     }
-    // }
-
-
-
-    // // Effect change when doNum change state
-    // useEffect(() => {
-    //     console.log(123456789)
-    //     console.log(props.ItemsListsAPI)
-    //     axios.get(props.ItemsListsAPI)
-    //         .then(res => {
-    //             console.log(res.data)
-    //             setItemsLists(res.data)
-    //         })
-    //         .catch(function (res) {
-    //             if (res instanceof Error) {
-    //                 console.log(res.message);
-    //             } else {
-    //                 console.log(res.data);
-    //             }
-    //         });
-    // }, [])
-
-
-    // const items = itemsLists//['username@gmail.com', 'user02@gmail.com', 1, 2, 3, 4, 5, 6];
-
+    
 
     return (
         <div >

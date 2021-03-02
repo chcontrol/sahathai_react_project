@@ -27,7 +27,6 @@ const ReasonRecordStopMachineTableEditable = (props) => {
             w_c: values.w_c
           }
         });
-        console.log(values)
       }
 
       const handleOpenModalAddnewMeter = async () => {
@@ -37,7 +36,6 @@ const ReasonRecordStopMachineTableEditable = (props) => {
 
 
     const SearchModal_reason_meter = async (type, values, typeBtn) => {
-        console.log(values)
         let param = {}
         if (typeBtn === "All") {
           param = {
@@ -129,7 +127,6 @@ const ReasonRecordStopMachineTableEditable = (props) => {
                             const index = oldData.tableData.id;
                             dataDelete.splice(index, 1);
                             props.setDataFormingRecord_reason_meter([...dataDelete]);
-                            console.log(oldData)
                             CRUDfn_reason_meter("DeleteForming_reason_meter", oldData)
                             resolve()
                         }, 1000)

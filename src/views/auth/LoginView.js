@@ -60,10 +60,8 @@ const LoginView = () => {
     token = Axios.post(`http://172.18.1.194:99/STS_Web_API/api/account/login`, values)
       .then(res => {
         token = res.data;
-        console.log(1)
         console.log('token', token)
         localStorage.setItem('token', token.accessToken);
-        console.log(1.5)
         Axios.create({
           baseURL: `http://172.18.1.194:99/STS_web_api/api/member/data`,
           timeout: 1000,
@@ -73,7 +71,6 @@ const LoginView = () => {
             userData = response.data;
             localStorage.setItem('username', userData.email);
             console.log(userData)
-            console.log(2)
             navigate('/app/dashboard', { replace: true });
           })
       }).catch(function (error) {
@@ -119,10 +116,6 @@ const LoginView = () => {
   async function main() {
     let a = await longTimeHello();
     let b = await longTimeHello2();
-
-    console.log(b)
-    console.log(a)
-
   }
 
 

@@ -9,7 +9,6 @@ function workcenterHeader(dataNow) {
         return i === -1 ? a.push({ wc: b.wc, WCname: b.WCname, times: 1 }) : a[i].times++, a;
     }, []);
 
-    console.log("arr2", arr2)
     let workcenterHeader = "";
 
     for (let i = 0; i < arr2.length; i++) {
@@ -190,7 +189,6 @@ function convertAllLotReport(wordShow, LotFromData) {
         }
         return 0;
     });
-    console.log("dataArrGroup", dataArrGroup)
     let wordslot = "";
     let wordsqty = "";
     let wordsqtybundle = "";
@@ -223,10 +221,7 @@ function convertAllLotReport(wordShow, LotFromData) {
                     }
 
                     if (dataArrGroup[l].lotnum === tmp4) {
-                        console.log('##', dataArrGroup[l].lotnum)
-                        console.log('##', dataArrGroup[l + 1].lotnum)
-                        console.log('##', tmp4)
-                        console.log('##', dataArrGroup[l + 2].lotnum)
+                        
 
                         if (dataArrGroup[l + 1].lotnum - dataArrGroup[l].lotnum === 2 ||
                             dataArrGroup[l + 1].lotnum - dataArrGroup[l].lotnum === 100) {
@@ -335,10 +330,8 @@ function convertAllLotReport(wordShow, LotFromData) {
 
             }
         }
-        console.log("------------------------------" + l)
 
 
-        console.log(arraynew)
     }
     if (wordShow === "wordslot") {
         return wordslot
@@ -356,7 +349,6 @@ function convertAllLotReport(wordShow, LotFromData) {
 
 function checkingByLot(LotFromData) {
     var obj = JSON.parse(LotFromData);
-    console.log(obj)
     return obj
 }
 
@@ -404,8 +396,6 @@ const diff_hours = (dt2, dt1)=> {
     dt2 = new Date(dt2);
     var diff = (dt2.getTime() - dt1.getTime()) / 1000;
     diff /= (60 * 60);
-    console.log(dt2)
-    console.log('00000000000000000000000000000000000')
     return Math.abs(diff);
   }
 

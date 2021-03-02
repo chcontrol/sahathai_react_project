@@ -157,7 +157,6 @@ const ProductionDailyReport = () => {
   };
 
   const handleOpenModalItem = async (item) => {
-    console.log(item)
     setitemModal(item)
     setOpenModalItem(true);
   };
@@ -266,7 +265,6 @@ const ProductionDailyReport = () => {
   });
 
   const handleCheckboxChange = (w_c, startdate, enddate, event) => {
-    console.log(event.target.value)
 
     let rate = BreakTimeForming;
     setCheckBoxState({ ...CheckBoxState, [event.target.name]: event.target.checked });
@@ -308,7 +306,6 @@ const ProductionDailyReport = () => {
       }
     });
 
-    console.log()
   };
 
   const { BreakTimeOne, BreakTimeTwo, BreakTimeThree } = CheckBoxState;
@@ -319,14 +316,6 @@ const ProductionDailyReport = () => {
     dt2 = new Date(dt2);
     var diff = (dt2.getTime() - dt1.getTime()) / 1000;
     diff /= (60 * 60);
-    console.log('------------')
-    console.log('dt1',(dt1.getTime()) /1000)
-    console.log('dt2',(dt2.getTime()) /1000)
-    console.log('diff',diff)
-
-    console.log((dt1.getTime()-dt2.getTime()) /1000)
-    console.log('------------')
-    // setBreakTimeFormingRate(Math.abs(Math.round(diff)))
     return Math.abs(diff);
   }
 
@@ -348,11 +337,11 @@ const ProductionDailyReport = () => {
           <Formik
             initialValues={
               {
-                startdate: moment('2021-02-27 08:00:', 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm:ss'),
-                enddate: moment('2021-03-01 17:00:', 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm:ss'),
+                // startdate: moment('2021-02-27 08:00:', 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm:ss'),
+                // enddate: moment('2021-03-01 17:00:', 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm:ss'),
                 // startdate: moment('2020-02-27 08:00:', 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
-                // enddate: moment('17:00:', 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
-                // startdate: moment('08:00:', 'HH:mm').subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss'),
+                enddate: moment('17:00:', 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
+                startdate: moment('08:00:', 'HH:mm').subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss'),
                 // enddate: moment('21:00', 'HH:mm').subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss'),
                 item: '',
                 refnum: '',
