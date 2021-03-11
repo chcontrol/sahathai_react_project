@@ -34,7 +34,6 @@ function MatTable(props) {
                 <MaterialTable
                     style={{ width: '100%', margin: 5, overflowX: "scroll" }}
                     icons={tableIcons}
-                    //title={"Quantity Move List :" + (props.qtyMoveList)? 0:props.qtyMoveList.length}
                     title={"Quantity Move List : " + props.qtyMoveList.length + " รายการ"}
                     columns={[
                         { title: 'id', field: 'id' },
@@ -48,8 +47,8 @@ function MatTable(props) {
                     options={{
                         search: false,
                         paging: false,
-                        maxBodyHeight: '45vh',
-                        minBodyHeight: '45vh',
+                        maxBodyHeight: '40vh',
+                        minBodyHeight: '40vh',
                     }}
                 />
             </ThemeProvider>

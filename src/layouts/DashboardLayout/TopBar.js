@@ -53,7 +53,7 @@ const TopBar = ({
         <RouterLink to="/">
           {/* <Logo style={{marginBottom:25}} /> */}
 
-          <Typography variant="h3" component="h2" style={{ paddingBottom: 25, color: '#FFFFFF' }}>
+          <Typography variant="h3" component="h2" style={{marginTop: '-20px', color: '#FFFFFF' }}>
             SAHATHAI
           </Typography>
 

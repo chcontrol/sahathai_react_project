@@ -104,7 +104,7 @@ const ProductionDailyReport = () => {
         // }
         setBreakTimeForming(response3.data[0].rate)
 
-        
+
       } else {
         API.get("RPT_JOBPACKING/data.php", {
           params: {
@@ -197,6 +197,7 @@ const ProductionDailyReport = () => {
         ReportPackingDiary(response.data, values.startdate, values.enddate)
       } else if (doc_type === 'Production') {
         ReportProductionDaily(response.data, values.startdate, values.enddate)
+
       } else if (doc_type === 'Forming') {
 
         if (response.data.length > 0) {
@@ -205,6 +206,22 @@ const ProductionDailyReport = () => {
           } else {
             alert("กรุณากรอกเลขมิตเตอร์")
           }
+        } 
+        else {
+            let temp = [
+              {
+              
+              AllLot: " ( ",
+              qty: " 23; 46; 2,100",
+              bundle: " 1; 1; 42",
+              pcs_qty: " 23; 46; 50",
+              forming_reason: "2)30",
+              forming_reason_main: " จานเก็บเหล็ก; ฟอร์มมิ่ง; ฟอร์มมิ่ง; แท่นเลื่อย; ฟอร์มมิ่ง; ฟอร์มมิ่ง; แท่นเลื่อย; ฟอร์มมิ่ง; ฟอร์มมิ่ง; แท่นเลื่อย",
+              forming_reason_detail: " เปลี่ยนลูกปืนเพลาลูกกลิ้ง; อื่นๆ; เปลี่ยนสลิงรูดน้ำ ; เปลี่ยนใบเลื่อย ; เปลี่ยนมืดขูดตะเข็บ ; เปลี่ยนโรล ; เปลี่ยนใบเลื่อย ; เปลี่ยนโรล ; เปลี่ยนสลิงรูดน้ำ ; เปลี่ยนใบเลื่อย ",
+              forming_reason_remark: " 00; ซ่อมเพลาโมเล่ย์มอเตอร์; 2 ครั้ง; 3ใบ; ปรับODเปลี่ยนควานหนา; 100x50; ; 100x50; ; ",
+              forming_reason_meter: " 9489,9512",
+              }]
+            ReportForming(temp, values.startdate, values.enddate)
         }
 
       } else if (doc_type === 'CheckPacking') {
@@ -292,8 +309,8 @@ const ProductionDailyReport = () => {
         BreakTimeTwo: false,
         BreakTimeThree: true,
       });
-      setBreakTimeForming(diff_hours(startdate,enddate))
-      rate = diff_hours(startdate,enddate)
+      setBreakTimeForming(diff_hours(startdate, enddate))
+      rate = diff_hours(startdate, enddate)
     }
 
     API.get("RPT_JOBPACKING/data.php", {
@@ -338,10 +355,10 @@ const ProductionDailyReport = () => {
             initialValues={
               {
                 // startdate: moment('2021-02-27 08:00:', 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm:ss'),
-                // enddate: moment('2021-03-01 17:00:', 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm:ss'),
-                // startdate: moment('2020-02-27 08:00:', 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
+                // enddate: moment('2021-02-27 17:00:', 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm:ss'),
+                startdate: moment('08:00:', 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
                 enddate: moment('17:00:', 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
-                startdate: moment('08:00:', 'HH:mm').subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss'),
+                // startdate: moment('08:00:', 'HH:mm').subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss'),
                 // enddate: moment('21:00', 'HH:mm').subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss'),
                 item: '',
                 refnum: '',
@@ -424,8 +441,8 @@ const ProductionDailyReport = () => {
                         </CardContent>
                         <CardActions>
                           <FormControl component="fieldset">
-                          {/* <FormLabel >จำนวนชั่วโมงในช่วงเวลาที่เลือก ({diff_hours(values.startdate,values.enddate)})</FormLabel> */}
-                          <FormLabel >จำนวนชั่วโมงงานที่บันทึก ({BreakTimeForming})</FormLabel>
+                            {/* <FormLabel >จำนวนชั่วโมงในช่วงเวลาที่เลือก ({diff_hours(values.startdate,values.enddate)})</FormLabel> */}
+                            <FormLabel >จำนวนชั่วโมงงานที่บันทึก ({BreakTimeForming})</FormLabel>
                             <FormControl required error={error} component="fieldset" className={classes.formControl}>
                               <FormGroup>
                                 <FormControlLabel
@@ -438,9 +455,9 @@ const ProductionDailyReport = () => {
                                 />
                                 <FormControlLabel
                                   control={<Checkbox checked={BreakTimeThree} value="0" onChange={(event) => handleCheckboxChange(values.w_c, values.startdate, values.enddate, event)} name="BreakTimeThree" />}
-                                  label={`เต็มเวลา (${diff_hours(values.startdate,values.enddate)})` }
+                                  label={`เต็มเวลา (${diff_hours(values.startdate, values.enddate)})`}
                                 />
-                               
+
                               </FormGroup>
                               {/* <FormHelperText>You can display an error</FormHelperText> */}
                             </FormControl>
@@ -450,7 +467,7 @@ const ProductionDailyReport = () => {
 
 
 
-{/* 
+                            {/* 
                             <RadioGroup aria-label="BreakTimeForming"
                               name="BreakTimeForming"
                               value={BreakTimeForming}

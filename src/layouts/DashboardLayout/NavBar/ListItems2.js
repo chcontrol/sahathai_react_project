@@ -209,6 +209,7 @@ const ListItems2 = [
             },
         ]
     },
+    
     {
         Icon: HomeWorkIcon,
         menutitle: 'ผลิต',
@@ -237,6 +238,17 @@ const ListItems2 = [
                 href: '/app/productionDashboard',
                 Icon: AssignmentIcon,
                 title: 'Production Dashboard'
+            },
+        ]
+    },
+    {
+        Icon: HomeWorkIcon,
+        menutitle: 'จัดส่ง',
+        submenu: [
+            {
+                href: '/app/BoatNote',
+                Icon: AssignmentIcon,
+                title: 'Boat Note report'
             },
         ]
     },
