@@ -33,7 +33,8 @@ const STS_execRpt_F_bySizeType_Live = (props) => {
 
     API.get(`API_ExecutiveReport/data.php?load=STS_execRpt_F_bySizeType_Live&daystart=${daystart}&dayend=${dayend}`)
       .then(res => {
-        setDataSTS_execRpt_F_bySizeType_Live(res.data)
+        setDataSTS_execRpt_F_bySizeType_Live(addTotal(res.data))
+
         setIsLoadingState(false)
       })
   }
@@ -43,6 +44,39 @@ const STS_execRpt_F_bySizeType_Live = (props) => {
     searchSTS_execRpt_F_bySizeType_Live(props.daystart, props.dayend)
   }, [])
 
+  const addTotal = (data) => {
+    let keys = Object.keys(data[0]);
+    let totalRow = {};
+    let emptyRow = {};
+    for (let key of keys) {
+      if (key === keys[0]) { totalRow[key] = 'Total'; }
+      if (key === keys[1]) { totalRow[key] = ''; }
+      if (key === keys[2]) { totalRow[key] = ''; }
+      else if (key === keys[3]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[3]]); }, 0);; }
+      else if (key === keys[4]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[4]]); }, 0);; }
+      else if (key === keys[5]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[5]]); }, 0);; }
+      else if (key === keys[6]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[6]]); }, 0);; }
+      else if (key === keys[7]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[7]]); }, 0);; }
+      else if (key === keys[8]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[8]]); }, 0);; }
+      else if (key === keys[9]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[9]]); }, 0);; }
+      else if (key === keys[10]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[10]]); }, 0);; }
+      else if (key === keys[11]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[11]]); }, 0);; }
+      else if (key === keys[12]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[12]]); }, 0);; }
+      else if (key === keys[13]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[13]]); }, 0);; }
+      else if (key === keys[14]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[14]]); }, 0);; }
+      else if (key === keys[15]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[15]]); }, 0);; }
+      else if (key === keys[16]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[16]]); }, 0);; }
+      else if (key === keys[17]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[17]]); }, 0);; }
+      else if (key === keys[18]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[18]]); }, 0);; }
+      else if (key === keys[19]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[19]]); }, 0);; }
+      else if (key === keys[20]) { totalRow[key] = data.reduce((acc, el) => { return acc += +(el[keys[20]]); }, 0);; }
+      else {
+        totalRow[key] = '';
+      }
+      emptyRow[key] = '';
+    }
+    return [...data, emptyRow, totalRow];
+  }
 
 
   return (

@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
 import {
+  Card,
+  CardContent,
+  CardHeader,
   Container,
+  Divider,
   Grid,
   makeStyles
 } from '@material-ui/core';
@@ -13,6 +17,10 @@ import TableExecutiveSummary from './TableExecutiveSummary';
 import CardReportProductFromming from './CardReportProductFromming';
 import CardAppProductionOvertime from './CardAppProductionOvertime';
 import PieChartExecutiveSummary from './PieChartExecutiveSummary';
+import PieChartExecutiveSummary2 from './PieChartExecutiveSummary2';
+import clsx from 'clsx';
+import { isMobile } from "react-device-detect";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,14 +36,16 @@ const ExecutiveReport = () => {
 
   useEffect(() => {
 
-    var isMobile = window.orientation > -1;
-
+    
     if (isMobile == true) {
+
       setTimeout(() => {
         document.documentElement.webkitRequestFullScreen();
       }, 5000);
     }
   }, [])
+
+ 
 
 
   return (
@@ -43,6 +53,7 @@ const ExecutiveReport = () => {
       className={classes.root}
       title="Dashboard"
     >
+      {/* {isMobile ? <h2>Mobile</h2> : <h2>Desktop</h2>} */}
 
       <Container maxWidth={false}>
         <Grid item lg={12}>
@@ -75,7 +86,28 @@ const ExecutiveReport = () => {
 
 
           <Grid item sm={6} xl={6} xs={12} lg={6} >
-            <PieChartExecutiveSummary />
+
+
+
+            <Card
+            // className={clsx(classes.root, className)}
+            // {...rest}
+            >
+              <CardContent>
+                <CardHeader title="Coil Received(MT) & Steel Pipe Delivery(MT)" />
+                <Divider />
+                <Grid container spacing={2} >
+                  <Grid item sm={6} xl={6} xs={6} lg={6} >
+                    <PieChartExecutiveSummary />
+                  </Grid>
+                  <Grid item sm={6} xl={6} xs={6} lg={6} >
+                    <PieChartExecutiveSummary2 />
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
+
+
           </Grid>
           {/* <Grid item lg={4} md={6} xl={3} xs={12} >
             <LatestProducts />

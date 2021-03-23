@@ -30,7 +30,7 @@ moment.locale("th");
 
 const useStyles = makeStyles(() => ({
   root: {
-    minHeight: '70vh'
+    minHeight: '50vh'
   }
 }));
 
@@ -39,8 +39,12 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
   const theme = useTheme();
 
 
-  const [selectedDateStart, setSelectedDateStart] = useState(moment().subtract(1, 'months').format("YYYY-MM-DD"));
-  const [selectedDateEnd, setSelectedDateEnd] = useState(moment().format("YYYY-MM-DD"));
+  // const [selectedDateStart, setSelectedDateStart] = useState(moment().subtract(1, 'months').format("YYYY-MM-DD"));
+  // const [selectedDateEnd, setSelectedDateEnd] = useState(moment().format("YYYY-MM-DD"));
+  const [selectedDateStart, setSelectedDateStart] = useState(moment().subtract(1, 'months').clone().startOf('month').format('YYYY-MM-DD'));
+  const [selectedDateEnd, setSelectedDateEnd] = useState(moment().subtract(1, 'months').clone().endOf('month').format('YYYY-MM-DD'));
+
+
   const [CoilRecive, setCoilRecive] = useState([]);
   const [CoilReciveNow, setCoilReciveNow] = useState([]);
   const [PipeSale, setPipeSale] = useState([]);
@@ -172,22 +176,9 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
         console.log(res.data)
       })
 
-      API.get(`API_ExecutiveReport/data.php?load=STS_execSUM_Coil_Rec&startDate=${(moment().subtract(1, 'months').format("YYYY-MM-DD"))}&endDate=${(moment().format("YYYY-MM-DD"))}`)
-      .then(res => {
-        (res.data) ? setCoilReciveNow(res.data) : setCoilReciveNow([])
-        console.log(res.data)
-      })
-
     API.get(`API_ExecutiveReport/data.php?load=STS_execSUM_Pipe_Sale&startDate=${selectedDateStart}&endDate=${selectedDateEnd}`)
       .then(res => {
         (res.data) ? setPipeSale(res.data) : setPipeSale([])
-        console.log(res.data)
-      })
-
-
-      API.get(`API_ExecutiveReport/data.php?load=STS_execSUM_Pipe_Sale&startDate=${(moment().subtract(1, 'months').format("YYYY-MM-DD"))}&endDate=${(moment().format("YYYY-MM-DD"))}`)
-      .then(res => {
-        (res.data) ? setPipeSaleNow(res.data) : setPipeSaleNow([])
         console.log(res.data)
       })
   }
@@ -268,10 +259,10 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
       {...rest}
     >
       <CardContent>
-        <CardHeader title="Coil Received(MT) & STEEL PIPE DELIVERY(MT)" />
+        {/* <CardHeader title="Coil Received(MT) & Steel Pipe Delivery(MT)" /> */}
 
         <Grid container spacing={3} >
-          <Grid item xs={4}>
+          <Grid item xs={12}>
             <Fragment>
               <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
                 <KeyboardDatePicker
@@ -286,7 +277,7 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
               </MuiPickersUtilsProvider>
             </Fragment>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12}>
 
             <Fragment>
               <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
@@ -303,7 +294,7 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
             </Fragment>
 
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12}>
             <div style={{ padding: '0px 5px' }}>
               <span style={{ padding: '0px 4px' }}>
                 <Chip color="primary" onClick={() => { ExecPie(selectedDateStart, selectedDateEnd) }} label={"PROCESS"} > </Chip>
@@ -316,9 +307,9 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
       <Divider />
       <CardContent>
         <Grid container >
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <Box
-              height={200}
+              height={150}
               position="relative"
             >
               <Pie
@@ -326,12 +317,12 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
                 options={options}
               />
             </Box>
-            <Box
-              display="flex"
-              justifyContent="center"
-              mt={2}
-            > Coil Received(MT)
-            </Box>
+           
+            <CardHeader 
+             title="Coil Received(MT)" 
+             style={{ textAlign: 'center' }}
+             /> 
+
             <Box
               display="flex"
               justifyContent="center"
@@ -347,10 +338,11 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
                 value
               }) => (
                 <Box key={title} p={1} textAlign="center" >
-                  <Icon color="action" />
+                  {/* <Icon color="action" /> */}
                   <Typography
                     color="textPrimary"
                     variant="body2"
+                    style={{ color }}
                   >
                     {title}
                   </Typography>
@@ -366,9 +358,9 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
 
             </Box>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <Box
-              height={200}
+              height={150}
               position="relative"
             >
 
@@ -377,12 +369,10 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
                 options={options}
               />
             </Box>
-            <Box
-              display="flex"
-              justifyContent="center"
-              mt={2}
-            > Coil Received(MT)
-            </Box>
+            <CardHeader 
+             title="Steel Pipe Delivery(MT) " 
+             style={{ textAlign: 'center' }}
+             />
             <Box
               display="flex"
               justifyContent="center"
@@ -399,10 +389,11 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
                   p={1}
                   textAlign="center"
                 >
-                  <Icon color="action" />
+                  {/* <Icon color="action" /> */}
                   <Typography
                     color="textPrimary"
                     variant="body2"
+                    style={{ color }}
                   >
                     {title}
                   </Typography>
@@ -417,119 +408,6 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
               ))}
             </Box>
           </Grid>
-
-
-
-
-
-          <Grid item xs={6}>
-            <Box
-              height={200}
-              position="relative"
-            >
-
-              <Pie
-                data={dataCoilNow}
-                options={options}
-              />
-            </Box>
-            <Box
-              display="flex"
-              justifyContent="center"
-              mt={2}
-            > STEEL PIPE DELIVERY(MT) Now!!
-            </Box>
-            <Box
-              display="flex"
-              justifyContent="center"
-              mt={2}
-            >
-              {CoilReciveDataSetNow.map(({
-                color,
-                icon: Icon,
-                title,
-                value
-              }) => (
-                <Box
-                  key={title}
-                  p={1}
-                  textAlign="center"
-                >
-                  <Icon color="action" />
-                  <Typography
-                    color="textPrimary"
-                    variant="body2"
-                  >
-                    {title}
-                  </Typography>
-                  <Typography
-                    style={{ color }}
-                    variant="h4"
-                  >
-                    {value}
-
-                  </Typography>
-                </Box>
-              ))}
-            </Box>
-          </Grid>
-
-
-
-
-          <Grid item xs={6}>
-            <Box
-              height={200}
-              position="relative"
-            >
-
-              <Pie
-                data={dataPipeNow}
-                options={options}
-              />
-            </Box>
-            <Box
-              display="flex"
-              justifyContent="center"
-              mt={2}
-            > STEEL PIPE DELIVERY(MT) Now!!
-            </Box>
-            <Box
-              display="flex"
-              justifyContent="center"
-              mt={2}
-            >
-              {PipeSaleDataSetNow.map(({
-                color,
-                icon: Icon,
-                title,
-                value
-              }) => (
-                <Box
-                  key={title}
-                  p={1}
-                  textAlign="center"
-                >
-                  <Icon color="action" />
-                  <Typography
-                    color="textPrimary"
-                    variant="body2"
-                  >
-                    {title}
-                  </Typography>
-                  <Typography
-                    style={{ color }}
-                    variant="h4"
-                  >
-                    {value}
-
-                  </Typography>
-                </Box>
-              ))}
-            </Box>
-          </Grid>
-
-
 
         </Grid>
 

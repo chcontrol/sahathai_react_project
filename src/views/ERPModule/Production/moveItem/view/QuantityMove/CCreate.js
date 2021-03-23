@@ -112,6 +112,7 @@ function CCreate(props) {
         </Modal>
       </div>
       <Grid container spacing={3} style={{ textAlign: "center" }}>
+        
         <CGroupTextBoxs
           handleScanTag={handleScanTag}
           handleToLocation={handleToLocation}
@@ -122,6 +123,9 @@ function CCreate(props) {
           PageState={props.PageState}
           qtyMoveList={qtyMoveList}
           ItemLoc={props.ItemLoc}
+          PageState={props.PageState}
+          toggleChecked={props.toggleChecked}
+          
         />
 
         <CMatTable qtyMoveList={(props.PageState) ? qtyMoveList : props.STS_qty_move_line} />
@@ -129,17 +133,14 @@ function CCreate(props) {
           {(props.PageState) ?
             <Button variant="contained" color="primary" startIcon={<SaveIcon />} style={{ margin: 10 }} onClick={handleSubmit} >Save  </Button> :
             <>
-              <CPrintDocument
+              {/* <CPrintDocument
                 DocNum={props.DocNum}
                 toLocation={props.STS_qty_move_hdr_loc}
                 qtyMoveList={props.STS_qty_move_line}
                 STS_qty_move_hdr_date={props.STS_qty_move_hdr_date}
-              />
-              {/* <Button variant="contained" color="primary" startIcon={<SaveIcon />} style={{ margin: 10 }}  >รายงานประจำวัน  </Button> */}
-
+              /> */}
             </>
           }
-          {/* <Button variant="contained" color="default" startIcon={<DeleteIcon />} style={{ margin: 10 }} > Clear </Button> */}
         </div>
       </Grid>
     </Container>

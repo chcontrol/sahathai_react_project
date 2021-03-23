@@ -20,6 +20,8 @@ import ModalManagementFullPage from '../../../components/ModalManagementFullPage
 import MaterialTable, { MTableToolbar } from 'material-table';
 import tableIcons from 'src/views/components/table/tableIcons';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import { ReportMoveInternal } from './ReportMoveInternal';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,10 +42,37 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const TotalCustomers = ({ className, ...rest }) => {
+const CardBoatLine = (props, { className, ...rest }) => {
   const classes = useStyles();
 
   const [openModalItem, setOpenModalItem] = React.useState(false);
+
+  const printReportMoveInternal = () => {
+    let data = [
+      {
+        id: '1',
+        item: 'abc',
+        AllLot: " 0055(61; 0056(61; 0057(61; 0058(61; 0059(61; 0060(61"
+      }
+      ,
+      
+    ]
+
+    // const response = await API.get("RPT_JOBPACKING/data.php", {
+    //   params: {
+    //     load: 'Stamping',
+    //     txtFromDate: values.startdate,
+    //     txtToDate: values.enddate,
+    //     txtItem: values.item,
+    //     txtref_num: values.refnum,
+    //     txtw_c: values.w_c,
+    //     wc_group_query: wc_group_query
+    //   }
+    // })
+
+
+    ReportMoveInternal(data)
+  }
 
   const handleCloseModalItem = async () => {
 
@@ -70,49 +99,56 @@ const TotalCustomers = ({ className, ...rest }) => {
       <CardContent
 
       >
-       
+
         <Grid
           container
           spacing={3}
         >
           <Grid item>
 
-          <MaterialTable
-            style={{ width: '100%', margin: 5, overflowX: "scroll" }}
-            icons={tableIcons}
-            title=""
-            columns={[
-              { title: 'item', field: 'item' },
-              { title: 'qty', field: 'item_qty', type: 'numeric', filtering: false, width: 5 },
-              { title: 'qty', field: 'item_qty', type: 'numeric', filtering: false, width: 5 },
-              { title: 'qty', field: 'item_qty', type: 'numeric', filtering: false, width: 5 },
-              { title: 'qty', field: 'item_qty', type: 'numeric', filtering: false, width: 5 },
-            ]}
-            // onRowClick={(event, rowData) => {
-            //   SelectItemToModal(rowData)
-            // }}
-            data={[
-              { item: 'item', qty: 'item' },
-            ]}
-            options={{
-              search: false,
-              paging: false,
-              maxBodyHeight: '65vh',
-              minBodyHeight: '65vh',
-              filtering: true,
-            }}
+            <MaterialTable
+              style={{ width: '62vw', margin: 5, overflowX: "scroll" }}
+              icons={tableIcons}
+              title={"Quantity Move List (" + props.doc_num + ") : " + props.STS_qty_move_line.length + " รายการ"}
+              columns={[
+                { title: 'id', field: 'id' },
+                { title: 'lot', field: 'lot', width: 200 },
+                { title: 'From loc', field: 'loc', width: 100 },
+                { title: 'item', field: 'item', width: 300 },
+                { title: 'qty', field: 'qty1', type: 'numeric' },
+                { title: 'unit', field: 'u_m' },
+                { title: 'boat position', field: 'boat_position' },
+              ]}
+              // onRowClick={(event, rowData) => {
+              //   SelectItemToModal(rowData)
+              // }}
+              data={props.STS_qty_move_line}
+              options={{
+                search: false,
+                paging: false,
+                maxBodyHeight: '65vh',
+                minBodyHeight: '65vh',
+                filtering: false,
+                rowStyle: rowData => ({
+                  // backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF',
+                  fontSize: '0.7em',
+                  padding: 0,
+                  fontFamily: 'sans-serif'
+                })
+              }}
 
-            components={{
-              Toolbar: props => (
+              components={{
+                Toolbar: props => (
                   <div>
-                      <MTableToolbar {...props} />
-                      <div style={{ padding: '0px 10px' }}>
-                           <Chip label={"สร้างใบส่งสินค้า"} color="primary" style={{ marginRight: 5 }} onClick={() => setOpenModalItem(true)} />
-                      </div>
+                    <MTableToolbar {...props} />
+                    <div style={{ padding: '0px 10px' }}>
+                      {/* <Chip label={"พิมพ์ใบส่งสินค้า"} color="primary" style={{ marginRight: 5 }} onClick={() => setOpenModalItem(true)} /> */}
+                      <Chip label={"พิมพ์ใบส่งสินค้า"} color="primary" style={{ marginRight: 5 }} onClick={() => printReportMoveInternal(props.doc_num)} />
+                    </div>
                   </div>
-              ),
-          }}
-          />
+                ),
+              }}
+            />
           </Grid>
         </Grid>
         {/* <Box
@@ -139,8 +175,8 @@ const TotalCustomers = ({ className, ...rest }) => {
   );
 };
 
-TotalCustomers.propTypes = {
+CardBoatLine.propTypes = {
   className: PropTypes.string
 };
 
-export default TotalCustomers;
+export default CardBoatLine;

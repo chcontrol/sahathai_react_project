@@ -43,7 +43,8 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
   const [GarphLineDataAll, setGarphLineDataAll] = useState([])
   const [Item_Group, setItem_Group] = useState("all")
   const [LoadingData, setLoadingData] = useState(true)
-
+  const [selectLineColor, setSelectLineColor] = useState("")
+  const [item_Group_selected, setItem_Group_selected] = useState("")
 
   const STS_execRpt_SUM_mthly = (Item_Group) => {
     setLoadingData(false)
@@ -53,7 +54,7 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
       API.get(`API_ExecutiveReport/data.php?load=STS_execRpt_SUM_mthly_all`)
         .then(res => {
 
-          
+
           (res.data) ? setGarphLineDataAll(res.data) : setGarphLineDataAll([])
           // (res.data) ? setGarphLineDataAll(res.data) : setGarphLineDataAll([])
           setLoadingData(true)
@@ -62,8 +63,22 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
     else {
       API.get(`API_ExecutiveReport/data.php?load=STS_execRpt_SUM_mthly&startDate=${moment().subtract(12, 'months').format("YYYY-MM-DD")}&endDate=${moment().format("YYYY-MM-DD")}&codeItem=${Item_Group}`)
         .then(res => {
+
+          // if (res !== null) {
+          //   setGarphLineData(res.data)
+          //     (res.data) ? setItem_Group_selected(res.data[0].Item_Group) : setItem_Group_selected("Coil")
+          //   setLoadingData(true)
+          // } else {
+          //   setGarphLineData([])
+          // }
+
+
           (res.data) ? setGarphLineData(res.data) : setGarphLineData([])
           setLoadingData(true)
+          setItem_Group_selected(res.data[0].Item_Group)
+
+
+
         })
     }
 
@@ -72,7 +87,8 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
 
   useEffect(() => {
     STS_execRpt_SUM_mthly(Item_Group)
-  }, [Item_Group])
+    selectColor(item_Group_selected)
+  }, [Item_Group, item_Group_selected])
 
 
 
@@ -112,30 +128,44 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
     return dataReturn
   }
 
+  const selectColor = (item_Group_selected) => {
+    if (item_Group_selected == "Coil") {
+      setSelectLineColor(colors.indigo[500])
+    } else if (item_Group_selected == "Strip") {
+      setSelectLineColor(colors.orange[500])
+    } else if (item_Group_selected == "Process") {
+      setSelectLineColor(colors.red[500])
+    } else if (item_Group_selected == "Finished Pipe") {
+      setSelectLineColor(colors.green[500])
+    } else if (item_Group_selected == "Scrap Pipe") {
+      setSelectLineColor(colors.blue[300])
+    }
+
+  }
 
   const data = {
     datasets: [
       {
-        backgroundColor: colors.indigo[500],
+        backgroundColor: colors.pink[900],
         data: showLineDataSetByItemGroup("Received", GarphLineData),
         label: 'Received',
         fill: false,
-        borderColor: colors.indigo[500],
+        borderColor: colors.pink[900],
 
       },
       {
-        backgroundColor: colors.green[500],
+        backgroundColor: colors.pink[500],
         data: showLineDataSetByItemGroup("Released", GarphLineData),
         label: 'Released',
         fill: false,
-        borderColor: colors.green[500],
+        borderColor: colors.pink[500],
       },
       {
-        backgroundColor: colors.orange[500],
+        backgroundColor: selectLineColor,
         data: showLineDataSetByItemGroup("Balance", GarphLineData),
         label: 'Balance',
         fill: false,
-        borderColor: colors.orange[500],
+        borderColor: selectLineColor,
       }
     ],
     labels: [
@@ -152,7 +182,7 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
       [moment().subtract(2, 'months').format("MMM-YYYY")],
       [moment().subtract(1, 'months').format("MMM-YYYY")],
       [moment().format("MMM-YYYY")],
-      [moment().add(1, 'months').format("MMM-YYYY")],
+      // [moment().add(1, 'months').format("MMM-YYYY")],
     ]
   };
 
@@ -165,7 +195,8 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
         fill: false,
         borderColor: colors.indigo[500],
 
-      }, {
+      },
+      {
         backgroundColor: colors.orange[500],
         data: showLineDataSetByItemGroupAll("Strip", GarphLineDataAll),
         label: 'Strip',
@@ -291,6 +322,8 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
       className={clsx(classes.root, className)}
       {...rest}
     >
+      {/* *{selectLineColor}{item_Group_selected}* */}
+      {/* {JSON.stringify(GarphLineData)} */}
       <CardHeader
         action={(
           <div>
@@ -312,9 +345,9 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
             >
               <MenuItem onClick={() => handleClose("all")}>OVERALL BALANCE</MenuItem>
               <MenuItem onClick={() => handleClose("COIL")}>COIL</MenuItem>
-              <MenuItem onClick={() => handleClose("Strip")}>Strip</MenuItem>
+              {/* <MenuItem onClick={() => handleClose("Strip")}>Strip</MenuItem> */}
               {/* <MenuItem onClick={() => handleClose("Processing Pipe")}>Processing Pipe</MenuItem> */}
-              <MenuItem onClick={() => handleClose("Finshed Pipe")}>Finshed Pipe</MenuItem>
+              <MenuItem onClick={() => handleClose("Finished Pipe")}>Finshed Pipe</MenuItem>
               <MenuItem onClick={() => handleClose("Scrap Pipe")}>Scrap Pipe</MenuItem>
             </Menu>
             <span hidden={LoadingData}>
@@ -361,7 +394,7 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
           endIcon={<ArrowRightIcon />}
           size="small"
           variant="text"
-          onClick={()=>{STS_execRpt_SUM_mthly("all")}}
+          onClick={() => { STS_execRpt_SUM_mthly("all") }}
         >
           Overview
         </Button>

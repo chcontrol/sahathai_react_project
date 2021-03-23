@@ -185,7 +185,7 @@ const ProductionDailyReport = () => {
           txtw_c: values.w_c,
           wc_group_query: wc_group_query
         }
-      });
+      })
 
 
 

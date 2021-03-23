@@ -19,7 +19,7 @@ import DomesticBacklogView from 'src/views/ERPModule/SaleDomestic/DomesticBacklo
 
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/UserAccountManagement/SettingsView';
-import MoveItemView from 'src/views/ERPModule/Production/moveItem/App';
+import MoveItemView from 'src/views/ERPModule/Production/moveItem';
 import BoatNoteView from 'src/views/ERPModule/Shipping/BoatNote';
 
 import ERPStep from 'src/views/ERPStep';

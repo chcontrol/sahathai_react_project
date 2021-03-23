@@ -9,6 +9,7 @@ import FindInPageIcon from '@material-ui/icons/FindInPage';
 import MaterialTable from 'material-table';
 import tableIcons from './tableIcons'
 import { CPrintDiaryReport } from './CPrintDiaryReport';
+import { Switch } from '@material-ui/core';
 
 
 
@@ -68,12 +69,18 @@ function CGroupTextBoxs(props) {
             })
     }, [])
 
-    const handleScanTag = (event) => {
+    const handleScanTag2 = (event) => {
         if (event.key === 'Enter') {
             props.handleScanTag(event.target.value)
             document.getElementById('tagScan').value = ""
         }
     }
+
+    // const [PageState, setPageState] = useState(false)
+    const [STS_qty_move_hrd, setSTS_qty_move_hrd] = useState([])
+    // const toggleChecked = () => setPageState((prev) => !prev) //State Page Create or View Document
+
+
 
 
     const body = (
@@ -190,7 +197,7 @@ function CGroupTextBoxs(props) {
                         <div style={{ textAlign: "center" }}>
                             <CPrintDiaryReport
                                 DairyReportLine={DairyReportLine}
-                                DairyReportCountLotByWCDate = {DairyReportCountLotByWCDate}
+                                DairyReportCountLotByWCDate={DairyReportCountLotByWCDate}
                             />
                         </div>
 
@@ -233,17 +240,31 @@ function CGroupTextBoxs(props) {
             </div>
             <Grid container alignItems="center" direction="row" justify="space-between" spacing={0}>
                 {(props.PageState) ?
-                    <Grid container alignItems="center" direction="row" justify="space-between" spacing={0}>
-                        <Grid item md={2} container >
-                            <CAutocomplete label={"Work center"} selectValue={w_c} handleSelectValue={props.handlew_c} />
+                    <>
+                        <Grid container alignItems="center" direction="row" justify="space-between" spacing={0}>
+                            <Grid item md={2} container >
+                            <TextField size="small" label={"DO Number"} id={"tagScan1"} variant="outlined" className={classes.textField}  />
+                            </Grid>
+                            <Grid item md={2} container >
+                            <TextField size="small" label={"Scan tag"} id={"tagScan2"} variant="outlined" className={classes.textField}  />
+                            </Grid>
+                            <Grid item md={2} container >
+                                <TextField size="small" label={"Scan tag"} id={"tagScan3"} variant="outlined" className={classes.textField}  />
+                            </Grid>
                         </Grid>
-                        <Grid item md={2} container >
-                            <CAutocomplete label={"Location ปลายทาง"} selectValue={location} handleSelectValue={props.handleToLocation} />
+                        <Grid container alignItems="center" direction="row" justify="space-between" spacing={0}>
+                            <Grid item md={2} container >
+                                <CAutocomplete label={"Work center"} selectValue={w_c} handleSelectValue={props.handlew_c} />
+                            </Grid>
+                            <Grid item md={2} container >
+                                <CAutocomplete label={"Location ปลายทาง"} selectValue={location} handleSelectValue={props.handleToLocation} />
+                            </Grid>
+                            <Grid item md={8} container >
+                                <TextField size="small" label={"Scan tag"} id={"tagScan"} variant="outlined" className={classes.textField} onKeyUp={handleScanTag2} />
+                            </Grid>
                         </Grid>
-                        <Grid item md={8} container >
-                            <TextField size="small" label={"Scan tag"} id={"tagScan"} variant="outlined" className={classes.textField} onKeyUp={handleScanTag} />
-                        </Grid>
-                    </Grid>
+                    </>
+
                     :
                     <>
                         <Grid item md={3} container >
@@ -265,6 +286,7 @@ function CGroupTextBoxs(props) {
                             style={{ margin: 10 }}
                             onClick={DairyReportModal} > รายงานประจำวัน
                             </Button>
+                        <Switch checked={props.PageState} onChange={props.toggleChecked} />
                     </>
                     // CheckLocationModal
                 }
