@@ -13,14 +13,13 @@ import {
   Button,
   Chip
 } from '@material-ui/core';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
-import PeopleIcon from '@material-ui/icons/PeopleOutlined';
 import ModalManagementFullPage from '../../../components/ModalManagementFullPage';
 import MaterialTable, { MTableToolbar } from 'material-table';
 import tableIcons from 'src/views/components/table/tableIcons';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { ReportMoveInternal } from './ReportMoveInternal';
+import { ReportMoveBoatNote } from './ReportMoveBoatNote';
+import API from 'src/views/components/API';
+import CTextField from 'src/views/components/Input/CTextField';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -47,32 +46,41 @@ const CardBoatLine = (props, { className, ...rest }) => {
 
   const [openModalItem, setOpenModalItem] = React.useState(false);
 
-  const printReportMoveInternal = () => {
-    let data = [
-      {
-        id: '1',
-        item: 'abc',
-        AllLot: " 0055(61; 0056(61; 0057(61; 0058(61; 0059(61; 0060(61"
+  const printReportMove = async (doc_type) => {
+    if (props.doc_num) {
+
+      if (doc_type == "Internal") {
+        const response = await API.get("RPT_JOBPACKING/data.php", {
+          params: {
+            load: 'STS_QTY_MOVE_REPORT',
+            doc_num: props.doc_num
+          }
+        })
+        ReportMoveInternal(response.data)
+      } else if (doc_type == "BoatNote") {
+        const response = await API.get("RPT_JOBPACKING/data.php", {
+          params: {
+            load: 'STS_QTY_MOVE_REPORT',
+            doc_num: props.doc_num
+          }
+        })
+        ReportMoveBoatNote(response.data, response.data, response.data, response.data)
       }
-      ,
-      
-    ]
-
-    // const response = await API.get("RPT_JOBPACKING/data.php", {
-    //   params: {
-    //     load: 'Stamping',
-    //     txtFromDate: values.startdate,
-    //     txtToDate: values.enddate,
-    //     txtItem: values.item,
-    //     txtref_num: values.refnum,
-    //     txtw_c: values.w_c,
-    //     wc_group_query: wc_group_query
-    //   }
-    // })
 
 
-    ReportMoveInternal(data)
+
+
+    } else {
+      alert("เลือกใบส่งของ")
+    }
   }
+
+
+  const openEditPage = () => {
+    props.handlesetEditStatus()
+  }
+
+
 
   const handleCloseModalItem = async () => {
 
@@ -96,15 +104,37 @@ const CardBoatLine = (props, { className, ...rest }) => {
         open={openModalItem}
         onClose={handleCloseModalItem}
       />
-      <CardContent
-
-      >
-
+      <CardContent>
         <Grid
           container
           spacing={3}
         >
           <Grid item>
+            <div>
+              <div style={{ padding: '0px 10px' }}>
+
+                {/* <CTextField
+                  error={Boolean(touched.item && errors.item)}
+                  helperText={touched.item && errors.item}
+                  label="DO num"
+                  name="do_num"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.do_num}
+                  Autocomplete={false}
+                /> */}
+                {/* <Chip label={"พิมพ์ใบส่งสินค้า"} color="primary" style={{ marginRight: 5 }} onClick={() => setOpenModalItem(true)} /> */}
+                {
+                  (props.doc_type == "Ship") ?
+                    <Chip label={"พิมพ์ Boat Note"} color="primary" style={{ marginRight: 5 }} onClick={() => printReportMove("BoatNote")} />
+                    :
+                    <Chip label={"พิมพ์ใบส่งสินค้า"} color="primary" style={{ marginRight: 5 }} onClick={() => printReportMove("Internal")} />
+                }
+
+
+                <Chip label={"แก้ไขใบส่งสินค้า"} color="primary" style={{ marginRight: 5 }} onClick={openEditPage} />
+              </div>
+            </div>
 
             <MaterialTable
               style={{ width: '62vw', margin: 5, overflowX: "scroll" }}
@@ -137,17 +167,19 @@ const CardBoatLine = (props, { className, ...rest }) => {
                 })
               }}
 
-              components={{
-                Toolbar: props => (
-                  <div>
-                    <MTableToolbar {...props} />
-                    <div style={{ padding: '0px 10px' }}>
-                      {/* <Chip label={"พิมพ์ใบส่งสินค้า"} color="primary" style={{ marginRight: 5 }} onClick={() => setOpenModalItem(true)} /> */}
-                      <Chip label={"พิมพ์ใบส่งสินค้า"} color="primary" style={{ marginRight: 5 }} onClick={() => printReportMoveInternal(props.doc_num)} />
-                    </div>
-                  </div>
-                ),
-              }}
+            // components={{
+            //   Toolbar: props => (
+            //     <div>
+            //       <MTableToolbar {...props} />
+            //       <div style={{ padding: '0px 10px' }}>
+
+            //         {/* <Chip label={"พิมพ์ใบส่งสินค้า"} color="primary" style={{ marginRight: 5 }} onClick={() => setOpenModalItem(true)} /> */}
+            //         <Chip label={"พิมพ์ใบส่งสินค้า"} color="primary" style={{ marginRight: 5 }} onClick={() => printReportMoveInternal()} />
+            //         <Chip label={"พิมพ์ Boat Note"} color="primary" style={{ marginRight: 5 }} onClick={() => printReportMoveBoatNote()} />
+            //       </div>
+            //     </div>
+            //   ),
+            // }}
             />
           </Grid>
         </Grid>

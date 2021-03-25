@@ -61,7 +61,7 @@ const CardBoatHeader = (props,{ className, ...rest }) => {
               { title: 'Doc num', field: 'doc_num' },
               { title: 'date', field: 'create_date.date', type: 'date' },
               { title: 'To location', field: 'loc' },
-              { title: 'type', field: 'loc' },
+              { title: 'type', field: 'doc_type' },
             ]}
             // onRowClick={(event, rowData) => {
             //   SelectItemToModal(rowData)

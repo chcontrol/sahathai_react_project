@@ -67,6 +67,7 @@ const BoatNote = () => {
     const [qtyMoveList, setQtyMoveList] = useState([]);
     const [doctype_shipping, setDoctype_shipping] = useState("");
     const [boatPosition, setBoatPosition] = useState("");
+    const [editStatus, setEditStatus] = useState(true);
 
 
     const [openModalProcess, setOpenModalProcess] = useState(false);
@@ -77,6 +78,7 @@ const BoatNote = () => {
 
 
     const [doc_num, setDoc_num] = useState("")
+    const [doc_type, setDoc_type] = useState("")
 
 
 
@@ -90,7 +92,9 @@ const BoatNote = () => {
         setOpenModalCreateBoteNote(true);
     };
     const handleCloseModalCreateBoteNote = async () => {
+        setEditStatus(false)
         setOpenModalCreateBoteNote(false);
+        setQtyMoveList([])
     };
 
     useEffect(() => {
@@ -118,6 +122,7 @@ const BoatNote = () => {
             })
 
         setDoc_num(row.doc_num)
+        setDoc_type(row.doc_type)
     }
 
     const setBoatPositionState = (event) => {
@@ -172,6 +177,7 @@ const BoatNote = () => {
     const saveDocument = (values, qtyMoveList) => {
 
         console.log(qtyMoveList)
+        console.log(values)
 
         if (!values.loc || qtyMoveList.length === 0) {
             alert("กรุณากรอก location ปลายทาง หรือ scan barcode อย่างน้อย 1 lot")
@@ -209,10 +215,6 @@ const BoatNote = () => {
 
                     }
                 })
-
-
-
-
         }
         setFocusScanTagState(false)
     }
@@ -220,12 +222,18 @@ const BoatNote = () => {
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
     const pdfDocGenerator = pdfMake.createPdf("");
     pdfDocGenerator.getDataUrl((dataUrl) => {
-      const targetElement = document.querySelector('#iframeContainer');
-      const iframe = document.createElement('iframe');
-      iframe.src = dataUrl;
-      targetElement.appendChild(iframe);
+        const targetElement = document.querySelector('#iframeContainer');
+        const iframe = document.createElement('iframe');
+        iframe.src = dataUrl;
+        targetElement.appendChild(iframe);
     });
 
+
+    const handlesetEditStatus = () => {
+        setEditStatus(true)
+        setQtyMoveList(STS_qty_move_line)
+        setOpenModalCreateBoteNote(true);
+    }
 
 
     const body = (
@@ -251,6 +259,7 @@ const BoatNote = () => {
             className={classes.root}
             title="Dashboard"
         >
+            {/* *{JSON.stringify(editStatus)}* */}
             <Modal
                 open={openModalProcess}
                 onClose={handleCloseProcess}
@@ -387,7 +396,6 @@ const BoatNote = () => {
                                                                                 onChange={handleChange}
                                                                                 value={values.do_num}
                                                                                 Autocomplete={false}
-
                                                                             />
                                                                         </Grid>
                                                                         <Grid item xs={12} >
@@ -547,9 +555,13 @@ const BoatNote = () => {
                             />
                         </Grid>
                         <Grid item xs={8} >
+
                             <CardBoatLine
                                 STS_qty_move_line={STS_qty_move_line}
-                                doc_num = {doc_num}
+                                doc_num={doc_num}
+                                doc_type={doc_type}
+                                handleOpenModalCreateBoteNote={handleOpenModalCreateBoteNote}
+                                handlesetEditStatus={handlesetEditStatus}
                             />
                         </Grid>
 
