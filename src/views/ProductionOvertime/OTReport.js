@@ -55,7 +55,9 @@ const OTReport = ({ className, ...rest }) => {
 
 
   const [openModalEmployee, setOpenModalEmployee] = React.useState(false);
-
+  const handleCloseModalEmployee = async () => {
+    setOpenModalEmployee(false);
+  };
 
 
 
@@ -107,7 +109,7 @@ const OTReport = ({ className, ...rest }) => {
               }
 
               open={openModalEmployee}
-              onClose={handleCloseModalItem}
+              onClose={handleCloseModalEmployee}
             />
 
           </Grid>

@@ -1,8 +1,10 @@
 import axios from "axios";
 
 let url = "";
-if (window.location.host == '172.18.1.194:5000' || window.location.host == 'localhost:3000') {
+if (window.location.host == '172.18.1.194:5000') {
   url = '172.18.1.194'
+} else if (window.location.host == 'localhost:3000') {
+  url = '127.0.0.1:88'
 } else {
   url = '61.90.156.165'
 }

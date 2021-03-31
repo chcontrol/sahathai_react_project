@@ -204,7 +204,9 @@ const ProductionDailyReport = () => {
           if (response.data[0].forming_reason_meter.length > 3) {
             ReportForming(response.data, values.startdate, values.enddate)
           } else {
-            alert("กรุณากรอกเลขมิตเตอร์")
+           alert("กรุณากรอกเลขมิตเตอร์")
+            // ReportForming(response.data, values.startdate, values.enddate)
+
           }
         } 
         else {

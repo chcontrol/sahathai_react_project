@@ -10,7 +10,9 @@ import {
   Link,
   TextField,
   Typography,
-  makeStyles
+  makeStyles,
+  Hidden,
+  Paper
 } from '@material-ui/core';
 import FacebookIcon from 'src/icons/Facebook';
 import GoogleIcon from 'src/icons/Google';
@@ -98,19 +100,19 @@ const LoginView = () => {
 
   async function longTimeHello() {
     return new Promise((resolve, reject) => {
-      setTimeout(()=>{
-          resolve("Delay Hello1");
+      setTimeout(() => {
+        resolve("Delay Hello1");
       }, 5000);
-  });
+    });
   }
 
   async function longTimeHello2() {
-   
+
     return new Promise((resolve, reject) => {
-      setTimeout(()=>{
-          resolve("Delay Hello2");
+      setTimeout(() => {
+        resolve("Delay Hello2");
       }, 3000);
-  });
+    });
   }
 
   async function main() {
@@ -163,25 +165,30 @@ const LoginView = () => {
               touched,
               values
             }) => (
-                <form onSubmit={handleSubmit}>
-                  <Box mb={3}>
-                    <Typography
-                      color="textPrimary"
-                      variant="h2"
-                    >
-                      Sign in
+              <form onSubmit={handleSubmit}>
+                <Box mb={3}>
+                  <Typography
+                    color="textPrimary"
+                    variant="h2"
+                  >
+                    Sign in
                   </Typography>
-                    <Typography
-                      color="textSecondary"
-                      gutterBottom
-                      variant="body2"
-                    >
-                      Sign in on the internal platform
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    variant="body2"
+                  >
+                    Sign in on the internal platform
                   </Typography>
-                  </Box>
+
+
+                </Box>
+                <Hidden only="lg">
+
                   <Grid
                     container
                     spacing={3}
+
                   >
                     <Grid
                       item
@@ -215,6 +222,7 @@ const LoginView = () => {
                     </Button>
                     </Grid>
                   </Grid>
+
                   <Box
                     mt={3}
                     mb={1}
@@ -227,60 +235,61 @@ const LoginView = () => {
                       or login with email address
                   </Typography>
                   </Box>
-                  <TextField
-                    error={Boolean(touched.email && errors.email)}
+                </Hidden>
+                <TextField
+                  error={Boolean(touched.email && errors.email)}
+                  fullWidth
+                  helperText={touched.email && errors.email}
+                  label="Email Address"
+                  margin="normal"
+                  name="email"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="email"
+                  value={values.email}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.password && errors.password)}
+                  fullWidth
+                  helperText={touched.password && errors.password}
+                  label="Password"
+                  margin="normal"
+                  name="password"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="password"
+                  value={values.password}
+                  variant="outlined"
+                />
+                <Box my={2}>
+                  <Button
+                    color="primary"
+                    disabled={isSubmitting}
                     fullWidth
-                    helperText={touched.email && errors.email}
-                    label="Email Address"
-                    margin="normal"
-                    name="email"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    type="email"
-                    value={values.email}
-                    variant="outlined"
-                  />
-                  <TextField
-                    error={Boolean(touched.password && errors.password)}
-                    fullWidth
-                    helperText={touched.password && errors.password}
-                    label="Password"
-                    margin="normal"
-                    name="password"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    type="password"
-                    value={values.password}
-                    variant="outlined"
-                  />
-                  <Box my={2}>
-                    <Button
-                      color="primary"
-                      disabled={isSubmitting}
-                      fullWidth
-                      size="large"
-                      type="submit"
-                      variant="contained"
-                    >
-                      Sign in now
-                  </Button>
-                  </Box>
-                  <Typography
-                    color="textSecondary"
-                    variant="body1"
+                    size="large"
+                    type="submit"
+                    variant="contained"
                   >
-                    Don&apos;t have an account?
+                    Sign in now
+                  </Button>
+                </Box>
+                <Typography
+                  color="textSecondary"
+                  variant="body1"
+                >
+                  Don&apos;t have an account?
                   {' '}
-                    <Link
-                      component={RouterLink}
-                      to="/register"
-                      variant="h6"
-                    >
-                      Sign up
+                  <Link
+                    component={RouterLink}
+                    to="/register"
+                    variant="h6"
+                  >
+                    Sign up
                   </Link>
-                  </Typography>
-                </form>
-              )}
+                </Typography>
+              </form>
+            )}
           </Formik>
         </Container>
       </Box>

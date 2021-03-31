@@ -41,6 +41,7 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
     let cal_bundel = []
     let BreakTimeFormingRate = 8;
 
+
     for (let i = 0; i < dataNow.length; i++) {
 
         total_bundle = total_bundle + dataNow[i]["SUMLotBundle"]
@@ -128,6 +129,7 @@ function ReportForming(dataNow, selectedDateStart, selectedDateEnd) {
             { text: forming_reasonselectone2[2], fontSize: 13, alignment: 'center' },
         ],
         )
+
     }
 
     if (forming_reasonselectone.length < 4) {

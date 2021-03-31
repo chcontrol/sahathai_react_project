@@ -128,10 +128,13 @@ function convertAllLotReport(wordShow, LotFromData) {
     let dataNotSpiltLotQty = LotFromData.split(';')
     let dataSpiltLotQty = []
     dataNotSpiltLotQty.map((lotdata, index) => {
-        dataSpiltLotQty.push({
-            lotnum: Number(lotdata.split("(")[0].trim()),
-            lotqty: Number(lotdata.split("(")[1].trim())
-        })
+        if (lotdata.length > 0) {
+            dataSpiltLotQty.push({
+                lotnum: Number(lotdata.split("(")[0].trim()),
+                lotqty: Number(lotdata.split("(")[1].trim())
+            })
+        }
+
         return 1;
     })
 
@@ -221,7 +224,7 @@ function convertAllLotReport(wordShow, LotFromData) {
                     }
 
                     if (dataArrGroup[l].lotnum === tmp4) {
-                        
+
 
                         if (dataArrGroup[l + 1].lotnum - dataArrGroup[l].lotnum === 2 ||
                             dataArrGroup[l + 1].lotnum - dataArrGroup[l].lotnum === 100) {
@@ -382,22 +385,22 @@ function fancyTimeFormatHr(duration) {
     var ret = "";
 
     if (hrs > 0) {
-        ret += "" ;
+        ret += "";
     }
 
-    ret += "" + hrs + " ชั่วโมง " ;
+    ret += "" + hrs + " ชั่วโมง ";
     ret += "" + mins + " นาที";
     return ret;
 }
 
 
-const diff_hours = (dt2, dt1)=> {
+const diff_hours = (dt2, dt1) => {
     dt1 = new Date(dt1);
     dt2 = new Date(dt2);
     var diff = (dt2.getTime() - dt1.getTime()) / 1000;
     diff /= (60 * 60);
     return Math.abs(diff);
-  }
+}
 
 const fontsReport = {
     THSarabunNew: {
@@ -415,4 +418,4 @@ const fontsReport = {
 }
 
 
-export { splitLotToObj, GroupLot, showLotNo, showLotQty, showCountLotQty, showMatlUsed, convertAllLotReport, workcenterHeader, checkingByLot, dateFormatReport, fancyTimeFormat,fancyTimeFormatHr, fontsReport ,diff_hours};
+export { splitLotToObj, GroupLot, showLotNo, showLotQty, showCountLotQty, showMatlUsed, convertAllLotReport, workcenterHeader, checkingByLot, dateFormatReport, fancyTimeFormat, fancyTimeFormatHr, fontsReport, diff_hours };
