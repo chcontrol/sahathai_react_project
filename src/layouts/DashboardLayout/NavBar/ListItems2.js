@@ -29,31 +29,54 @@ import {
 
 const ListItems2 = [
     {
-        Icon: LocalLibraryIcon,
-        menutitle: 'รายงานผู้บริหาร',
-        href: '/app/ExecutiveReport',
-    },
-    {
-        Icon: WatchLaterIcon,
-        menutitle: 'รายงาน OT พนักงาน',
-        href: '/app/ProductionOvertime',
-    },
-    
-    {
-        Icon: BarChartIcon,
-        menutitle: 'Dashboard',
-        href: '/app/dashboard',
-    },
-    {
         Icon: BallotIcon,
         menutitle: 'ERPStep',
         href: '/app/ERPStep',
     },
+    
     {
-        Icon: FindInPageIcon,
-        menutitle: 'Search Report',
-        href: '/app/SerachReport',
+        Icon: LocalLibraryIcon,
+        menutitle: 'รายงานผู้บริหาร',
+        submenu: [
+            {
+                href: '/app/ExecutiveReport',
+                Icon: AssignmentIcon,
+                title: 'รายงานการผลิต'
+            },
+        ]
     },
+    {
+        Icon: LocalLibraryIcon,
+        menutitle: 'Audit Log',
+        submenu: [
+            {
+                href: '/app/COItemSummary',
+                Icon: AssignmentIcon,
+                title: 'รายงาน CO summary'
+            },
+            {
+                href: '/app/ByCOItemQTY',
+                Icon: AssignmentIcon,
+                title: 'รายงาน Log by CO item QTY'
+            },
+        ]
+    },
+    {
+        Icon: LocalShippingIcon,
+        menutitle: 'จัดซื้อ',
+        submenu: [
+            {
+                href: '/app/GenerateBarcodeLot',
+                Icon: AssignmentIcon,
+                title: 'Generate Barcode Lot'
+            },
+        ]
+    },
+    // {
+    //     Icon: FindInPageIcon,
+    //     menutitle: 'Search Report',
+    //     href: '/app/SerachReport',
+    // },
     {
         Icon: MonetizationOnIcon,
         menutitle: 'ขายในประเทศ',
@@ -238,6 +261,11 @@ const ListItems2 = [
                 href: '/app/productionDashboard',
                 Icon: AssignmentIcon,
                 title: 'Production Dashboard'
+            },
+            {
+                Icon: WatchLaterIcon,
+                menutitle: 'รายงาน OT พนักงาน',
+                href: '/app/ProductionOvertime',
             },
         ]
     },

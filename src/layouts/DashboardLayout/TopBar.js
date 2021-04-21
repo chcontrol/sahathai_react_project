@@ -15,7 +15,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 // import Logo from 'src/components/Logo';
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
+import { Hidden } from '@material-ui/core';
+
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -43,19 +45,26 @@ const TopBar = ({
     localStorage.removeItem('username');
   }
 
+  const location = useLocation();  
+
   return (
+    <>
+      {/* {JSON.stringify(location.pathname)} */}
+      {(location.pathname!=="/app/ExecutiveReportPresentation")?
     <AppBar
       className={clsx(classes.root, className)}
       elevation={0}
       {...rest}
+      
     >
       <Toolbar>
         <RouterLink to="/">
           {/* <Logo style={{marginBottom:25}} /> */}
 
           <Typography variant="h3" component="h2" style={{marginTop: '-20px', color: '#FFFFFF' }}>
-            SAHATHAI
+            SAHATHAI 
           </Typography>
+
 
         </RouterLink>
         <Box flexGrow={1} />
@@ -83,9 +92,11 @@ const TopBar = ({
           >
             <MenuIcon />
           </IconButton>
-        
+          
+
       </Toolbar>
-    </AppBar>
+    </AppBar>:null}
+    </>
   );
 };
 

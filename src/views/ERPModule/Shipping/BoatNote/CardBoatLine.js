@@ -75,6 +75,15 @@ const CardBoatLine = (props, { className, ...rest }) => {
     }
   }
 
+  const printReportMoveBarcode = async (doc_type) => {
+    const response = await API.get("RPT_JOBPACKING/data.php", {
+      params: {
+        load: 'STS_QTY_MOVE_REPORT',
+        doc_num: props.doc_num
+      }
+    })
+  }
+
 
   const openEditPage = () => {
     props.handlesetEditStatus()
@@ -126,10 +135,22 @@ const CardBoatLine = (props, { className, ...rest }) => {
                 {/* <Chip label={"พิมพ์ใบส่งสินค้า"} color="primary" style={{ marginRight: 5 }} onClick={() => setOpenModalItem(true)} /> */}
                 {
                   (props.doc_type == "Ship") ?
-                    <Chip label={"พิมพ์ Boat Note"} color="primary" style={{ marginRight: 5 }} onClick={() => printReportMove("BoatNote")} />
+                    <>
+                      <Chip label={"พิมพ์ใบสรุปการส่งสินค้า"} color="primary" style={{ marginRight: 5 }} onClick={() => printReportMove("Internal")} />
+                      <Chip label={"พิมพ์ Boat Note"} color="primary" style={{ marginRight: 5 }} onClick={() => printReportMove("BoatNote")} />
+                      <Chip label={"พิมพ์รายละเอียด Barcode"} color="primary" style={{ marginRight: 5 }} onClick={() => printReportMoveBarcode("BoatNote")} />
+                    </>
                     :
-                    <Chip label={"พิมพ์ใบส่งสินค้า"} color="primary" style={{ marginRight: 5 }} onClick={() => printReportMove("Internal")} />
+                    <>
+                    <Chip label={"พิมพ์ใบสรุปการส่งสินค้า"} color="primary" style={{ marginRight: 5 }} onClick={() => printReportMove("Internal")} />
+                    <Chip label={"พิมพ์รายละเอียด Barcode"} color="primary" style={{ marginRight: 5 }} onClick={() => printReportMove("BoatNote")} />
+                    </>
                 }
+
+                {/* <Chip label={"พิมพ์ Boat Note"} color="primary" style={{ marginRight: 5 }} onClick={() => printReportMove("BoatNote")} />
+
+<Chip label={"พิมพ์ใบส่งสินค้า"} color="primary" style={{ marginRight: 5 }} onClick={() => printReportMove("Internal")} />
+ */}
 
 
                 <Chip label={"แก้ไขใบส่งสินค้า"} color="primary" style={{ marginRight: 5 }} onClick={openEditPage} />

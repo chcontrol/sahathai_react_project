@@ -41,6 +41,7 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
 
   const [GarphLineData, setGarphLineData] = useState([])
   const [GarphLineDataAll, setGarphLineDataAll] = useState([])
+  //const [Item_Group, setItem_Group] = useState("all")
   const [Item_Group, setItem_Group] = useState("all")
   const [LoadingData, setLoadingData] = useState(true)
   const [selectLineColor, setSelectLineColor] = useState("")
@@ -61,7 +62,7 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
         })
     }
     else {
-      API.get(`API_ExecutiveReport/data.php?load=STS_execRpt_SUM_mthly&startDate=${moment().subtract(12, 'months').format("YYYY-MM-DD")}&endDate=${moment().format("YYYY-MM-DD")}&codeItem=${Item_Group}`)
+      API.get(`API_ExecutiveReport/data.php?load=STS_execRpt_SUM_mthly&startDate=${moment().subtract(13, 'months').format("YYYY-MM-DD")}&endDate=${moment().format("YYYY-MM-DD")}&codeItem=${Item_Group}`)
         .then(res => {
 
           // if (res !== null) {
@@ -75,7 +76,10 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
 
           (res.data) ? setGarphLineData(res.data) : setGarphLineData([])
           setLoadingData(true)
-          setItem_Group_selected(res.data[0].Item_Group)
+          if(res.data.length > 0){
+            setItem_Group_selected(res.data[0].Item_Group)
+          }
+          
 
 
 
@@ -169,7 +173,8 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
       }
     ],
     labels: [
-      [moment().subtract(12, 'months').format("MMMM-YYYY")],
+      [moment().subtract(13, 'months').format("MMM-YYYY")],
+      [moment().subtract(12, 'months').format("MMM-YYYY")],
       [moment().subtract(11, 'months').format("MMM-YYYY")],
       [moment().subtract(10, 'months').format("MMM-YYYY")],
       [moment().subtract(9, 'months').format("MMM-YYYY")],
@@ -243,7 +248,7 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
         [moment().subtract(2, 'months').format("MMM-YYYY")],
         [moment().subtract(1, 'months').format("MMM-YYYY")],
         [moment().format("MMM-YYYY")],
-        [moment().add(1, 'months').format("MMM-YYYY")],
+        // [moment().add(1, 'months').format("MMM-YYYY")],
       ]
   };
 
@@ -345,7 +350,7 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
             >
               <MenuItem onClick={() => handleClose("all")}>OVERALL BALANCE</MenuItem>
               <MenuItem onClick={() => handleClose("COIL")}>COIL</MenuItem>
-              {/* <MenuItem onClick={() => handleClose("Strip")}>Strip</MenuItem> */}
+              <MenuItem onClick={() => handleClose("Strip")}>Strip</MenuItem>
               {/* <MenuItem onClick={() => handleClose("Processing Pipe")}>Processing Pipe</MenuItem> */}
               <MenuItem onClick={() => handleClose("Finished Pipe")}>Finshed Pipe</MenuItem>
               <MenuItem onClick={() => handleClose("Scrap Pipe")}>Scrap Pipe</MenuItem>
@@ -394,9 +399,9 @@ const ChartExecutiveSummary = ({ className, ...rest }) => {
           endIcon={<ArrowRightIcon />}
           size="small"
           variant="text"
-          onClick={() => { STS_execRpt_SUM_mthly("all") }}
+          onClick={() => { STS_execRpt_SUM_mthly("Strip") }}
         >
-          Overview
+          Overview 
         </Button>
       </Box>
     </Card>

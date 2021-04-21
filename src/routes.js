@@ -7,6 +7,12 @@ import CustomerListView from 'src/views/customer/CustomerListView';
 import DashboardView from 'src/views/reports/DashboardView';
 import ProductionOvertimeView from 'src/views/ProductionOvertime/';
 import ExecutiveReportView from 'src/views/ExecutiveReport/';
+import ExecutiveReportPresentationView from 'src/views/ExecutiveReport/ExecutiveReportPresentation/';
+
+import ExecutiveReportSaleView from 'src/views/ExecutiveReportSale/';
+
+import COItemSummaryView from 'src/views/ERPModule/AuditLog/COItemSummary';
+import AuditByCOItemQTYView from 'src/views/ERPModule/AuditLog/ByCOItemQTY';
 
 import LoginView from 'src/views/auth/LoginView';
 import NotFoundView from 'src/views/errors/NotFoundView';
@@ -36,6 +42,13 @@ const routes = [
       
 
       { path: 'ExecutiveReport', element: <ExecutiveReportView /> },
+      { path: 'ExecutiveReportPresentation', element: <ExecutiveReportPresentationView /> },
+      
+      { path: 'ExecutiveReportSale', element: <ExecutiveReportSaleView /> },
+      
+
+      { path: 'COItemSummary', element: <COItemSummaryView /> },
+      { path: 'ByCOItemQTY', element: <AuditByCOItemQTYView /> },
       { path: 'ProductionOvertime', element: <ProductionOvertimeView /> },
       { path: 'account', element: <AccountView /> },
       { path: 'customers', element: <CustomerListView /> },

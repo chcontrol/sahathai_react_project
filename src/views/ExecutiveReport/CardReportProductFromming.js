@@ -42,8 +42,6 @@ const TotalCustomers = ({ className, ...rest }) => {
   const [openModalItem, setOpenModalItem] = React.useState(false);
 
   const handleCloseModalItem = async () => {
-    
-
     setOpenModalItem(false);
   };
   return (

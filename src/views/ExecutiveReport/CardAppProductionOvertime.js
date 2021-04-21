@@ -36,6 +36,11 @@ const CardAppProductionOvertime = ({ className, ...rest }) => {
   const handleCloseModalItem = async () => {
     setOpenModalItem(false);
   };
+
+  const ExecutiveReportPresentationTab = ()=>{
+    const url = '/app/ExecutiveReportPresentation';
+    window.open(url, '_blank');
+  }
   return (
     <Card
       className={clsx(classes.root, className)}
@@ -57,7 +62,8 @@ const CardAppProductionOvertime = ({ className, ...rest }) => {
           container
           justify="space-between"
           spacing={3}
-          onClick={() => navigate('/app/ProductionOvertime')}
+          // onClick={() => navigate('/app/ExecutiveReportPresentation')}
+          onClick={ExecutiveReportPresentationTab}
         >
           <Grid item>
             <Typography
@@ -65,13 +71,13 @@ const CardAppProductionOvertime = ({ className, ...rest }) => {
               gutterBottom
               variant="h6"
             >
-              โปรแกรม
+              รายงาน
             </Typography>
             <Typography
               color="textPrimary"
               variant="h6"
             >
-              บันทึก OT พนักงาน
+              นำเสนอข้อมูล
             </Typography>
           </Grid>
           <Grid item>

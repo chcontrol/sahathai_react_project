@@ -262,7 +262,7 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
         {/* <CardHeader title="Coil Received(MT) & Steel Pipe Delivery(MT)" /> */}
 
         <Grid container spacing={3} >
-          <Grid item xs={12}>
+          <Grid item xs={12} lg={4} >
             <Fragment>
               <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
                 <KeyboardDatePicker
@@ -277,7 +277,7 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
               </MuiPickersUtilsProvider>
             </Fragment>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} lg={4}>
 
             <Fragment>
               <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
@@ -294,7 +294,7 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
             </Fragment>
 
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} lg={4}>
             <div style={{ padding: '0px 5px' }}>
               <span style={{ padding: '0px 4px' }}>
                 <Chip color="primary" onClick={() => { ExecPie(selectedDateStart, selectedDateEnd) }} label={"PROCESS"} > </Chip>
@@ -307,7 +307,7 @@ const PieChartExecutiveSummary = ({ className, ...rest }) => {
       <Divider />
       <CardContent>
         <Grid container >
-          <Grid item xs={12}>
+          <Grid item xs={12} >
             <Box
               height={150}
               position="relative"
