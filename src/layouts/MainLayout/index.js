@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flex: '1 1 auto',
     overflow: 'hidden',
-    paddingTop: 64
+    paddingTop: 0
   },
   contentContainer: {
     display: 'flex',
@@ -43,7 +43,6 @@ const MainLayout = (props) => {
           </div>
         </div>
       </div>
-      <div>MainLayout</div>
     </div>
   );
 };

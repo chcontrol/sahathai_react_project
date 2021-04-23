@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
     height: '100%',
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3)
+    // paddingBottom: theme.spacing(3),
+    // paddingTop: theme.spacing(3)
   }
 }));
 
@@ -130,11 +130,16 @@ const LoginView = () => {
       className={classes.root}
       title="Login"
     >
+      {/* <video id="background-video" loop autoPlay style={{position: 'fixed',filter:'opacity(0.04)'}} >
+    <source src={'/static/video/alb_cityscp101_1080p.mp4'} type="video/mp4" />
+</video> */}
+
       <Box
         display="flex"
         flexDirection="column"
         height="100%"
         justifyContent="center"
+
       >
         <Container maxWidth="sm">
           <Formik
