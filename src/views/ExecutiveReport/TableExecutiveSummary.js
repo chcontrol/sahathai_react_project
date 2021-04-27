@@ -134,7 +134,7 @@ const TableExecutiveSummary = ({ className, ...rest }) => {
                             <Table className={classes.table} aria-label="customized table">
                                 <TableHead>
                                     <TableRow>
-                                        <StyledTableCell>{moment().subtract(1, 'months').format("MMM-YYYY")}</StyledTableCell>
+                                        <StyledTableCell style={{width:120}}>{moment().subtract(1, 'months').format("MMM-YYYY")}</StyledTableCell>
                                         <StyledTableCell align="right">Coil</StyledTableCell>
                                         <StyledTableCell align="right">Strip</StyledTableCell>
                                         <StyledTableCell align="right">Processing&nbsp;Pipe</StyledTableCell>
@@ -165,7 +165,7 @@ const TableExecutiveSummary = ({ className, ...rest }) => {
                             <Table className={classes.table} aria-label="customized table">
                                 <TableHead>
                                     <TableRow>
-                                        <StyledTableCell>{moment().format("MMM")} to date</StyledTableCell>
+                                        <StyledTableCell  style={{width:120}}>{moment().format("MMM")} to date</StyledTableCell>
                                         <StyledTableCell align="right">Coil</StyledTableCell>
                                         <StyledTableCell align="right">Strip</StyledTableCell>
                                         <StyledTableCell align="right">Processing&nbsp;Pipe</StyledTableCell>

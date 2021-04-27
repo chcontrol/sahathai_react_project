@@ -82,13 +82,7 @@ const ExecutiveReport = () => {
           <Grid item sm={6} xl={6} xs={12} lg={6} >
             <ChartExecutiveSummary />
           </Grid>
-
-
-
           <Grid item sm={6} xl={6} xs={12} lg={6} >
-
-
-
             <Card
             // className={clsx(classes.root, className)}
             // {...rest}
