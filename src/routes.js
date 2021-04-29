@@ -30,8 +30,11 @@ import BoatNoteView from 'src/views/ERPModule/Shipping/BoatNote';
 
 import ERPStep from 'src/views/ERPStep';
 import FreeZoneApp from 'src/views/ERPModule/SaleExport/FreeZoneApp';
+import PendingSubmitedReportEX from 'src/views/ERPModule/SaleExport/PendingSubmitedReportEX';
+
 import UsersListView from 'src/views/UserAccountManagement/users';
 import SerachReportView from 'src/views/SerachReport';
+import { useParams } from 'react-router';
 
 
 const routes = [
@@ -53,6 +56,7 @@ const routes = [
       { path: 'account', element: <AccountView /> },
       { path: 'customers', element: <CustomerListView /> },
       { path: 'dashboard', element: <DashboardView /> },
+      { path: 'dashboard?username=1', element: <DashboardView  /> },
       { path: 'ProductionDashboard', element: <ProductionDashboardView /> },
       { path: 'products', element: <ProductListView /> },
       { path: 'ERPStep', element: <ERPStep /> },
@@ -63,6 +67,7 @@ const routes = [
       { path: 'moveItem', element: <MoveItemView /> },
       { path: 'BoatNote', element: <BoatNoteView /> },
       { path: 'FreeZoneApp', element: <FreeZoneApp /> },
+      { path: 'PendingSubmitedReportEX', element: <PendingSubmitedReportEX /> },
       { path: 'SerachReport', element: <SerachReportView /> },
       { path: 'users', element: <UsersListView /> },
       { path: 'settings', element: <SettingsView /> },

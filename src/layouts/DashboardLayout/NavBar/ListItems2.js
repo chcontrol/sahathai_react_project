@@ -118,9 +118,9 @@ const ListItems2 = [
         menutitle: 'ขายต่างประเทศ',
         submenu: [
             {
-                href: '/app/1',
+                href: '/app/PendingSubmitedReportEX',
                 Icon: AssignmentIcon,
-                title: 'รายงานค้างส่งในประเทศ'
+                title: 'รายงานค้างส่งต่างประเทศ'
             },
             {
                 href: '/app/2',

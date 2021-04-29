@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {
   Container,
   Grid,
@@ -13,6 +13,7 @@ import TasksProgress from './TasksProgress';
 import TotalCustomers from './TotalCustomers';
 import TotalProfit from './TotalProfit';
 import PieChartExecutiveSummary from './PieChartExecutiveSummary';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,13 +27,19 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
   const classes = useStyles();
 
-  
+
+
+  const { id } = useParams();
+
+
+
+
   return (
     <Page
       className={classes.root}
       title="Dashboard"
     >
-   
+      <h3>ID: {JSON.stringify(id)}</h3>
       <Container maxWidth={false}>
         <Grid
           container

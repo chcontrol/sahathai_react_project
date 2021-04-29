@@ -3,9 +3,11 @@ import {
   Box,
   Container,
   Typography,
-  makeStyles
+  makeStyles,
+  Button
 } from '@material-ui/core';
 import Page from 'src/components/Page';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +32,7 @@ const NotFoundView = () => {
       className={classes.root}
       title="404"
     >
+
       <Box
         display="flex"
         flexDirection="column"
@@ -42,16 +45,22 @@ const NotFoundView = () => {
             color="textPrimary"
             variant="h1"
           >
-            404: The page you are looking for isn’t here
+            ไม่พบหน้านี้
           </Typography>
           <Typography
             align="center"
             color="textPrimary"
-            variant="subtitle2"
+            variant="h1"
           >
-            You either tried some shady route or you came here by mistake.
-            Whichever it is, try using the navigation
+            <Button variant="contained" >
+              <RouterLink to="/">
+                {/* <Logo style={{marginBottom:25}} /> */}
+            ย้อนกลับไปหน้า Dashboard
+        </RouterLink>
+            </Button>
+
           </Typography>
+
           <Box textAlign="center">
             <img
               alt="Under development"
@@ -59,6 +68,7 @@ const NotFoundView = () => {
               src="/static/images/undraw_page_not_found_su7k.svg"
             />
           </Box>
+
         </Container>
       </Box>
     </Page>
